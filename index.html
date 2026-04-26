@@ -93,75 +93,39 @@
       margin-bottom: 4px;
       letter-spacing: -0.02em;
     }
-    .auth-tagline {
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      font-size: 13px;
-    }
+    .auth-tagline { color: var(--text-muted); margin-bottom: 32px; font-size: 13px; }
     .auth-tabs {
-      display: flex;
-      gap: 4px;
+      display: flex; gap: 4px;
       background: var(--bg-subtle);
-      padding: 4px;
-      border-radius: var(--radius);
+      padding: 4px; border-radius: var(--radius);
       margin-bottom: 24px;
     }
     .auth-tab {
-      flex: 1;
-      padding: 8px;
-      border-radius: var(--radius-sm);
-      font-weight: 500;
-      color: var(--text-muted);
-      transition: all 0.15s;
+      flex: 1; padding: 8px; border-radius: var(--radius-sm);
+      font-weight: 500; color: var(--text-muted); transition: all 0.15s;
     }
-    .auth-tab.active {
-      background: var(--bg-elevated);
-      color: var(--text);
-      box-shadow: var(--shadow-sm);
-    }
-    .field {
-      margin-bottom: 14px;
-    }
-    .field label {
-      display: block;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
+    .auth-tab.active { background: var(--bg-elevated); color: var(--text); box-shadow: var(--shadow-sm); }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.02em; }
     .field input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg-elevated);
-      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%; padding: 10px 12px;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg-elevated); transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .field input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-faint);
-    }
+    .field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-faint); }
     .btn-primary {
-      width: 100%;
-      padding: 11px;
-      background: var(--text);
-      color: var(--bg);
-      border-radius: var(--radius);
-      font-weight: 500;
-      transition: opacity 0.15s, transform 0.05s;
-      margin-top: 8px;
+      width: 100%; padding: 11px;
+      background: var(--text); color: var(--bg);
+      border-radius: var(--radius); font-weight: 500;
+      transition: opacity 0.15s, transform 0.05s; margin-top: 8px;
     }
     .btn-primary:hover { opacity: 0.85; }
     .btn-primary:active { transform: scale(0.99); }
     .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
     .auth-error {
-      background: var(--danger-soft);
-      color: var(--danger);
-      padding: 10px 12px;
-      border-radius: var(--radius);
-      font-size: 13px;
-      margin-bottom: 16px;
+      background: var(--danger-soft); color: var(--danger);
+      padding: 10px 12px; border-radius: var(--radius);
+      font-size: 13px; margin-bottom: 16px;
     }
 
     /* ========================================================================
@@ -170,37 +134,25 @@
     .app {
       display: grid;
       grid-template-columns: var(--sidebar-width) 1fr;
-      height: 100vh;
-      height: 100dvh;
+      height: 100vh; height: 100dvh;
     }
 
     /* SIDEBAR */
     .sidebar {
       background: var(--bg-subtle);
       border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      display: flex; flex-direction: column; overflow: hidden;
     }
     .sidebar-header {
-      padding: 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
       height: var(--header-height);
     }
-    .brand {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-style: italic;
-      letter-spacing: -0.01em;
-    }
+    .brand { font-family: var(--font-display); font-size: 22px; font-style: italic; letter-spacing: -0.01em; }
     .icon-btn {
       width: 30px; height: 30px;
       display: inline-flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-      color: var(--text-muted);
+      border-radius: var(--radius-sm); color: var(--text-muted);
       transition: background 0.15s, color 0.15s;
     }
     .icon-btn:hover { background: var(--bg-hover); color: var(--text); }
@@ -208,401 +160,264 @@
 
     .nav-section { padding: 12px 8px; }
     .nav-section-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px 8px 8px;
-      color: var(--text-muted);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 8px 8px; color: var(--text-muted);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
     }
+    .nav-section-label .label-actions { display: flex; gap: 2px; }
     .nav-section-label button {
       width: 20px; height: 20px;
       display: inline-flex; align-items: center; justify-content: center;
-      border-radius: 4px;
-      color: var(--text-muted);
+      border-radius: 4px; color: var(--text-muted);
     }
     .nav-section-label button:hover { background: var(--bg-hover); color: var(--text); }
 
     .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      transition: background 0.1s;
-      cursor: pointer;
-      font-size: 13.5px;
-      width: 100%;
-      text-align: left;
-      position: relative;
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: var(--radius-sm);
+      color: var(--text); transition: background 0.1s;
+      cursor: pointer; font-size: 13.5px; width: 100%; text-align: left; position: relative;
     }
     .nav-item:hover { background: var(--bg-hover); }
     .nav-item.active { background: var(--bg-elevated); box-shadow: var(--shadow-sm); }
     .nav-item .nav-icon {
       width: 16px; height: 16px;
       display: inline-flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      color: var(--text-muted);
+      flex-shrink: 0; color: var(--text-muted);
     }
     .nav-item .nav-icon svg { width: 14px; height: 14px; }
-    .nav-item-title {
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .nav-item-actions {
-      display: none;
-      gap: 2px;
-    }
+    .nav-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nav-item-actions { display: none; gap: 2px; }
     .nav-item:hover .nav-item-actions { display: flex; }
     .nav-item-actions button {
       width: 22px; height: 22px;
       display: inline-flex; align-items: center; justify-content: center;
-      border-radius: 4px;
-      color: var(--text-muted);
+      border-radius: 4px; color: var(--text-muted);
     }
     .nav-item-actions button:hover { background: var(--border-strong); color: var(--text); }
     .nav-item-actions svg { width: 12px; height: 12px; }
 
+    /* Nested page indentation */
+    .nav-item.depth-1 { padding-left: 26px; }
+    .nav-item.depth-2 { padding-left: 42px; }
+    .expand-btn {
+      width: 16px; height: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 3px; color: var(--text-faint); font-size: 9px;
+      flex-shrink: 0; transition: transform 0.15s;
+    }
+    .expand-btn:hover { background: var(--border); color: var(--text-muted); }
+    .expand-btn.open { transform: rotate(90deg); }
+    .expand-placeholder { width: 16px; flex-shrink: 0; }
+
     .sidebar-footer {
-      margin-top: auto;
-      padding: 12px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      margin-top: auto; padding: 12px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
     }
     .avatar {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 12px;
-      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--accent); color: white;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 12px; flex-shrink: 0;
     }
-    .user-info {
-      flex: 1;
-      min-width: 0;
-    }
-    .user-email {
-      font-size: 12.5px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .user-status {
-      font-size: 11px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .status-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--success);
-    }
+    .user-info { flex: 1; min-width: 0; }
+    .user-email { font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-status { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
     .status-dot.offline { background: var(--text-faint); }
 
     /* CONTENT AREA */
-    .content {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      background: var(--bg-elevated);
-    }
+    .content { display: flex; flex-direction: column; overflow: hidden; background: var(--bg-elevated); }
     .content-header {
-      height: var(--header-height);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      gap: 12px;
-      flex-shrink: 0;
+      height: var(--header-height); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 24px; gap: 12px; flex-shrink: 0;
     }
     .menu-toggle {
-      display: none;
-      width: 32px; height: 32px;
+      display: none; width: 32px; height: 32px;
       align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-      color: var(--text);
+      border-radius: var(--radius-sm); color: var(--text);
     }
     .menu-toggle:hover { background: var(--bg-hover); }
     .menu-toggle svg { width: 18px; height: 18px; }
     .breadcrumb {
-      font-weight: 500;
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      font-weight: 500; flex: 1;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      font-size: 13.5px;
     }
-    .header-actions {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
+    .breadcrumb .bc-sep { color: var(--text-muted); margin: 0 6px; font-weight: 400; }
+    .breadcrumb .bc-parent { color: var(--text-muted); font-weight: 400; }
+    .header-actions { display: flex; gap: 4px; align-items: center; }
 
-    .content-body {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
+    .content-body { flex: 1; overflow-y: auto; overflow-x: hidden; }
 
-    /* PAGE EDITOR */
+    /* ========================================================================
+       PAGE EDITOR
+       ======================================================================== */
     .page-editor {
-      max-width: 760px;
-      margin: 0 auto;
+      max-width: 760px; margin: 0 auto;
       padding: 48px 64px 200px;
     }
     .page-title {
-      font-family: var(--font-display);
-      font-size: 44px;
-      font-style: italic;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 0;
+      font-family: var(--font-display); font-size: 44px;
+      font-style: italic; letter-spacing: -0.02em; line-height: 1.1;
+      margin-bottom: 24px; width: 100%;
+      background: none; border: none; padding: 0;
     }
     .page-title:focus { outline: none; }
     .page-meta {
-      color: var(--text-muted);
-      font-size: 12px;
-      margin-bottom: 32px;
-      display: flex;
-      gap: 16px;
-      align-items: center;
+      color: var(--text-muted); font-size: 12px; margin-bottom: 32px;
+      display: flex; gap: 16px; align-items: center;
     }
 
+    /* BLOCKS */
     .block {
-      position: relative;
-      padding: 4px 0;
-      margin: 2px -32px;
-      padding-left: 32px;
-      padding-right: 32px;
-      border-radius: var(--radius-sm);
-      transition: background 0.1s;
+      position: relative; padding: 4px 0;
+      margin: 2px -32px; padding-left: 32px; padding-right: 32px;
+      border-radius: var(--radius-sm); transition: background 0.1s;
     }
     .block:hover { background: var(--bg); }
     .block-controls {
-      position: absolute;
-      left: 0;
-      top: 6px;
-      display: none;
-      gap: 2px;
+      position: absolute; left: 0; top: 6px; display: none; gap: 2px;
     }
     .block:hover .block-controls { display: flex; }
     .block-controls button {
       width: 20px; height: 20px;
       display: inline-flex; align-items: center; justify-content: center;
-      border-radius: 3px;
-      color: var(--text-faint);
+      border-radius: 3px; color: var(--text-faint);
     }
     .block-controls button:hover { background: var(--border); color: var(--text); }
     .block-controls svg { width: 12px; height: 12px; }
 
     .block-content {
-      width: 100%;
-      background: none;
-      border: none;
-      resize: none;
-      font-family: inherit;
-      font-size: inherit;
-      color: inherit;
-      outline: none;
-      padding: 4px 0;
-      line-height: 1.6;
+      width: 100%; background: none; border: none; resize: none;
+      font-family: inherit; font-size: inherit; color: inherit;
+      outline: none; padding: 4px 0; line-height: 1.6;
     }
     .block[data-type="h1"] .block-content {
-      font-family: var(--font-display);
-      font-size: 32px;
-      line-height: 1.2;
-      margin-top: 16px;
+      font-family: var(--font-display); font-size: 32px; line-height: 1.2; margin-top: 16px;
     }
     .block[data-type="h2"] .block-content {
-      font-family: var(--font-display);
-      font-size: 24px;
-      line-height: 1.3;
-      margin-top: 12px;
+      font-family: var(--font-display); font-size: 24px; line-height: 1.3; margin-top: 12px;
+    }
+    .block[data-type="h3"] .block-content {
+      font-family: var(--font-display); font-size: 18px; line-height: 1.4; margin-top: 8px;
     }
     .block[data-type="bullet"] .block-content,
-    .block[data-type="todo"] .block-content {
-      padding-left: 28px;
-    }
+    .block[data-type="todo"] .block-content { padding-left: 28px; }
     .block[data-type="bullet"]::before {
-      content: "•";
-      position: absolute;
-      left: 40px;
-      top: 6px;
-      color: var(--text-muted);
+      content: "•"; position: absolute; left: 40px; top: 6px; color: var(--text-muted);
     }
     .block[data-type="todo"] .todo-checkbox {
-      position: absolute;
-      left: 38px;
-      top: 9px;
-      width: 16px; height: 16px;
-      cursor: pointer;
-      accent-color: var(--accent);
+      position: absolute; left: 38px; top: 9px;
+      width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent);
     }
     .block[data-type="todo"].checked .block-content {
-      text-decoration: line-through;
-      color: var(--text-muted);
+      text-decoration: line-through; color: var(--text-muted);
     }
 
-    .block-add-menu {
-      position: relative;
-      display: inline-block;
+    /* QUOTE BLOCK */
+    .block[data-type="quote"] {
+      border-left: 3px solid var(--accent); padding-left: 44px;
     }
+    .block[data-type="quote"] .block-content {
+      color: var(--text-muted); font-style: italic;
+    }
+
+    /* DIVIDER BLOCK */
+    .block[data-type="divider"] { padding: 10px 0; }
+    .block[data-type="divider"] .block-divider {
+      height: 1px; background: var(--border-strong); border-radius: 1px;
+      margin: 0 0px;
+    }
+
+    /* TOGGLE BLOCK */
+    .toggle-btn {
+      position: absolute; left: 30px; top: 5px;
+      width: 20px; height: 20px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 3px; color: var(--text-muted); font-size: 9px;
+      transition: background 0.1s, transform 0.15s; cursor: pointer; flex-shrink: 0;
+      background: none; border: none;
+    }
+    .toggle-btn:hover { background: var(--border); color: var(--text); }
+    .block[data-type="toggle"] .block-content { padding-left: 28px; }
+    .block[data-type="toggle"].collapsed .block-content { display: none; }
+    .toggle-preview {
+      padding: 4px 0 4px 28px; color: var(--text-muted); font-style: italic; font-size: 13px; cursor: pointer;
+    }
+    .block[data-type="toggle"]:not(.collapsed) .toggle-preview { display: none; }
+
+    /* ADD BLOCK */
+    .block-add-menu { position: relative; display: inline-block; }
     .add-block-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      color: var(--text-muted);
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      margin-top: 8px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; color: var(--text-muted);
+      border-radius: var(--radius-sm); font-size: 13px; margin-top: 8px;
     }
     .add-block-btn:hover { background: var(--bg); color: var(--text); }
     .add-block-btn svg { width: 14px; height: 14px; }
-
     .block-types {
-      display: none;
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      margin-bottom: 4px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      padding: 4px;
-      min-width: 160px;
-      z-index: 10;
+      display: none; position: absolute; bottom: 100%; left: 0; margin-bottom: 4px;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      padding: 4px; min-width: 180px; z-index: 10;
     }
     .block-types.open { display: block; }
     .block-type {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: var(--radius-sm);
-      width: 100%;
-      text-align: left;
-      font-size: 13px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: var(--radius-sm);
+      width: 100%; text-align: left; font-size: 13px;
     }
     .block-type:hover { background: var(--bg); }
-    .block-type-icon {
-      width: 20px;
-      color: var(--text-muted);
-      font-family: var(--font-display);
-    }
+    .block-type-icon { width: 20px; color: var(--text-muted); font-family: var(--font-display); }
 
-    /* TASKS VIEW */
-    .tasks-view {
-      padding: 32px;
-      max-width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+    /* SUB-PAGE LINK in editor */
+    .add-subpage-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; color: var(--text-muted);
+      border-radius: var(--radius-sm); font-size: 13px; margin-top: 4px;
     }
-    .tasks-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-shrink: 0;
-    }
+    .add-subpage-btn:hover { background: var(--bg); color: var(--text); }
+    .add-subpage-btn svg { width: 14px; height: 14px; }
+
+    /* ========================================================================
+       TASKS VIEW
+       ======================================================================== */
+    .tasks-view { padding: 32px; max-width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .tasks-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-shrink: 0; }
     .view-toggle {
-      display: flex;
-      background: var(--bg-subtle);
-      padding: 3px;
-      border-radius: var(--radius);
+      display: flex; background: var(--bg-subtle); padding: 3px; border-radius: var(--radius);
     }
     .view-toggle button {
-      padding: 6px 14px;
-      border-radius: 7px;
-      font-size: 13px;
-      color: var(--text-muted);
-      transition: all 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      padding: 6px 14px; border-radius: 7px; font-size: 13px; color: var(--text-muted);
+      transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
     }
-    .view-toggle button.active {
-      background: var(--bg-elevated);
-      color: var(--text);
-      box-shadow: var(--shadow-sm);
-    }
+    .view-toggle button.active { background: var(--bg-elevated); color: var(--text); box-shadow: var(--shadow-sm); }
     .view-toggle svg { width: 14px; height: 14px; }
-
     .add-task-btn {
-      margin-left: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
-      background: var(--text);
-      color: var(--bg);
-      border-radius: var(--radius);
-      font-weight: 500;
-      font-size: 13px;
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 12px; background: var(--text); color: var(--bg);
+      border-radius: var(--radius); font-weight: 500; font-size: 13px;
     }
     .add-task-btn:hover { opacity: 0.85; }
     .add-task-btn svg { width: 14px; height: 14px; }
 
     /* LIST VIEW */
-    .task-list {
-      flex: 1;
-      overflow-y: auto;
-    }
+    .task-list { flex: 1; overflow-y: auto; }
     .task-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto auto auto;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.1s;
+      display: grid; grid-template-columns: auto 1fr auto auto auto;
+      gap: 12px; align-items: center; padding: 10px 12px;
+      border-bottom: 1px solid var(--border); transition: background 0.1s;
     }
     .task-row:hover { background: var(--bg); }
-    .task-row .task-title-input {
-      background: none;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      flex: 1;
-    }
+    .task-row .task-title-input { background: none; border: none; outline: none; font-size: 14px; flex: 1; }
     .task-status-pill {
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      border: none;
-      font-family: inherit;
+      padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; border: none; font-family: inherit;
     }
     .task-priority-pill {
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      font-family: inherit;
+      padding: 3px 10px; border-radius: 999px; font-size: 11px;
+      font-weight: 500; cursor: pointer; border: none; font-family: inherit;
     }
     .pill-todo { background: var(--bg-subtle); color: var(--text-muted); }
     .pill-doing { background: var(--info-soft); color: var(--info); }
@@ -611,12 +426,8 @@
     .pill-medium { background: var(--warning-soft); color: var(--warning); }
     .pill-high { background: var(--danger-soft); color: var(--danger); }
     .task-delete-btn {
-      width: 26px; height: 26px;
-      display: inline-flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-      color: var(--text-muted);
-      opacity: 0;
-      transition: opacity 0.15s;
+      width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-sm); color: var(--text-muted); opacity: 0; transition: opacity 0.15s;
     }
     .task-row:hover .task-delete-btn { opacity: 1; }
     .task-delete-btn:hover { background: var(--danger-soft); color: var(--danger); }
@@ -624,91 +435,47 @@
 
     /* KANBAN */
     .kanban {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      overflow: hidden;
-      min-height: 0;
+      flex: 1; display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; overflow: hidden; min-height: 0;
     }
     .kanban-column {
-      background: var(--bg-subtle);
-      border-radius: var(--radius-lg);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: background 0.15s, outline 0.15s;
+      background: var(--bg-subtle); border-radius: var(--radius-lg);
+      padding: 12px; display: flex; flex-direction: column;
+      overflow: hidden; transition: background 0.15s, outline 0.15s;
     }
     .kanban-column.drag-over {
-      background: var(--accent-faint);
-      outline: 2px dashed var(--accent);
-      outline-offset: -2px;
+      background: var(--accent-faint); outline: 2px dashed var(--accent); outline-offset: -2px;
     }
     .column-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 8px 12px;
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 8px;
+      padding: 4px 8px 12px; flex-shrink: 0;
     }
-    .column-title {
-      font-weight: 600;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
+    .column-title { font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
     .column-count {
-      background: var(--border);
-      padding: 1px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      color: var(--text-muted);
+      background: var(--border); padding: 1px 8px; border-radius: 999px;
+      font-size: 11px; color: var(--text-muted);
     }
     .column-cards {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 2px;
+      flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 2px;
     }
     .kanban-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px;
-      box-shadow: var(--shadow-sm);
-      cursor: grab;
-      position: relative;
-      transition: box-shadow 0.15s, transform 0.15s;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow-sm);
+      cursor: grab; position: relative; transition: box-shadow 0.15s, transform 0.15s;
     }
     .kanban-card:hover { box-shadow: var(--shadow); }
     .kanban-card.dragging { opacity: 0.4; cursor: grabbing; }
     .card-title-input {
-      background: none;
-      border: none;
-      outline: none;
-      width: 100%;
-      font-weight: 500;
-      font-size: 13.5px;
-      margin-bottom: 8px;
-      resize: none;
-      font-family: inherit;
+      background: none; border: none; outline: none; width: 100%;
+      font-weight: 500; font-size: 13.5px; margin-bottom: 8px;
+      resize: none; font-family: inherit;
     }
-    .card-footer {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .card-footer { display: flex; align-items: center; gap: 8px; }
     .card-delete-btn {
-      position: absolute;
-      top: 8px; right: 8px;
+      position: absolute; top: 8px; right: 8px;
       width: 22px; height: 22px;
       display: inline-flex; align-items: center; justify-content: center;
-      border-radius: 4px;
-      color: var(--text-faint);
-      opacity: 0;
+      border-radius: 4px; color: var(--text-faint); opacity: 0;
       transition: opacity 0.15s, background 0.1s, color 0.1s;
     }
     .kanban-card:hover .card-delete-btn { opacity: 1; }
@@ -716,119 +483,214 @@
     .card-delete-btn svg { width: 12px; height: 12px; }
 
     .empty-state {
-      padding: 40px 20px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
+      padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 13px;
     }
     .empty-state .empty-icon {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 28px;
-      color: var(--text-faint);
-      margin-bottom: 8px;
-      display: block;
+      font-family: var(--font-display); font-style: italic; font-size: 28px;
+      color: var(--text-faint); margin-bottom: 8px; display: block;
     }
 
-    /* MODAL */
+    /* ========================================================================
+       MODAL
+       ======================================================================== */
     .modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(28, 25, 23, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      z-index: 100;
-      animation: fadeIn 0.15s;
+      position: fixed; inset: 0; background: rgba(28, 25, 23, 0.4);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; z-index: 100; animation: fadeIn 0.15s;
     }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .modal {
-      background: var(--bg-elevated);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: var(--shadow-lg);
-      animation: slideUp 0.2s ease-out;
+      background: var(--bg-elevated); border-radius: var(--radius-lg);
+      padding: 24px; width: 100%; max-width: 440px;
+      box-shadow: var(--shadow-lg); animation: slideUp 0.2s ease-out;
     }
     @keyframes slideUp { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .modal h3 {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-style: italic;
-      margin-bottom: 8px;
-    }
-    .modal p {
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      font-size: 13.5px;
-    }
-    .modal-actions {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-      margin-top: 16px;
-    }
+    .modal h3 { font-family: var(--font-display); font-size: 24px; font-style: italic; margin-bottom: 8px; }
+    .modal p { color: var(--text-muted); margin-bottom: 20px; font-size: 13.5px; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
     .btn-secondary {
-      padding: 9px 16px;
-      border-radius: var(--radius);
-      background: var(--bg-subtle);
-      color: var(--text);
-      font-weight: 500;
-      transition: background 0.15s;
+      padding: 9px 16px; border-radius: var(--radius);
+      background: var(--bg-subtle); color: var(--text);
+      font-weight: 500; transition: background 0.15s;
     }
     .btn-secondary:hover { background: var(--border); }
-    .btn-danger {
-      padding: 9px 16px;
-      border-radius: var(--radius);
-      background: var(--danger);
-      color: white;
-      font-weight: 500;
-    }
+    .btn-danger { padding: 9px 16px; border-radius: var(--radius); background: var(--danger); color: white; font-weight: 500; }
     .btn-danger:hover { opacity: 0.85; }
-    .modal .btn-primary {
-      width: auto;
-      padding: 9px 16px;
-      margin-top: 0;
-    }
+    .modal .btn-primary { width: auto; padding: 9px 16px; margin-top: 0; }
 
     /* TOAST */
     .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--text);
-      color: var(--bg);
-      padding: 10px 18px;
-      border-radius: var(--radius);
-      font-size: 13px;
-      box-shadow: var(--shadow-lg);
-      z-index: 200;
-      animation: toastIn 0.2s ease-out;
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--text); color: var(--bg); padding: 10px 18px;
+      border-radius: var(--radius); font-size: 13px;
+      box-shadow: var(--shadow-lg); z-index: 200; animation: toastIn 0.2s ease-out;
     }
     @keyframes toastIn { from { transform: translate(-50%, 8px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 
-    /* MOBILE */
+    /* ========================================================================
+       SLASH MENU
+       ======================================================================== */
+    .slash-menu {
+      position: fixed;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 4px;
+      min-width: 220px;
+      z-index: 300;
+      max-height: 320px;
+      overflow-y: auto;
+      animation: slideUp 0.12s ease-out;
+    }
+    .slash-section-label {
+      padding: 6px 10px 2px; font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint);
+    }
+    .slash-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: var(--radius-sm);
+      width: 100%; text-align: left; font-size: 13px;
+      cursor: pointer; transition: background 0.1s;
+    }
+    .slash-item:hover, .slash-item.focused { background: var(--bg-subtle); }
+    .slash-item-icon {
+      width: 28px; height: 28px;
+      background: var(--bg-subtle); border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0; color: var(--text-muted);
+    }
+    .slash-item.focused .slash-item-icon { background: var(--accent-faint); color: var(--accent); }
+    .slash-item-name { font-weight: 500; font-size: 13px; }
+    .slash-item-desc { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+    .slash-no-results { padding: 14px 12px; color: var(--text-muted); font-size: 13px; }
+
+    /* ========================================================================
+       SEARCH MODAL
+       ======================================================================== */
+    .search-overlay {
+      position: fixed; inset: 0;
+      background: rgba(28, 25, 23, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 250;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: 14vh; padding-left: 16px; padding-right: 16px;
+      animation: fadeIn 0.15s;
+    }
+    .search-modal {
+      width: 100%; max-width: 560px;
+      background: var(--bg-elevated); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg); overflow: hidden;
+      animation: slideUp 0.2s ease-out;
+    }
+    .search-input-wrap {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+    }
+    .search-input-wrap svg { color: var(--text-muted); flex-shrink: 0; width: 16px; height: 16px; }
+    .search-input-wrap input { flex: 1; font-size: 16px; background: none; border: none; outline: none; }
+    .search-input-wrap kbd {
+      font-size: 11px; color: var(--text-faint); background: var(--bg-subtle);
+      padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);
+      flex-shrink: 0; font-family: var(--font-body);
+    }
+    .search-results { max-height: 420px; overflow-y: auto; padding: 4px; }
+    .search-group-label {
+      padding: 8px 14px 4px; font-size: 10px; font-weight: 600;
+      color: var(--text-faint); letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .search-result {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 14px; border-radius: var(--radius-sm);
+      width: 100%; text-align: left; cursor: pointer;
+      transition: background 0.1s;
+    }
+    .search-result:hover, .search-result.focused { background: var(--bg-subtle); }
+    .search-result-icon { color: var(--text-faint); width: 15px; height: 15px; flex-shrink: 0; }
+    .search-result-title { font-weight: 500; font-size: 13.5px; }
+    .search-result-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+    .search-result-path { font-size: 11px; color: var(--text-faint); }
+    .search-empty { padding: 32px; text-align: center; color: var(--text-muted); font-size: 13px; }
+    .search-hint {
+      padding: 10px 20px; border-top: 1px solid var(--border);
+      display: flex; gap: 16px; align-items: center;
+    }
+    .search-hint-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 11px; color: var(--text-faint);
+    }
+    .search-hint kbd {
+      font-size: 10px; background: var(--bg-subtle); padding: 1px 5px;
+      border-radius: 3px; border: 1px solid var(--border); font-family: var(--font-body);
+    }
+
+    /* ========================================================================
+       TEMPLATE MODAL
+       ======================================================================== */
+    .template-overlay {
+      position: fixed; inset: 0;
+      background: rgba(28, 25, 23, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 250;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; animation: fadeIn 0.15s;
+    }
+    .template-modal {
+      width: 100%; max-width: 600px;
+      background: var(--bg-elevated); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg); overflow: hidden;
+      animation: slideUp 0.2s ease-out;
+    }
+    .template-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
+    }
+    .template-header h3 {
+      font-family: var(--font-display); font-size: 22px;
+      font-style: italic; letter-spacing: -0.01em;
+    }
+    .template-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 12px; padding: 20px;
+    }
+    .template-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px; text-align: left; cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+      background: var(--bg-elevated);
+    }
+    .template-card:hover {
+      border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-faint);
+      background: var(--accent-faint);
+    }
+    .template-card-icon {
+      font-size: 24px; margin-bottom: 8px; display: block;
+    }
+    .template-card-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .template-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .template-empty-card {
+      border: 1px dashed var(--border); border-radius: var(--radius);
+      padding: 16px; text-align: left; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .template-empty-card:hover { border-color: var(--accent); background: var(--accent-faint); }
+
+    /* ========================================================================
+       MOBILE
+       ======================================================================== */
     @media (max-width: 768px) {
       :root { --sidebar-width: 280px; }
       .app { grid-template-columns: 1fr; }
       .sidebar {
-        position: fixed;
-        top: 0; bottom: 0; left: 0;
-        width: var(--sidebar-width);
-        z-index: 50;
-        transform: translateX(-100%);
-        transition: transform 0.25s ease-out;
+        position: fixed; top: 0; bottom: 0; left: 0;
+        width: var(--sidebar-width); z-index: 50;
+        transform: translateX(-100%); transition: transform 0.25s ease-out;
         box-shadow: var(--shadow-lg);
       }
       .sidebar.open { transform: translateX(0); }
       .sidebar-backdrop {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.3);
-        z-index: 40;
-        display: none;
+        position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+        z-index: 40; display: none;
       }
       .sidebar-backdrop.open { display: block; }
       .menu-toggle { display: inline-flex; }
@@ -837,18 +699,18 @@
       .tasks-view { padding: 16px; }
       .kanban {
         grid-template-columns: repeat(3, 85vw);
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        overflow-x: auto; scroll-snap-type: x mandatory;
       }
       .kanban-column { scroll-snap-align: start; }
       .task-row { grid-template-columns: 1fr auto; gap: 8px; }
-      .task-row .task-status-pill,
-      .task-row .task-priority-pill { grid-column: span 1; }
+      .task-row .task-status-pill, .task-row .task-priority-pill { grid-column: span 1; }
       .content-header { padding: 0 16px; }
       .block { margin: 2px -16px; padding-left: 16px; padding-right: 16px; }
       .block-controls { left: -8px; }
       .block[data-type="bullet"]::before { left: 24px; }
       .block[data-type="todo"] .todo-checkbox { left: 22px; }
+      .template-grid { grid-template-columns: 1fr; }
+      .search-overlay { padding-top: 8vh; }
     }
 
     /* SCROLLBAR */
@@ -860,21 +722,16 @@
 </head>
 <body>
 
-<!-- ============================================================================
-     AUTH SCREEN
-     ============================================================================ -->
+<!-- AUTH SCREEN -->
 <div class="auth-screen" id="authScreen">
   <div class="auth-card">
     <div class="auth-brand">Workspace</div>
     <div class="auth-tagline">Sign in to your team space</div>
-
     <div class="auth-tabs">
       <button class="auth-tab active" data-tab="signin">Sign in</button>
       <button class="auth-tab" data-tab="signup">Sign up</button>
     </div>
-
     <div id="authError" class="auth-error" hidden></div>
-
     <form id="authForm">
       <div class="field">
         <label>Email</label>
@@ -889,9 +746,7 @@
   </div>
 </div>
 
-<!-- ============================================================================
-     APP SHELL
-     ============================================================================ -->
+<!-- APP SHELL -->
 <div class="app" id="app" hidden>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
@@ -900,6 +755,17 @@
       <span class="brand">Workspace</span>
       <button class="icon-btn" id="closeSidebarBtn" title="Close" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Search shortcut button -->
+    <div style="padding: 8px 8px 0;">
+      <button class="nav-item" id="sidebarSearchBtn" style="color: var(--text-muted); font-size: 13px;">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <span class="nav-item-title">Search…</span>
+        <kbd style="font-size:10px;background:var(--bg-hover);padding:1px 5px;border-radius:3px;border:1px solid var(--border);font-family:inherit;color:var(--text-faint);">⌘K</kbd>
       </button>
     </div>
 
@@ -915,9 +781,14 @@
     <div class="nav-section" style="flex:1; overflow-y:auto;">
       <div class="nav-section-label">
         <span>Pages</span>
-        <button id="addPageBtn" title="New page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
+        <div class="label-actions">
+          <button id="addTemplatePageBtn" title="New from template">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+          </button>
+          <button id="addPageBtn" title="New page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
       </div>
       <div id="pagesList"></div>
     </div>
@@ -944,6 +815,9 @@
       </button>
       <div class="breadcrumb" id="breadcrumb">Tasks</div>
       <div class="header-actions">
+        <button class="icon-btn" id="searchHeaderBtn" title="Search (⌘K)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
         <button class="icon-btn" id="exportBtn" title="Export backup">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         </button>
@@ -952,33 +826,53 @@
         </button>
       </div>
     </div>
-
-    <div class="content-body" id="contentBody">
-      <!-- Tasks view or page editor renders here -->
-    </div>
+    <div class="content-body" id="contentBody"></div>
   </main>
 </div>
 
 <input type="file" id="importFileInput" accept="application/json" hidden />
 
-<!-- ============================================================================
-     APP LOGIC
-     ============================================================================ -->
+<!-- SEARCH MODAL -->
+<div id="searchOverlay" class="search-overlay" hidden>
+  <div class="search-modal">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="searchInput" placeholder="Search pages and tasks…" autocomplete="off" spellcheck="false" />
+      <kbd>Esc</kbd>
+    </div>
+    <div id="searchResults" class="search-results"></div>
+    <div class="search-hint">
+      <span class="search-hint-item"><kbd>↑↓</kbd> navigate</span>
+      <span class="search-hint-item"><kbd>↵</kbd> open</span>
+      <span class="search-hint-item"><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE MODAL -->
+<div id="templateOverlay" class="template-overlay" hidden>
+  <div class="template-modal">
+    <div class="template-header">
+      <h3>New from template</h3>
+      <button class="icon-btn" id="closeTemplateBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="template-grid" id="templateGrid"></div>
+  </div>
+</div>
+
 <script type="module">
-  // ⚠️ FIREBASE CONFIG ⚠️
-  // Replace these placeholder values with your Firebase project config.
-  // See README.md for step-by-step instructions.
-  // ─────────────────────────────────────────────────────────────────────
+  // ⚠️ FIREBASE CONFIG — replace with your own project config ⚠️
   const firebaseConfig = {
-  apiKey: "AIzaSyAVDfZjSFVah2L5QmlTThhG5pQzCrRjl7M",
-  authDomain: "venixdynamics.firebaseapp.com",
-  projectId: "venixdynamics",
-  storageBucket: "venixdynamics.firebasestorage.app",
-  messagingSenderId: "772891926339",
-  appId: "1:772891926339:web:9c25a9f1fbf0af047999f6",
-  measurementId: "G-9PQ14ND007"
-};
-  // ─────────────────────────────────────────────────────────────────────
+    apiKey: "AIzaSyAVDfZjSFVah2L5QmlTThhG5pQzCrRjl7M",
+    authDomain: "venixdynamics.firebaseapp.com",
+    projectId: "venixdynamics",
+    storageBucket: "venixdynamics.firebasestorage.app",
+    messagingSenderId: "772891926339",
+    appId: "1:772891926339:web:9c25a9f1fbf0af047999f6",
+    measurementId: "G-9PQ14ND007"
+  };
 
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js';
   import {
@@ -991,29 +885,27 @@
     enableIndexedDbPersistence
   } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
 
-  // Init
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
-
-  // Try to enable offline persistence (best-effort)
-  enableIndexedDbPersistence(db).catch(() => {/* multiple tabs or unsupported */});
+  enableIndexedDbPersistence(db).catch(() => {});
 
   // ============================================================
   // STATE
   // ============================================================
   const state = {
     user: null,
-    pages: [],          // [{id, title, order, updatedAt}]
-    blocks: [],         // blocks of currentPageId
-    tasks: [],          // [{id, title, status, priority, createdAt}]
+    pages: [],
+    blocks: [],
+    tasks: [],
     currentPageId: null,
-    currentView: 'tasks', // 'tasks' | 'page'
-    taskView: 'kanban',   // 'kanban' | 'list'
-    unsubPages: null,
-    unsubBlocks: null,
-    unsubTasks: null,
+    currentView: 'tasks',
+    taskView: 'kanban',
+    unsubPages: null, unsubBlocks: null, unsubTasks: null,
   };
+
+  // Local UI state
+  const expandedPages = new Set(); // page IDs that are expanded in sidebar
 
   // ============================================================
   // ELEMENTS
@@ -1031,6 +923,7 @@
   const statusText = $('statusText');
   const sidebar = $('sidebar');
   const sidebarBackdrop = $('sidebarBackdrop');
+  const searchOverlay = $('searchOverlay');
 
   // ============================================================
   // AUTH
@@ -1055,28 +948,19 @@
     submitBtn.disabled = true;
     hideAuthError();
     try {
-      if (authMode === 'signin') {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-      }
+      if (authMode === 'signin') await signInWithEmailAndPassword(auth, email, password);
+      else await createUserWithEmailAndPassword(auth, email, password);
     } catch (err) {
       showAuthError(humanizeAuthError(err.code));
-    } finally {
-      submitBtn.disabled = false;
-    }
+    } finally { submitBtn.disabled = false; }
   });
 
-  function showAuthError(msg) {
-    const e = $('authError');
-    e.textContent = msg;
-    e.hidden = false;
-  }
+  function showAuthError(msg) { const e = $('authError'); e.textContent = msg; e.hidden = false; }
   function hideAuthError() { $('authError').hidden = true; }
 
   function humanizeAuthError(code) {
-    const map = {
-      'auth/invalid-email': 'That email doesn\'t look right.',
+    return ({
+      'auth/invalid-email': "That email doesn't look right.",
       'auth/user-not-found': 'No account found with that email.',
       'auth/wrong-password': 'Wrong password.',
       'auth/invalid-credential': 'Email or password is incorrect.',
@@ -1084,28 +968,22 @@
       'auth/weak-password': 'Password must be at least 6 characters.',
       'auth/too-many-requests': 'Too many attempts. Try again in a moment.',
       'auth/network-request-failed': 'Network problem — check your connection.',
-    };
-    return map[code] || 'Something went wrong. Please try again.';
+    })[code] || 'Something went wrong. Please try again.';
   }
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
       state.user = user;
-      authScreen.hidden = true;
-      appEl.hidden = false;
+      authScreen.hidden = true; appEl.hidden = false;
       userEmail.textContent = user.email;
       userAvatar.textContent = (user.email[0] || 'U').toUpperCase();
-      attachListeners();
-      render();
+      attachListeners(); render();
     } else {
-      state.user = null;
-      detachListeners();
-      authScreen.hidden = false;
-      appEl.hidden = true;
+      state.user = null; detachListeners();
+      authScreen.hidden = false; appEl.hidden = true;
     }
   });
 
-  // Online/offline indicator
   window.addEventListener('online', () => updateStatus('Synced', true));
   window.addEventListener('offline', () => updateStatus('Offline', false));
   function updateStatus(text, online) {
@@ -1117,22 +995,17 @@
   // FIRESTORE LISTENERS
   // ============================================================
   function attachListeners() {
-    // Pages — shared workspace at /workspace/main/pages
     state.unsubPages = onSnapshot(
       query(collection(db, 'workspace', 'main', 'pages'), orderBy('order')),
       (snap) => {
         state.pages = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         renderPagesList();
         if (state.currentView === 'page' && !state.pages.find(p => p.id === state.currentPageId)) {
-          // Current page deleted by another user
           state.currentPageId = state.pages[0]?.id || null;
           render();
-        } else if (state.currentView === 'page') {
-          renderPageView();
         }
       }
     );
-    // Tasks
     state.unsubTasks = onSnapshot(
       query(collection(db, 'workspace', 'main', 'tasks'), orderBy('createdAt', 'desc')),
       (snap) => {
@@ -1151,9 +1024,7 @@
       query(collection(db, 'workspace', 'main', 'pages', pageId, 'blocks'), orderBy('order')),
       (snap) => {
         state.blocks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        if (state.currentView === 'page' && state.currentPageId === pageId) {
-          renderBlocks();
-        }
+        if (state.currentView === 'page' && state.currentPageId === pageId) renderBlocks();
       }
     );
   }
@@ -1161,29 +1032,54 @@
   // ============================================================
   // CRUD: PAGES
   // ============================================================
-  async function createPage() {
+  async function createPage(parentId = null) {
     const ref = await addDoc(collection(db, 'workspace', 'main', 'pages'), {
       title: 'Untitled',
       order: Date.now(),
+      parentId: parentId || null,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       createdBy: state.user.email,
     });
+    if (parentId) expandedPages.add(parentId);
     selectPage(ref.id);
   }
+
+  async function createPageFromTemplate(template, parentId = null) {
+    const ref = await addDoc(collection(db, 'workspace', 'main', 'pages'), {
+      title: template.title,
+      order: Date.now(),
+      parentId: parentId || null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      createdBy: state.user.email,
+    });
+    if (template.blocks && template.blocks.length > 0) {
+      const batch = writeBatch(db);
+      template.blocks.forEach((b, i) => {
+        const bRef = doc(collection(db, 'workspace', 'main', 'pages', ref.id, 'blocks'));
+        batch.set(bRef, { type: b.type, content: b.content || '', checked: false, order: (i + 1) * 1000, createdAt: serverTimestamp() });
+      });
+      await batch.commit();
+    }
+    selectPage(ref.id);
+  }
+
   async function renamePage(pageId, title) {
     await updateDoc(doc(db, 'workspace', 'main', 'pages', pageId), {
       title, updatedAt: serverTimestamp()
     });
   }
+
   async function deletePage(pageId) {
-    // delete all blocks first
+    const children = state.pages.filter(p => p.parentId === pageId);
     const blocksSnap = await getDocs(collection(db, 'workspace', 'main', 'pages', pageId, 'blocks'));
     const batch = writeBatch(db);
     blocksSnap.docs.forEach(d => batch.delete(d.ref));
     batch.delete(doc(db, 'workspace', 'main', 'pages', pageId));
     await batch.commit();
-    if (state.currentPageId === pageId) {
+    for (const child of children) await deletePage(child.id);
+    if (state.currentPageId === pageId || children.some(c => c.id === state.currentPageId)) {
       state.currentPageId = null;
       state.currentView = 'tasks';
       render();
@@ -1193,20 +1089,35 @@
   // ============================================================
   // CRUD: BLOCKS
   // ============================================================
-  async function addBlock(type = 'text', content = '') {
+  async function addBlock(type = 'text', content = '', afterBlockId = null) {
     if (!state.currentPageId) return;
-    const order = state.blocks.length > 0 ? state.blocks[state.blocks.length - 1].order + 1000 : 1000;
-    await addDoc(
+    let order;
+    if (afterBlockId) {
+      const idx = state.blocks.findIndex(b => b.id === afterBlockId);
+      if (idx >= 0 && idx < state.blocks.length - 1) {
+        order = (state.blocks[idx].order + state.blocks[idx + 1].order) / 2;
+      } else if (idx >= 0) {
+        order = state.blocks[idx].order + 1000;
+      } else {
+        order = state.blocks.length > 0 ? state.blocks[state.blocks.length - 1].order + 1000 : 1000;
+      }
+    } else {
+      order = state.blocks.length > 0 ? state.blocks[state.blocks.length - 1].order + 1000 : 1000;
+    }
+    const ref = await addDoc(
       collection(db, 'workspace', 'main', 'pages', state.currentPageId, 'blocks'),
       { type, content, checked: false, order, createdAt: serverTimestamp() }
     );
+    return ref.id;
   }
+
   async function updateBlock(blockId, data) {
     await updateDoc(
       doc(db, 'workspace', 'main', 'pages', state.currentPageId, 'blocks', blockId),
       data
     );
   }
+
   async function deleteBlock(blockId) {
     await deleteDoc(doc(db, 'workspace', 'main', 'pages', state.currentPageId, 'blocks', blockId));
   }
@@ -1216,71 +1127,122 @@
   // ============================================================
   async function createTask(title = 'New task', status = 'todo', priority = 'medium') {
     await addDoc(collection(db, 'workspace', 'main', 'tasks'), {
-      title, status, priority,
-      createdAt: serverTimestamp(),
-      createdBy: state.user.email,
+      title, status, priority, createdAt: serverTimestamp(), createdBy: state.user.email,
     });
   }
-  async function updateTask(taskId, data) {
-    await updateDoc(doc(db, 'workspace', 'main', 'tasks', taskId), data);
-  }
-  async function deleteTask(taskId) {
-    await deleteDoc(doc(db, 'workspace', 'main', 'tasks', taskId));
-  }
+  async function updateTask(taskId, data) { await updateDoc(doc(db, 'workspace', 'main', 'tasks', taskId), data); }
+  async function deleteTask(taskId) { await deleteDoc(doc(db, 'workspace', 'main', 'tasks', taskId)); }
 
   // ============================================================
   // RENDER
   // ============================================================
+  function getPageBreadcrumb(pageId) {
+    const page = state.pages.find(p => p.id === pageId);
+    if (!page) return 'Untitled';
+    if (!page.parentId) return escapeHtml(page.title || 'Untitled');
+    const parent = state.pages.find(p => p.id === page.parentId);
+    if (!parent) return escapeHtml(page.title || 'Untitled');
+    return `<span class="bc-parent">${escapeHtml(parent.title || 'Untitled')}</span><span class="bc-sep">›</span>${escapeHtml(page.title || 'Untitled')}`;
+  }
+
   function render() {
     renderPagesList();
     if (state.currentView === 'tasks') {
-      breadcrumb.textContent = 'Tasks';
+      breadcrumb.innerHTML = 'Tasks';
       tasksNavItem.classList.add('active');
       renderTasksView();
     } else if (state.currentView === 'page' && state.currentPageId) {
-      const p = state.pages.find(x => x.id === state.currentPageId);
-      breadcrumb.textContent = p?.title || 'Untitled';
+      breadcrumb.innerHTML = getPageBreadcrumb(state.currentPageId);
       tasksNavItem.classList.remove('active');
       renderPageView();
     }
   }
 
+  // SIDEBAR: nested pages
   function renderPagesList() {
     pagesList.innerHTML = '';
-    if (state.pages.length === 0) {
+    const rootPages = state.pages.filter(p => !p.parentId);
+    const childMap = {};
+    state.pages.forEach(p => {
+      if (p.parentId) {
+        if (!childMap[p.parentId]) childMap[p.parentId] = [];
+        childMap[p.parentId].push(p);
+      }
+    });
+
+    if (rootPages.length === 0) {
       const empty = document.createElement('div');
       empty.style.cssText = 'padding: 8px 12px; color: var(--text-muted); font-size: 12px;';
       empty.textContent = 'No pages yet';
       pagesList.appendChild(empty);
       return;
     }
-    state.pages.forEach(page => {
-      const item = document.createElement('button');
-      item.className = 'nav-item' + (state.currentPageId === page.id && state.currentView === 'page' ? ' active' : '');
-      item.innerHTML = `
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-        </span>
-        <span class="nav-item-title">${escapeHtml(page.title || 'Untitled')}</span>
-        <span class="nav-item-actions">
-          <button class="page-delete-btn" data-id="${page.id}" title="Delete page">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
-          </button>
-        </span>
-      `;
-      item.addEventListener('click', (e) => {
-        if (e.target.closest('.page-delete-btn')) return;
-        selectPage(page.id);
-      });
-      pagesList.appendChild(item);
+    rootPages.forEach(page => renderPageItem(page, 0, childMap));
+  }
+
+  function renderPageItem(page, depth, childMap) {
+    const children = childMap[page.id] || [];
+    const hasChildren = children.length > 0;
+    const isExpanded = expandedPages.has(page.id);
+    const isActive = state.currentPageId === page.id && state.currentView === 'page';
+
+    const item = document.createElement('button');
+    item.className = 'nav-item' + (isActive ? ' active' : '') + (depth > 0 ? ` depth-${depth}` : '');
+    item.innerHTML = `
+      ${hasChildren
+        ? `<button class="expand-btn ${isExpanded ? 'open' : ''}" data-expand="${page.id}" title="${isExpanded ? 'Collapse' : 'Expand'}">▶</button>`
+        : `<span class="expand-placeholder"></span>`
+      }
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      </span>
+      <span class="nav-item-title">${escapeHtml(page.title || 'Untitled')}</span>
+      <span class="nav-item-actions">
+        <button class="page-add-child-btn" data-id="${page.id}" title="Add sub-page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <button class="page-delete-btn" data-id="${page.id}" title="Delete page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+        </button>
+      </span>
+    `;
+
+    // Expand toggle
+    item.querySelector('.expand-btn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (expandedPages.has(page.id)) expandedPages.delete(page.id);
+      else expandedPages.add(page.id);
+      renderPagesList();
     });
-    pagesList.querySelectorAll('.page-delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const id = btn.dataset.id;
-        confirmModal('Delete page?', 'This will permanently delete the page and all its content.', () => deletePage(id));
-      });
+
+    // Navigate to page
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('.page-delete-btn') || e.target.closest('.page-add-child-btn') || e.target.closest('.expand-btn')) return;
+      selectPage(page.id);
     });
+
+    // Add child page
+    item.querySelector('.page-add-child-btn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      createPage(page.id);
+    });
+
+    // Delete
+    item.querySelector('.page-delete-btn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const children = (childMap[page.id] || []).length;
+      const msg = children > 0
+        ? `This will permanently delete "${page.title || 'Untitled'}" and its ${children} sub-page(s).`
+        : `This will permanently delete the page and all its content.`;
+      confirmModal('Delete page?', msg, () => deletePage(page.id));
+    });
+
+    pagesList.appendChild(item);
+
+    // Render children if expanded
+    if (hasChildren && isExpanded) {
+      children.forEach(child => renderPageItem(child, depth + 1, childMap));
+    }
   }
 
   function selectPage(pageId) {
@@ -1291,7 +1253,9 @@
     closeSidebarOnMobile();
   }
 
+  // ============================================================
   // PAGE VIEW
+  // ============================================================
   function renderPageView() {
     const page = state.pages.find(p => p.id === state.currentPageId);
     if (!page) return;
@@ -1299,116 +1263,302 @@
       <div class="page-editor">
         <input class="page-title" id="pageTitleInput" value="${escapeAttr(page.title || '')}" placeholder="Untitled" />
         <div class="page-meta">
-          <span>Created by ${escapeHtml(page.createdBy || '—')}</span>
+          <span>By ${escapeHtml(page.createdBy || '—')}</span>
+          ${page.parentId ? `<span>↳ Sub-page</span>` : ''}
         </div>
         <div id="blocksContainer"></div>
-        <div class="block-add-menu">
-          <button class="add-block-btn" id="addBlockBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-            Add block
-          </button>
-          <div class="block-types" id="blockTypes">
-            <button class="block-type" data-type="text"><span class="block-type-icon">¶</span> Text</button>
-            <button class="block-type" data-type="h1"><span class="block-type-icon">H₁</span> Heading 1</button>
-            <button class="block-type" data-type="h2"><span class="block-type-icon">H₂</span> Heading 2</button>
-            <button class="block-type" data-type="bullet"><span class="block-type-icon">•</span> Bullet</button>
-            <button class="block-type" data-type="todo"><span class="block-type-icon">☐</span> To-do</button>
+        <div style="margin-top:12px; display:flex; gap:4px; flex-wrap:wrap;">
+          <div class="block-add-menu">
+            <button class="add-block-btn" id="addBlockBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Add block
+            </button>
+            <div class="block-types" id="blockTypes">
+              <div class="slash-section-label">BASIC BLOCKS</div>
+              <button class="block-type" data-type="text"><span class="block-type-icon">¶</span> Text</button>
+              <button class="block-type" data-type="h1"><span class="block-type-icon" style="font-size:11px;font-weight:700;">H1</span> Heading 1</button>
+              <button class="block-type" data-type="h2"><span class="block-type-icon" style="font-size:11px;font-weight:700;">H2</span> Heading 2</button>
+              <button class="block-type" data-type="h3"><span class="block-type-icon" style="font-size:11px;font-weight:700;">H3</span> Heading 3</button>
+              <button class="block-type" data-type="bullet"><span class="block-type-icon">•</span> Bullet list</button>
+              <button class="block-type" data-type="todo"><span class="block-type-icon">☐</span> To-do</button>
+              <button class="block-type" data-type="toggle"><span class="block-type-icon">▶</span> Toggle</button>
+              <button class="block-type" data-type="quote"><span class="block-type-icon">"</span> Quote</button>
+              <button class="block-type" data-type="divider"><span class="block-type-icon">—</span> Divider</button>
+            </div>
           </div>
+          <button class="add-subpage-btn" id="addSubpageBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 11v6M9 14h6"/></svg>
+            Add sub-page
+          </button>
         </div>
       </div>
     `;
-    // title save (debounced)
+
+    // Title
     const titleInput = $('pageTitleInput');
     let titleTimer;
     titleInput.addEventListener('input', () => {
       clearTimeout(titleTimer);
       titleTimer = setTimeout(() => {
         renamePage(state.currentPageId, titleInput.value);
-        breadcrumb.textContent = titleInput.value || 'Untitled';
+        breadcrumb.innerHTML = getPageBreadcrumb(state.currentPageId);
       }, 400);
     });
 
-    // add block menu
+    // Add block menu
     const addBtn = $('addBlockBtn');
     const menu = $('blockTypes');
-    addBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      menu.classList.toggle('open');
-    });
-    document.addEventListener('click', () => menu.classList.remove('open'), { once: true });
+    addBtn.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('open'); });
+    document.addEventListener('click', () => menu.classList.remove('open'), { once: false });
+    menu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', (e) => { if (!menu.contains(e.target) && e.target !== addBtn) menu.classList.remove('open'); });
     menu.querySelectorAll('.block-type').forEach(btn => {
-      btn.addEventListener('click', () => {
-        addBlock(btn.dataset.type, '');
-        menu.classList.remove('open');
-      });
+      btn.addEventListener('click', () => { addBlock(btn.dataset.type, ''); menu.classList.remove('open'); });
     });
+
+    // Sub-page
+    $('addSubpageBtn').addEventListener('click', () => createPage(state.currentPageId));
 
     renderBlocks();
   }
 
+  // ============================================================
+  // SLASH MENU
+  // ============================================================
+  let slashMenuState = null; // { el, blockId, textarea, blockEl, slashPos, items, focusIdx }
+
+  const SLASH_BLOCK_TYPES = [
+    { type: 'text',    icon: '¶',  name: 'Text',      desc: 'Plain paragraph' },
+    { type: 'h1',      icon: 'H1', name: 'Heading 1', desc: 'Large section heading' },
+    { type: 'h2',      icon: 'H2', name: 'Heading 2', desc: 'Medium heading' },
+    { type: 'h3',      icon: 'H3', name: 'Heading 3', desc: 'Small heading' },
+    { type: 'bullet',  icon: '•',  name: 'Bullet',    desc: 'Bulleted list item' },
+    { type: 'todo',    icon: '☐',  name: 'To-do',     desc: 'Trackable checklist' },
+    { type: 'toggle',  icon: '▶',  name: 'Toggle',    desc: 'Collapsible block' },
+    { type: 'quote',   icon: '"',  name: 'Quote',     desc: 'Highlighted quote' },
+    { type: 'divider', icon: '—',  name: 'Divider',   desc: 'Horizontal separator' },
+  ];
+
+  function openSlashMenu(textarea, blockEl, slashPos) {
+    closeSlashMenu();
+    const rect = textarea.getBoundingClientRect();
+    const el = document.createElement('div');
+    el.className = 'slash-menu';
+    el.style.left = rect.left + 'px';
+    el.style.top = Math.min(rect.bottom + 4, window.innerHeight - 340) + 'px';
+    document.body.appendChild(el);
+
+    slashMenuState = {
+      el, blockId: blockEl.dataset.id, blockEl, textarea, slashPos, items: [], focusIdx: 0
+    };
+    updateSlashMenu('');
+  }
+
+  function updateSlashMenu(query) {
+    if (!slashMenuState) return;
+    const q = query.toLowerCase();
+    const filtered = q
+      ? SLASH_BLOCK_TYPES.filter(t => t.name.toLowerCase().includes(q) || t.type.includes(q))
+      : SLASH_BLOCK_TYPES;
+
+    slashMenuState.items = filtered;
+    slashMenuState.focusIdx = 0;
+    const el = slashMenuState.el;
+    el.innerHTML = '';
+
+    if (filtered.length === 0) {
+      el.innerHTML = '<div class="slash-no-results">No matching blocks</div>';
+      return;
+    }
+
+    filtered.forEach((bt, i) => {
+      const item = document.createElement('button');
+      item.className = 'slash-item' + (i === 0 ? ' focused' : '');
+      item.innerHTML = `
+        <span class="slash-item-icon">${bt.icon}</span>
+        <span>
+          <div class="slash-item-name">${bt.name}</div>
+          <div class="slash-item-desc">${bt.desc}</div>
+        </span>
+      `;
+      item.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // prevent textarea blur
+        applySlashItem(bt.type);
+      });
+      el.appendChild(item);
+    });
+  }
+
+  function setSlashFocus(delta) {
+    if (!slashMenuState) return;
+    const len = slashMenuState.items.length;
+    if (len === 0) return;
+    slashMenuState.focusIdx = ((slashMenuState.focusIdx + delta) + len) % len;
+    slashMenuState.el.querySelectorAll('.slash-item').forEach((el, i) => {
+      el.classList.toggle('focused', i === slashMenuState.focusIdx);
+    });
+    slashMenuState.el.querySelectorAll('.slash-item')[slashMenuState.focusIdx]?.scrollIntoView({ block: 'nearest' });
+  }
+
+  async function applySlashItem(type) {
+    if (!slashMenuState) return;
+    const { textarea, slashPos, blockId } = slashMenuState;
+    const newContent = textarea.value.slice(0, slashPos);
+    closeSlashMenu();
+
+    if (type === 'divider') {
+      await updateBlock(blockId, { type, content: newContent });
+      addBlock('text', '', blockId);
+    } else {
+      await updateBlock(blockId, { type, content: newContent, checked: false });
+      textarea.value = newContent;
+      autoResize(textarea);
+      textarea.focus();
+    }
+  }
+
+  function closeSlashMenu() {
+    if (slashMenuState) { slashMenuState.el.remove(); slashMenuState = null; }
+  }
+
+  // Close slash menu on click outside
+  document.addEventListener('click', (e) => {
+    if (slashMenuState && !slashMenuState.el.contains(e.target)) closeSlashMenu();
+  });
+
+  // ============================================================
+  // RENDER BLOCKS
+  // ============================================================
   function renderBlocks() {
     const container = $('blocksContainer');
     if (!container) return;
     container.innerHTML = '';
+
     if (state.blocks.length === 0) {
-      const hint = document.createElement('div');
-      hint.style.cssText = 'color: var(--text-faint); font-style: italic; padding: 8px 0;';
-      hint.textContent = 'Empty page — add a block below to get started.';
+      const hint = document.createElement('p');
+      hint.style.cssText = 'color: var(--text-faint); font-style: italic; padding: 8px 0; font-size: 14px;';
+      hint.textContent = 'Start writing or type / for commands…';
       container.appendChild(hint);
       return;
     }
+
     state.blocks.forEach(block => {
       const el = document.createElement('div');
-      el.className = 'block' + (block.checked ? ' checked' : '');
+      el.className = 'block' + (block.checked && block.type !== 'todo' ? ' collapsed' : '') + (block.checked && block.type === 'todo' ? ' checked' : '');
       el.dataset.type = block.type;
       el.dataset.id = block.id;
 
-      let inner = '';
-      if (block.type === 'todo') {
-        inner += `<input type="checkbox" class="todo-checkbox" ${block.checked ? 'checked' : ''} />`;
-      }
-      const placeholder = {
-        text: 'Type something…',
-        h1: 'Heading 1',
-        h2: 'Heading 2',
-        bullet: 'List item',
-        todo: 'To-do',
-      }[block.type] || '';
-
-      inner += `
+      const controls = `
         <div class="block-controls">
-          <button class="block-delete-btn" title="Delete">
+          <button class="block-delete-btn" title="Delete block">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
           </button>
         </div>
+      `;
+
+      if (block.type === 'divider') {
+        el.innerHTML = controls + '<div class="block-divider"></div>';
+        el.querySelector('.block-delete-btn').addEventListener('click', () => deleteBlock(block.id));
+        container.appendChild(el);
+        return;
+      }
+
+      const placeholder = {
+        text: 'Type something… or / for commands',
+        h1: 'Heading 1', h2: 'Heading 2', h3: 'Heading 3',
+        bullet: 'List item', todo: 'To-do item',
+        toggle: 'Toggle heading…', quote: 'Quote…',
+      }[block.type] || 'Type…';
+
+      let extra = '';
+      if (block.type === 'todo') {
+        extra = `<input type="checkbox" class="todo-checkbox" ${block.checked ? 'checked' : ''} />`;
+      }
+      if (block.type === 'toggle') {
+        const isCollapsed = block.checked; // checked = collapsed for toggle
+        extra = `<button class="toggle-btn" title="${isCollapsed ? 'Expand' : 'Collapse'}">${isCollapsed ? '▶' : '▾'}</button>`;
+        if (isCollapsed) {
+          const preview = (block.content || '').split('\n')[0] || 'Empty toggle';
+          extra += `<div class="toggle-preview">${escapeHtml(preview.slice(0, 80))}${preview.length > 80 ? '…' : ''}</div>`;
+        }
+      }
+
+      el.innerHTML = `
+        ${controls}
+        ${extra}
         <textarea class="block-content" rows="1" placeholder="${placeholder}">${escapeHtml(block.content || '')}</textarea>
       `;
-      el.innerHTML = inner;
 
       const ta = el.querySelector('.block-content');
       autoResize(ta);
       let saveTimer;
+
       ta.addEventListener('input', () => {
         autoResize(ta);
         clearTimeout(saveTimer);
         saveTimer = setTimeout(() => updateBlock(block.id, { content: ta.value }), 350);
+
+        // Slash menu trigger
+        const cursor = ta.selectionStart;
+        const val = ta.value.slice(0, cursor);
+        const lastSlash = val.lastIndexOf('/');
+        if (lastSlash !== -1 && (lastSlash === 0 || /[\s\n]/.test(val[lastSlash - 1]))) {
+          const query = val.slice(lastSlash + 1);
+          if (!query.includes(' ') && !query.includes('\n') && query.length <= 20) {
+            if (!slashMenuState || slashMenuState.textarea !== ta) {
+              openSlashMenu(ta, el, lastSlash);
+            } else {
+              updateSlashMenu(query);
+            }
+          } else {
+            closeSlashMenu();
+          }
+        } else {
+          closeSlashMenu();
+        }
       });
+
       ta.addEventListener('keydown', (e) => {
+        // Slash menu keyboard nav
+        if (slashMenuState && slashMenuState.textarea === ta) {
+          if (e.key === 'ArrowDown') { e.preventDefault(); setSlashFocus(1); return; }
+          if (e.key === 'ArrowUp') { e.preventDefault(); setSlashFocus(-1); return; }
+          if (e.key === 'Enter') { e.preventDefault(); applySlashItem(slashMenuState.items[slashMenuState.focusIdx]?.type); return; }
+          if (e.key === 'Escape') { closeSlashMenu(); return; }
+        }
+
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
-          // save current then add new block of same type
           updateBlock(block.id, { content: ta.value }).then(() => {
-            const newType = (block.type === 'h1' || block.type === 'h2') ? 'text' : block.type;
-            addBlock(newType, '');
+            const newType = (block.type === 'h1' || block.type === 'h2' || block.type === 'h3') ? 'text' : block.type;
+            addBlock(newType, '', block.id);
           });
         } else if (e.key === 'Backspace' && ta.value === '' && state.blocks.length > 1) {
           e.preventDefault();
           deleteBlock(block.id);
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = ta.selectionStart;
+          const end = ta.selectionEnd;
+          ta.value = ta.value.slice(0, start) + '  ' + ta.value.slice(end);
+          ta.selectionStart = ta.selectionEnd = start + 2;
+          autoResize(ta);
         }
       });
 
-      const cb = el.querySelector('.todo-checkbox');
-      cb?.addEventListener('change', () => updateBlock(block.id, { checked: cb.checked }));
+      // Todo checkbox
+      el.querySelector('.todo-checkbox')?.addEventListener('change', (e) => {
+        updateBlock(block.id, { checked: e.target.checked });
+      });
+
+      // Toggle expand/collapse
+      el.querySelector('.toggle-btn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateBlock(block.id, { checked: !block.checked });
+      });
+      el.querySelector('.toggle-preview')?.addEventListener('click', () => {
+        updateBlock(block.id, { checked: false });
+      });
 
       el.querySelector('.block-delete-btn').addEventListener('click', () => deleteBlock(block.id));
 
@@ -1421,14 +1571,260 @@
     ta.style.height = ta.scrollHeight + 'px';
   }
 
+  // ============================================================
+  // GLOBAL SEARCH  (Cmd/Ctrl + K)
+  // ============================================================
+  let searchFocusIdx = -1;
+
+  function openSearch() {
+    searchOverlay.hidden = false;
+    $('searchInput').value = '';
+    searchFocusIdx = -1;
+    renderSearchResults('');
+    setTimeout(() => $('searchInput').focus(), 20);
+  }
+
+  function closeSearch() { searchOverlay.hidden = true; }
+
+  function renderSearchResults(query) {
+    const container = $('searchResults');
+    container.innerHTML = '';
+    searchFocusIdx = -1;
+    const q = query.toLowerCase().trim();
+
+    const matchPages = state.pages.filter(p => !q || (p.title || 'Untitled').toLowerCase().includes(q)).slice(0, 8);
+    const matchTasks = state.tasks.filter(t => !q || (t.title || '').toLowerCase().includes(q)).slice(0, 5);
+
+    if (matchPages.length === 0 && matchTasks.length === 0) {
+      container.innerHTML = '<div class="search-empty">No results found</div>';
+      return;
+    }
+
+    if (matchPages.length > 0) {
+      const lbl = document.createElement('div'); lbl.className = 'search-group-label'; lbl.textContent = 'Pages';
+      container.appendChild(lbl);
+      matchPages.forEach(page => {
+        const parent = page.parentId ? state.pages.find(p => p.id === page.parentId) : null;
+        const item = document.createElement('button');
+        item.className = 'search-result';
+        item.dataset.action = 'page:' + page.id;
+        item.innerHTML = `
+          <svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <div>
+            <div class="search-result-title">${escapeHtml(page.title || 'Untitled')}</div>
+            ${parent ? `<div class="search-result-path">↳ ${escapeHtml(parent.title || 'Untitled')}</div>` : ''}
+          </div>
+        `;
+        item.addEventListener('click', () => { closeSearch(); selectPage(page.id); });
+        container.appendChild(item);
+      });
+    }
+
+    if (matchTasks.length > 0) {
+      const lbl = document.createElement('div'); lbl.className = 'search-group-label'; lbl.textContent = 'Tasks';
+      container.appendChild(lbl);
+      matchTasks.forEach(task => {
+        const item = document.createElement('button');
+        item.className = 'search-result';
+        item.dataset.action = 'tasks';
+        item.innerHTML = `
+          <svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <div>
+            <div class="search-result-title">${escapeHtml(task.title || 'Untitled task')}</div>
+            <div class="search-result-sub">${task.status} · ${task.priority}</div>
+          </div>
+        `;
+        item.addEventListener('click', () => {
+          closeSearch();
+          state.currentView = 'tasks'; state.currentPageId = null;
+          state.unsubBlocks?.(); render();
+        });
+        container.appendChild(item);
+      });
+    }
+  }
+
+  function updateSearchFocus(results) {
+    results.forEach((r, i) => r.classList.toggle('focused', i === searchFocusIdx));
+    results[searchFocusIdx]?.scrollIntoView({ block: 'nearest' });
+  }
+
+  $('searchInput').addEventListener('input', (e) => {
+    renderSearchResults(e.target.value);
+  });
+
+  $('searchInput').addEventListener('keydown', (e) => {
+    const results = $('searchResults').querySelectorAll('.search-result');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      searchFocusIdx = Math.min(searchFocusIdx + 1, results.length - 1);
+      updateSearchFocus(results);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      searchFocusIdx = Math.max(searchFocusIdx - 1, -1);
+      updateSearchFocus(results);
+    } else if (e.key === 'Enter' && searchFocusIdx >= 0) {
+      e.preventDefault();
+      results[searchFocusIdx]?.click();
+    } else if (e.key === 'Escape') {
+      closeSearch();
+    }
+  });
+
+  searchOverlay.addEventListener('click', (e) => {
+    if (e.target === searchOverlay) closeSearch();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'p')) {
+      e.preventDefault();
+      if (searchOverlay.hidden) openSearch(); else closeSearch();
+    }
+    if (e.key === 'Escape') {
+      if (!searchOverlay.hidden) closeSearch();
+      if (slashMenuState) closeSlashMenu();
+    }
+  });
+
+  // ============================================================
+  // TEMPLATES
+  // ============================================================
+  const TEMPLATES = [
+    {
+      id: 'meeting',
+      name: 'Meeting Notes',
+      icon: '📋',
+      desc: 'Structured template for meetings with agenda, notes, and action items',
+      title: 'Meeting Notes',
+      blocks: [
+        { type: 'h2', content: 'Meeting Details' },
+        { type: 'bullet', content: '📅 Date: ' },
+        { type: 'bullet', content: '👥 Attendees: ' },
+        { type: 'h2', content: 'Agenda' },
+        { type: 'todo', content: '' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Notes' },
+        { type: 'text', content: '' },
+        { type: 'h2', content: 'Action Items' },
+        { type: 'todo', content: '' },
+        { type: 'todo', content: '' },
+      ]
+    },
+    {
+      id: 'weekly',
+      name: 'Weekly Plan',
+      icon: '📅',
+      desc: 'Plan your week with daily sections and goals',
+      title: 'Weekly Plan',
+      blocks: [
+        { type: 'h2', content: 'Goals this week' },
+        { type: 'todo', content: '' },
+        { type: 'todo', content: '' },
+        { type: 'divider', content: '' },
+        { type: 'h2', content: 'Monday' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Tuesday' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Wednesday' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Thursday' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Friday' },
+        { type: 'todo', content: '' },
+        { type: 'divider', content: '' },
+        { type: 'h2', content: 'Reflections' },
+        { type: 'text', content: '' },
+      ]
+    },
+    {
+      id: 'project',
+      name: 'Project Overview',
+      icon: '🚀',
+      desc: 'Overview page for a project with goals, milestones, and notes',
+      title: 'Project Overview',
+      blocks: [
+        { type: 'text', content: 'Brief description of the project…' },
+        { type: 'h2', content: 'Goals' },
+        { type: 'bullet', content: '' },
+        { type: 'bullet', content: '' },
+        { type: 'h2', content: 'Milestones' },
+        { type: 'todo', content: '' },
+        { type: 'todo', content: '' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Team' },
+        { type: 'bullet', content: '' },
+        { type: 'h2', content: 'Notes' },
+        { type: 'text', content: '' },
+      ]
+    },
+    {
+      id: 'brainstorm',
+      name: 'Brainstorm',
+      icon: '💡',
+      desc: 'Open-ended space for ideas with sections for exploration',
+      title: 'Brainstorm',
+      blocks: [
+        { type: 'text', content: 'What are we trying to solve?' },
+        { type: 'h2', content: 'Ideas' },
+        { type: 'bullet', content: '' },
+        { type: 'bullet', content: '' },
+        { type: 'bullet', content: '' },
+        { type: 'h2', content: 'Wild ideas' },
+        { type: 'bullet', content: '' },
+        { type: 'h2', content: 'What we like' },
+        { type: 'todo', content: '' },
+        { type: 'h2', content: 'Next steps' },
+        { type: 'todo', content: '' },
+      ]
+    },
+  ];
+
+  function openTemplateModal(parentId = null) {
+    const overlay = $('templateOverlay');
+    const grid = $('templateGrid');
+    grid.innerHTML = '';
+
+    // Blank page card
+    const blank = document.createElement('button');
+    blank.className = 'template-empty-card';
+    blank.innerHTML = `
+      <span class="template-card-icon">📄</span>
+      <div class="template-card-name">Blank page</div>
+      <div class="template-card-desc">Start from scratch with an empty page</div>
+    `;
+    blank.addEventListener('click', () => { closeTemplateModal(); createPage(parentId); });
+    grid.appendChild(blank);
+
+    TEMPLATES.forEach(t => {
+      const card = document.createElement('button');
+      card.className = 'template-card';
+      card.innerHTML = `
+        <span class="template-card-icon">${t.icon}</span>
+        <div class="template-card-name">${t.name}</div>
+        <div class="template-card-desc">${t.desc}</div>
+      `;
+      card.addEventListener('click', () => { closeTemplateModal(); createPageFromTemplate(t, parentId); });
+      grid.appendChild(card);
+    });
+
+    overlay.hidden = false;
+  }
+
+  function closeTemplateModal() { $('templateOverlay').hidden = true; }
+
+  $('closeTemplateBtn').addEventListener('click', closeTemplateModal);
+  $('templateOverlay').addEventListener('click', (e) => { if (e.target === $('templateOverlay')) closeTemplateModal(); });
+
+  // ============================================================
   // TASKS VIEW
+  // ============================================================
   function renderTasksView() {
     contentBody.innerHTML = `
       <div class="tasks-view">
         <div class="tasks-header">
           <div class="view-toggle">
             <button data-view="kanban" class="${state.taskView === 'kanban' ? 'active' : ''}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="18" rx="1"/><rect x="11" y="3" width="6" height="12" rx="1"/><rect x="19" y="3" width="2" height="8" rx="1"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="18" rx="1"/><rect x="11" y="3" width="6" height="12" rx="1"/></svg>
               Board
             </button>
             <button data-view="list" class="${state.taskView === 'list' ? 'active' : ''}">
@@ -1445,13 +1841,9 @@
       </div>
     `;
     document.querySelectorAll('.view-toggle button').forEach(b => {
-      b.addEventListener('click', () => {
-        state.taskView = b.dataset.view;
-        renderTasksView();
-      });
+      b.addEventListener('click', () => { state.taskView = b.dataset.view; renderTasksView(); });
     });
     $('addTaskBtn').addEventListener('click', () => createTask());
-
     const body = $('tasksBody');
     if (state.taskView === 'kanban') renderKanban(body);
     else renderTaskList(body);
@@ -1478,7 +1870,6 @@
         <div class="column-cards"></div>
       `;
       const cardsEl = colEl.querySelector('.column-cards');
-
       if (colTasks.length === 0) {
         const e = document.createElement('div');
         e.className = 'empty-state';
@@ -1487,19 +1878,13 @@
       } else {
         colTasks.forEach(task => cardsEl.appendChild(buildKanbanCard(task)));
       }
-
-      // drop targets
       colEl.addEventListener('dragover', (e) => { e.preventDefault(); colEl.classList.add('drag-over'); });
-      colEl.addEventListener('dragleave', (e) => {
-        if (!colEl.contains(e.relatedTarget)) colEl.classList.remove('drag-over');
-      });
+      colEl.addEventListener('dragleave', (e) => { if (!colEl.contains(e.relatedTarget)) colEl.classList.remove('drag-over'); });
       colEl.addEventListener('drop', (e) => {
-        e.preventDefault();
-        colEl.classList.remove('drag-over');
+        e.preventDefault(); colEl.classList.remove('drag-over');
         const taskId = e.dataTransfer.getData('text/plain');
         if (taskId) updateTask(taskId, { status: col.key });
       });
-
       container.appendChild(colEl);
     });
   }
@@ -1528,7 +1913,6 @@
       card.classList.add('dragging');
     });
     card.addEventListener('dragend', () => card.classList.remove('dragging'));
-
     const titleInput = card.querySelector('.card-title-input');
     autoResize(titleInput);
     let timer;
@@ -1537,20 +1921,14 @@
       clearTimeout(timer);
       timer = setTimeout(() => updateTask(task.id, { title: titleInput.value }), 350);
     });
-    // prevent drag while editing text
     titleInput.addEventListener('mousedown', (e) => e.stopPropagation());
     titleInput.addEventListener('focus', () => { card.draggable = false; });
     titleInput.addEventListener('blur', () => { card.draggable = true; });
-
     const prioritySelect = card.querySelector('.task-priority-pill');
-    prioritySelect.addEventListener('change', () => {
-      updateTask(task.id, { priority: prioritySelect.value });
-    });
+    prioritySelect.addEventListener('change', () => updateTask(task.id, { priority: prioritySelect.value }));
     prioritySelect.addEventListener('mousedown', (e) => e.stopPropagation());
-
     card.querySelector('.card-delete-btn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      deleteTask(task.id);
+      e.stopPropagation(); deleteTask(task.id);
     });
     return card;
   }
@@ -1600,7 +1978,7 @@
   }
 
   // ============================================================
-  // MODAL / TOAST / UTILITIES
+  // MODAL / TOAST
   // ============================================================
   function confirmModal(title, body, onConfirm) {
     const backdrop = document.createElement('div');
@@ -1617,19 +1995,14 @@
     `;
     document.body.appendChild(backdrop);
     backdrop.addEventListener('click', (e) => {
-      if (e.target === backdrop || e.target.dataset.action === 'cancel') {
-        backdrop.remove();
-      } else if (e.target.dataset.action === 'confirm') {
-        backdrop.remove();
-        onConfirm();
-      }
+      if (e.target === backdrop || e.target.dataset.action === 'cancel') backdrop.remove();
+      else if (e.target.dataset.action === 'confirm') { backdrop.remove(); onConfirm(); }
     });
   }
 
   function toast(msg) {
     const t = document.createElement('div');
-    t.className = 'toast';
-    t.textContent = msg;
+    t.className = 'toast'; t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 2400);
   }
@@ -1653,30 +2026,19 @@
         const blocksSnap = await getDocs(
           query(collection(db, 'workspace', 'main', 'pages', p.id, 'blocks'), orderBy('order'))
         );
-        pages.push({
-          ...p,
-          blocks: blocksSnap.docs.map(d => ({ id: d.id, ...d.data() }))
-        });
+        pages.push({ ...p, blocks: blocksSnap.docs.map(d => ({ id: d.id, ...d.data() })) });
       }
       const data = {
-        exportedAt: new Date().toISOString(),
-        exportedBy: state.user.email,
-        version: 1,
-        pages,
-        tasks: state.tasks,
+        exportedAt: new Date().toISOString(), exportedBy: state.user.email,
+        version: 2, pages, tasks: state.tasks,
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = `workspace-backup-${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
+      a.href = url; a.download = `workspace-backup-${new Date().toISOString().slice(0,10)}.json`;
+      a.click(); URL.revokeObjectURL(url);
       toast('Backup downloaded');
-    } catch (err) {
-      console.error(err);
-      toast('Backup failed — check console');
-    }
+    } catch (err) { console.error(err); toast('Backup failed — check console'); }
   }
 
   async function importBackup(e) {
@@ -1686,26 +2048,21 @@
       const text = await file.text();
       const data = JSON.parse(text);
       if (!data.pages || !data.tasks) throw new Error('Invalid backup file');
-
       confirmModal(
         'Import this backup?',
-        `This will ADD ${data.pages.length} pages and ${data.tasks.length} tasks to your workspace. Existing data will not be deleted.`,
+        `This will ADD ${data.pages.length} pages and ${data.tasks.length} tasks. Existing data will not be deleted.`,
         async () => {
           const batch = writeBatch(db);
-          // import tasks
           data.tasks.forEach(t => {
             const ref = doc(collection(db, 'workspace', 'main', 'tasks'));
             const { id, ...rest } = t;
             batch.set(ref, { ...rest, importedAt: serverTimestamp() });
           });
           await batch.commit();
-
-          // import pages (sequentially because of subcollections)
           for (const p of data.pages) {
             const { id, blocks, ...pageData } = p;
             const pageRef = await addDoc(collection(db, 'workspace', 'main', 'pages'), {
-              ...pageData,
-              importedAt: serverTimestamp(),
+              ...pageData, importedAt: serverTimestamp(),
             });
             if (Array.isArray(blocks) && blocks.length > 0) {
               const blockBatch = writeBatch(db);
@@ -1720,42 +2077,37 @@
           toast(`Imported ${data.pages.length} pages and ${data.tasks.length} tasks`);
         }
       );
-    } catch (err) {
-      console.error(err);
-      toast('Import failed — invalid file');
-    } finally {
-      e.target.value = '';
-    }
+    } catch (err) { console.error(err); toast('Import failed — invalid file'); }
+    finally { e.target.value = ''; }
   }
 
   // ============================================================
   // EVENT BINDINGS
   // ============================================================
-  $('addPageBtn').addEventListener('click', createPage);
+  $('addPageBtn').addEventListener('click', () => createPage());
+  $('addTemplatePageBtn').addEventListener('click', () => openTemplateModal());
+  $('sidebarSearchBtn').addEventListener('click', openSearch);
+  $('searchHeaderBtn').addEventListener('click', openSearch);
+
   tasksNavItem.addEventListener('click', () => {
-    state.currentView = 'tasks';
-    state.currentPageId = null;
-    state.unsubBlocks?.();
-    render();
-    closeSidebarOnMobile();
+    state.currentView = 'tasks'; state.currentPageId = null;
+    state.unsubBlocks?.(); render(); closeSidebarOnMobile();
   });
 
   $('menuBtn').addEventListener('click', () => {
     confirmModal('Sign out?', 'You can sign back in at any time.', async () => {
-      await signOut(auth);
-      toast('Signed out');
+      await signOut(auth); toast('Signed out');
     });
   });
 
   $('menuToggle').addEventListener('click', () => {
-    sidebar.classList.add('open');
-    sidebarBackdrop.classList.add('open');
+    sidebar.classList.add('open'); sidebarBackdrop.classList.add('open');
   });
   sidebarBackdrop.addEventListener('click', closeSidebarOnMobile);
+
   function closeSidebarOnMobile() {
     if (window.innerWidth <= 768) {
-      sidebar.classList.remove('open');
-      sidebarBackdrop.classList.remove('open');
+      sidebar.classList.remove('open'); sidebarBackdrop.classList.remove('open');
     }
   }
 </script>
