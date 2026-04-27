@@ -142,6 +142,10 @@
     .btn-primary:disabled{opacity:.5;cursor:not-allowed}
     .auth-error{background:var(--danger-soft);color:var(--danger);padding:9px 12px;border-radius:var(--radius);font-size:13px;margin-bottom:14px}
 
+    /* Backdrop — always hidden on desktop, only used on mobile when sidebar is opened.
+       Critical: this MUST be display:none by default so it doesn't take a grid slot. */
+    .sidebar-backdrop{display:none}
+
     /* APP SHELL */
     .app{display:grid;grid-template-columns:var(--sidebar-width) 1fr;height:100vh;height:100dvh}
     .app.sidebar-collapsed{grid-template-columns:0 1fr}
