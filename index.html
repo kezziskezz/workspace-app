@@ -1147,8 +1147,23 @@
   function listenToBlocks(pageId){
     state.unsubBlocks?.();
     state.unsubBlocks=onSnapshot(query(collection(db,'workspace','main','pages',pageId,'blocks'),orderBy('order')),snap=>{
+      const wasEmpty = state.blocks.length === 0;
       state.blocks=snap.docs.map(d=>({id:d.id,...d.data()}));
-      if(state.currentView==='page'&&state.currentPageId===pageId)renderBlocks();
+      if(state.currentView==='page'&&state.currentPageId===pageId){
+        renderBlocks();
+        // After auto-create lands, focus the new block so the user can start typing immediately
+        if(wasEmpty && state.blocks.length === 1){
+          setTimeout(()=>{
+            $('blocksContainer')?.querySelector('.block-content')?.focus();
+          }, 50);
+        }
+      }
+      // If the page has zero blocks, create a starter text block.
+      // This ensures every page always has at least one editable surface
+      // — needed for typing and for the slash menu to work.
+      if(state.blocks.length === 0 && state.currentPageId === pageId){
+        addBlock('text', '');
+      }
     });
   }
 
