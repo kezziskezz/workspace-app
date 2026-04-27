@@ -622,6 +622,37 @@
 
     ::selection{background:var(--accent-soft);color:var(--text)}
 
+    /* ============== PROPERTY CLEAR BUTTONS (× to blank field) ============== */
+    .prop-clear-btn{
+      width:20px;height:20px;border-radius:var(--radius-sm);
+      display:inline-flex;align-items:center;justify-content:center;
+      color:var(--text-faint);flex-shrink:0;margin-left:4px;
+      opacity:0;transition:opacity .12s,background .1s,color .1s;
+    }
+    .prop-row:hover .prop-clear-btn{opacity:1}
+    .prop-clear-btn:hover{background:var(--bg-hover);color:var(--text)}
+    .prop-clear-btn svg{width:11px;height:11px}
+
+    /* ============== NONE / EMPTY PILL STATE ============== */
+    .status-pill.pill-none,.priority-pill.pill-none{
+      background:transparent;color:var(--text-faint);
+      border:1px dashed var(--border-strong);
+    }
+
+    /* ============== TASK DESCRIPTION (rich notes on a task) ============== */
+    .detail-description-wrap{
+      padding:4px 22px 12px;
+      border-bottom:1px solid var(--divider);
+    }
+    .detail-description{
+      width:100%;background:transparent;
+      border:none;outline:none;resize:none;
+      font-family:inherit;font-size:13.5px;color:var(--text);
+      line-height:1.55;padding:6px 0;
+      min-height:42px;
+    }
+    .detail-description::placeholder{color:var(--text-placeholder)}
+
     /* ============== SIDEBAR RESIZE HANDLE ============== */
     .sidebar{position:relative}
     .sidebar-resize-handle{
@@ -1745,8 +1776,17 @@
     const{textarea,slashPos,blockId}=slashMenuState;
     const newContent=textarea.value.slice(0,slashPos);
     closeSlashMenu();
-    if(type==='divider'){await updateBlock(blockId,{type,content:newContent});addBlock('text','',blockId);}
-    else{await updateBlock(blockId,{type,content:newContent,checked:false});textarea.value=newContent;autoResize(textarea);textarea.focus();}
+    if(type==='divider'){
+      if(newContent.trim()){
+        // Keep typed content as a text block, insert divider after, then new text block to continue typing
+        await updateBlock(blockId,{content:newContent});
+        const dRef=await addBlock('divider','',blockId);
+        if(dRef)await addBlock('text','',dRef.id);
+      }else{
+        await updateBlock(blockId,{type,content:''});
+        addBlock('text','',blockId);
+      }
+    }else{await updateBlock(blockId,{type,content:newContent,checked:false});textarea.value=newContent;autoResize(textarea);textarea.focus();}
   }
   function closeSlashMenu(){if(slashMenuState){slashMenuState.el.remove();slashMenuState=null;}}
   document.addEventListener('click',e=>{if(slashMenuState&&!slashMenuState.el.contains(e.target))closeSlashMenu();});
@@ -1993,8 +2033,12 @@
     p.appendChild(sec2);
 
     p.addEventListener('click',e=>e.stopPropagation());
-    anchor.parentElement.style.position='relative';
-    anchor.parentElement.appendChild(p);
+    // Position fixed relative to viewport so .view-tabs' overflow-x:auto can't clip it
+    const rect=anchor.getBoundingClientRect();
+    p.style.position='fixed';
+    p.style.top=(rect.bottom+4)+'px';
+    p.style.left=Math.min(rect.left,window.innerWidth-320)+'px';
+    document.body.appendChild(p);
     activePopover=p;
   }
 
@@ -2439,12 +2483,16 @@
       </div>
       <div class="detail-body">
         ${locked?`<div class="detail-locked-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Board is locked — some fields are read-only</div>`:''}
+        <div class="detail-description-wrap">
+          <textarea class="detail-description" id="detailDescription" placeholder="Add a description…" rows="2" ${locked?'readonly':''}>${escapeHtml(task.description||'')}</textarea>
+        </div>
         <div class="detail-section-label" style="border-top:none;padding-top:8px">Properties</div>
         <div class="detail-props">
           <div class="prop-row">
             <div class="prop-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="10" stroke-dasharray="2 2"/></svg> Status</div>
             <div class="prop-value">
-              <select class="prop-select status-pill pill-${task.status||'todo'}" id="detailStatus">
+              <select class="prop-select status-pill ${task.status?`pill-${task.status}`:'pill-none'}" id="detailStatus">
+                <option value="" ${!task.status?'selected':''}>—</option>
                 <option value="todo" ${task.status==='todo'?'selected':''}>To do</option>
                 <option value="doing" ${task.status==='doing'?'selected':''}>In progress</option>
                 <option value="done" ${task.status==='done'?'selected':''}>Done</option>
@@ -2455,7 +2503,8 @@
           <div class="prop-row">
             <div class="prop-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Priority</div>
             <div class="prop-value">
-              <select class="prop-select priority-pill pill-${task.priority||'medium'}" id="detailPriority">
+              <select class="prop-select priority-pill ${task.priority?`pill-${task.priority}`:'pill-none'}" id="detailPriority">
+                <option value="" ${!task.priority?'selected':''}>—</option>
                 <option value="urgent" ${task.priority==='urgent'?'selected':''}>Urgent</option>
                 <option value="high" ${task.priority==='high'?'selected':''}>High</option>
                 <option value="medium" ${task.priority==='medium'?'selected':''}>Medium</option>
@@ -2466,7 +2515,10 @@
           <div class="prop-row">
             <div class="prop-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Owner</div>
             <div class="prop-value" style="display:block">
-              <input class="prop-input" id="detailOwner" list="ownerSuggestions" value="${escapeAttr(task.owner||'')}" placeholder="Assign to…" ${locked?'readonly':''}/>
+              <div style="display:flex;align-items:center;gap:0">
+                <input class="prop-input" id="detailOwner" list="ownerSuggestions" value="${escapeAttr(task.owner||'')}" placeholder="Assign to…" ${locked?'readonly':''}/>
+                ${!locked&&task.owner?`<button class="prop-clear-btn" id="detailOwnerClear" title="Clear owner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`:''}
+              </div>
               <datalist id="ownerSuggestions">${getOwnerSuggestions().map(owner=>`<option value="${escapeAttr(owner)}"></option>`).join('')}</datalist>
               <div class="detail-owner-quick">${getOwnerSuggestions().slice(0,4).map(owner=>`<button class="owner-suggestion-chip" data-owner="${escapeAttr(owner)}">${escapeHtml((owner.split('@')[0]||owner))}</button>`).join('')}</div>
             </div>
@@ -2484,6 +2536,7 @@
             <div class="prop-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Due date</div>
             <div class="prop-value">
               <input type="date" class="prop-input" id="detailDue" value="${escapeAttr(task.dueDate||'')}" ${locked?'readonly':''}/>
+              ${!locked&&task.dueDate?`<button class="prop-clear-btn" id="detailDueClear" title="Clear due date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`:''}
             </div>
           </div>
         </div>
@@ -2509,12 +2562,41 @@
     const titleEl=$('detailTitle');autoResize(titleEl);
     let tt;
     titleEl.addEventListener('input',()=>{autoResize(titleEl);clearTimeout(tt);tt=setTimeout(()=>updateTask(task.id,{title:titleEl.value}),350);});
+    // Description
+    const descEl=$('detailDescription');
+    if(descEl){
+      autoResize(descEl);
+      let dt;
+      descEl.addEventListener('input',()=>{
+        autoResize(descEl);
+        clearTimeout(dt);
+        dt=setTimeout(()=>updateTask(task.id,{description:descEl.value}),400);
+      });
+    }
     const stEl=$('detailStatus');
-    stEl.addEventListener('change',()=>{stEl.className=`prop-select status-pill pill-${stEl.value}`;updateTask(task.id,{status:stEl.value});});
+    stEl.addEventListener('change',()=>{
+      const cls=stEl.value?`pill-${stEl.value}`:'pill-none';
+      stEl.className=`prop-select status-pill ${cls}`;
+      updateTask(task.id,{status:stEl.value});
+    });
     const priEl=$('detailPriority');
-    priEl.addEventListener('change',()=>{priEl.className=`prop-select priority-pill pill-${priEl.value}`;updateTask(task.id,{priority:priEl.value});});
+    priEl.addEventListener('change',()=>{
+      const cls=priEl.value?`pill-${priEl.value}`:'pill-none';
+      priEl.className=`prop-select priority-pill ${cls}`;
+      updateTask(task.id,{priority:priEl.value});
+    });
     let ot;
     $('detailOwner').addEventListener('input',e=>{clearTimeout(ot);ot=setTimeout(()=>updateTask(task.id,{owner:e.target.value}),400);});
+    // Owner clear button
+    $('detailOwnerClear')?.addEventListener('click',()=>{
+      $('detailOwner').value='';
+      updateTask(task.id,{owner:''});
+    });
+    // Due date clear button
+    $('detailDueClear')?.addEventListener('click',()=>{
+      $('detailDue').value='';
+      updateTask(task.id,{dueDate:null});
+    });
     panel.querySelectorAll('.owner-suggestion-chip').forEach(btn=>{
       btn.addEventListener('click',()=>{
         const owner=btn.dataset.owner||'';
