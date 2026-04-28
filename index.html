@@ -2557,10 +2557,12 @@
   function renderBlocks(){
     const container=$('blocksContainer');if(!container)return;
 
-    // Capture focus state BEFORE wiping the DOM. If the user is mid-typing and
-    // a snapshot comes back from Firestore, we need to restore focus + cursor
-    // position to the same block — otherwise their cursor "disappears".
-    let focusedBlockId=null,cursorStart=0,cursorEnd=0,scrollTop=container.scrollTop;
+    // Capture focus state + IN-FLIGHT VALUE before wiping the DOM.
+    // Critical: the user's textarea may contain keystrokes typed after the last
+    // Firestore save but before this snapshot returned. Without preserving the
+    // local value, those keystrokes vanish on rebuild.
+    let focusedBlockId=null,cursorStart=0,cursorEnd=0,focusedValue=null;
+    const scrollTop=container.scrollTop;
     const active=document.activeElement;
     if(active&&active.classList.contains('block-content')){
       const blockEl=active.closest('.block');
@@ -2568,6 +2570,7 @@
         focusedBlockId=blockEl.dataset.id;
         cursorStart=active.selectionStart||0;
         cursorEnd=active.selectionEnd||0;
+        focusedValue=active.value; // preserve unsaved keystrokes
       }
     }
 
@@ -2663,12 +2666,26 @@
       container.appendChild(el);
     });
 
-    // Restore focus + cursor position + scroll after rebuild.
-    // Without this, the user's cursor would disappear every time auto-save fires.
+    // Restore focus + value + cursor position + scroll after rebuild.
+    // If the user typed faster than the Firestore round-trip, the snapshot's
+    // content is stale — we restore their local typed value instead.
     if(focusedBlockId){
       const newBlockEl=container.querySelector(`.block[data-id="${focusedBlockId}"]`);
       const newTa=newBlockEl?.querySelector('.block-content');
       if(newTa){
+        // If the user's local value is "ahead" of the snapshot, keep it.
+        // Heuristic: if focusedValue starts with the snapshot value (i.e., user
+        // appended characters), or differs, restore the local value.
+        if(focusedValue!==null && focusedValue!==newTa.value){
+          newTa.value=focusedValue;
+          // Re-trigger autoResize so the textarea height stays correct
+          newTa.style.height='auto';
+          newTa.style.height=newTa.scrollHeight+'px';
+          // IMPORTANT: also re-fire the debounced save with the latest value,
+          // otherwise the local value would only persist until the next render.
+          // We mark the block dirty so the next save catches it.
+          updateBlock(focusedBlockId,{content:focusedValue}).catch(()=>{});
+        }
         newTa.focus();
         try{
           const len=newTa.value.length;
