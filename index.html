@@ -1567,32 +1567,40 @@
   function attachListeners(){
     state.unsubPages=onSnapshot(query(collection(db,'workspace','main','pages'),orderBy('order')),snap=>{
       state.pages=snap.docs.map(d=>({id:d.id,...d.data()}));
-      renderPagesList();
-      if(state.currentView==='page'){
-        const cur=state.pages.find(p=>p.id===state.currentPageId);
-        if(!cur||cur.isArchived){
-          state.currentPageId=null;state.currentView='tasks';render();
+      preserveFocus(()=>{
+        renderPagesList();
+        if(state.currentView==='page'){
+          const cur=state.pages.find(p=>p.id===state.currentPageId);
+          if(!cur||cur.isArchived){
+            state.currentPageId=null;state.currentView='tasks';render();
+          }
         }
-      }
-      if(state.currentView==='recent'||state.currentView==='archive')renderCurrent();
+        if(state.currentView==='recent'||state.currentView==='archive')renderCurrent();
+      });
     });
     state.unsubTasks=onSnapshot(query(collection(db,'workspace','main','tasks'),orderBy('createdAt','desc')),snap=>{
       state.tasks=snap.docs.map(d=>({id:d.id,...d.data()}));
-      if(state.currentView==='tasks'||state.currentView==='archive')renderCurrent();
-      if(state.openTaskId){
-        const t=state.tasks.find(x=>x.id===state.openTaskId);
-        if(t)refreshDetailPanel(t);
-        else closeTaskDetail();
-      }
+      preserveFocus(()=>{
+        if(state.currentView==='tasks'||state.currentView==='archive')renderCurrent();
+        if(state.openTaskId){
+          const t=state.tasks.find(x=>x.id===state.openTaskId);
+          if(t)refreshDetailPanel(t);
+          else closeTaskDetail();
+        }
+      });
     });
     state.unsubConfig=onSnapshot(doc(db,'workspace','main','config','board'),snap=>{
       if(snap.exists()){state.boardLocked=snap.data().locked||false;}
       else state.boardLocked=false;
-      if(state.currentView==='tasks')renderCurrent();
+      preserveFocus(()=>{
+        if(state.currentView==='tasks')renderCurrent();
+      });
     });
     state.unsubActivities=onSnapshot(query(collection(db,'workspace','main','activity'),orderBy('at','desc'),limit(80)),snap=>{
       state.activities=snap.docs.map(d=>({id:d.id,...d.data()}));
-      if(state.currentView==='activity')renderCurrent();
+      preserveFocus(()=>{
+        if(state.currentView==='activity')renderCurrent();
+      });
     });
     state.unsubSavedViews=onSnapshot(query(collection(db,'workspace','main','savedViews'),orderBy('order')),snap=>{
       state.savedViews=snap.docs.map(d=>({id:d.id,...d.data()}));
@@ -1600,7 +1608,9 @@
       if(state.activeViewId&&!state.savedViews.find(v=>v.id===state.activeViewId)){
         state.activeViewId=null;
       }
-      if(state.currentView==='tasks')renderCurrent();
+      preserveFocus(()=>{
+        if(state.currentView==='tasks')renderCurrent();
+      });
     });
   }
   function detachListeners(){
@@ -2554,6 +2564,45 @@
   // ============================================================
   // RENDER BLOCKS (with drag-to-reorder)
   // ============================================================
+  // ============================================================
+  // FOCUS PRESERVATION
+  // ============================================================
+  // Generic fix for the "typing pops off" bug. When a snapshot listener
+  // rebuilds DOM that contains a focused input, the input is destroyed and
+  // focus moves to <body>. preserveFocus captures the focused element's
+  // identity (by id), value, cursor, and scroll BEFORE the rebuild, and
+  // restores them AFTER. Any input we want to survive a rebuild needs a
+  // stable id.
+  function preserveFocus(rebuildFn){
+    const a=document.activeElement;
+    let snap=null;
+    if(a && a.id && (a.tagName==='INPUT' || a.tagName==='TEXTAREA')){
+      snap={
+        id:a.id,
+        value:a.value,
+        selectionStart:a.selectionStart||0,
+        selectionEnd:a.selectionEnd||0,
+        scrollTop:a.scrollTop||0,
+      };
+    }
+    rebuildFn();
+    if(!snap)return;
+    const t=document.getElementById(snap.id);
+    if(!t || (t.tagName!=='INPUT' && t.tagName!=='TEXTAREA'))return;
+    // If user typed past what the rebuild produced, keep their local value —
+    // their keystrokes haven't reached Firestore yet but they're the source of truth.
+    if(snap.value !== t.value){
+      t.value=snap.value;
+      if(t.tagName==='TEXTAREA')autoResize(t);
+    }
+    t.focus();
+    try{
+      const len=t.value.length;
+      t.setSelectionRange(Math.min(snap.selectionStart,len),Math.min(snap.selectionEnd,len));
+    }catch{}
+    t.scrollTop=snap.scrollTop;
+  }
+
   // Decide whether the rendered DOM already matches state.blocks so we can
   // skip rebuilding it. This is the key to keeping focus while typing: when
   // our own debounced save round-trips back from Firestore, the snapshot's
@@ -3296,7 +3345,7 @@
               <option value="blocked" ${task.status==='blocked'?'selected':''}>Blocked</option>
             </select>
           </div>
-          <div class="tr-cell"><input class="task-title-input" value="${escapeAttr(task.title||'')}" ${state.boardLocked?'readonly':''}></div>
+          <div class="tr-cell"><input class="task-title-input" id="task-title-input-${task.id}" value="${escapeAttr(task.title||'')}" ${state.boardLocked?'readonly':''}></div>
           <div class="tr-cell">${owner}</div>
           <div class="tr-cell">${tags}</div>
           <div class="tr-cell">${due}</div>
@@ -3558,14 +3607,92 @@
   }
   function closeTaskDetail(){
     state.openTaskId=null;
-    $('taskDetailPanel').style.display='none';
+    const panel=$('taskDetailPanel');
+    panel.style.display='none';
+    delete panel.dataset.taskId;
     $('taskDetailBackdrop').style.display='none';
   }
   function refreshDetailPanel(task){
-    if($('taskDetailPanel').style.display!=='none')renderDetailPanel(task);
+    const panel=$('taskDetailPanel');
+    if(panel.style.display==='none')return;
+    // Same task already rendered? Try to update fields in place — no DOM
+    // rebuild, so any focused input keeps its caret. This is the highest-traffic
+    // path (every keystroke after debounce echoes back as a snapshot).
+    if(panel.dataset.taskId===task.id){
+      if(updateDetailPanelInPlace(task))return;
+    }
+    // Different task or structural change — full rebuild, but preserve focus.
+    preserveFocus(()=>renderDetailPanel(task));
+  }
+  // Apply a snapshot-driven task update to the existing detail-panel DOM
+  // without rebuilding it. Returns false if a structural change (lock state,
+  // tags, owner-clear visibility, etc.) requires a full rebuild instead.
+  function updateDetailPanelInPlace(task){
+    const panel=$('taskDetailPanel');
+    // Lock state changed → full rebuild (controls switch readonly/visible)
+    if(!!panel.querySelector('.detail-locked-note') !== !!state.boardLocked)return false;
+    // Title — never overwrite a focused textarea (user is mid-typing)
+    const titleEl=panel.querySelector('#detailTitle');
+    if(titleEl && document.activeElement!==titleEl){
+      const want=task.title||'';
+      if(titleEl.value!==want){titleEl.value=want;autoResize(titleEl);}
+    }
+    // Description
+    const descEl=panel.querySelector('#detailDescription');
+    if(descEl && document.activeElement!==descEl){
+      const want=task.description||'';
+      if(descEl.value!==want){descEl.value=want;autoResize(descEl);}
+    }
+    // Status
+    const stEl=panel.querySelector('#detailStatus');
+    if(stEl){
+      const want=task.status||'';
+      if(stEl.value!==want){
+        stEl.value=want;
+        stEl.className=`prop-select status-pill ${task.status?`pill-${task.status}`:'pill-none'}`;
+      }
+    }
+    // Priority
+    const priEl=panel.querySelector('#detailPriority');
+    if(priEl){
+      const want=task.priority||'';
+      if(priEl.value!==want){
+        priEl.value=want;
+        priEl.className=`prop-select priority-pill ${task.priority?`pill-${task.priority}`:'pill-none'}`;
+      }
+    }
+    // Owner
+    const ownerEl=panel.querySelector('#detailOwner');
+    if(ownerEl && document.activeElement!==ownerEl){
+      const want=task.owner||'';
+      if(ownerEl.value!==want)ownerEl.value=want;
+    }
+    // Owner clear button visibility
+    const hasOwnerClear=!!panel.querySelector('#detailOwnerClear');
+    const wantOwnerClear=!state.boardLocked && !!task.owner;
+    if(hasOwnerClear!==wantOwnerClear)return false;
+    // Due date
+    const dueEl=panel.querySelector('#detailDue');
+    if(dueEl && document.activeElement!==dueEl){
+      const want=task.dueDate||'';
+      if(dueEl.value!==want)dueEl.value=want;
+    }
+    // Due clear button visibility
+    const hasDueClear=!!panel.querySelector('#detailDueClear');
+    const wantDueClear=!state.boardLocked && !!task.dueDate;
+    if(hasDueClear!==wantDueClear)return false;
+    // Tags — structural change forces rebuild
+    const tagsWrap=panel.querySelector('#detailTagsWrap');
+    if(tagsWrap){
+      const rendered=Array.from(tagsWrap.querySelectorAll('.detail-tag')).map(el=>el.firstChild?.textContent||'');
+      const wantTags=task.tags||[];
+      if(rendered.length!==wantTags.length || !rendered.every((t,i)=>t===wantTags[i]))return false;
+    }
+    return true;
   }
   function renderDetailPanel(task){
     const panel=$('taskDetailPanel');
+    panel.dataset.taskId=task.id; // tracked for incremental refresh path
     const locked=state.boardLocked;
     const createdAt=task.createdAt?.toDate?.()?.toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'})||'—';
     const updatedAt=task.updatedAt?.toDate?.()?.toLocaleDateString('en',{month:'short',day:'numeric'})||'—';
