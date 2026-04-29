@@ -2314,7 +2314,7 @@
         ?`<span class="backlink-item-icon">${escapeHtml(fromPage.icon)}</span>`
         :`<span class="backlink-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>`;
       item.innerHTML=`${icon}<span class="backlink-item-title">${escapeHtml(fromPage.title||'Untitled')}</span>`;
-      item.addEventListener('click',()=>openPage(fromId));
+      item.addEventListener('click',()=>selectPage(fromId));
       list.appendChild(item);
     });
     if(!list.children.length)return; // all linking pages were archived
@@ -2704,7 +2704,7 @@
         el.querySelector('.pagelink-chip').addEventListener('click',e=>{
           e.preventDefault();
           if(broken){toast('Linked page no longer exists');return;}
-          openPage(targetId);
+          selectPage(targetId);
         });
         el.querySelector('.block-delete-btn').addEventListener('click',()=>deletePageLinkBlock(block));
         setupBlockDrag(el,block);
@@ -3385,7 +3385,7 @@
   // CALENDAR VIEW (month grid of tasks by due date)
   // ============================================================
   function renderCalendar(container){
-    const tasks=getFilteredSortedTasks().filter(t=>t.dueDate);
+    const tasks=computedTasks().filter(t=>t.dueDate);
 
     // Determine month/year — state.calendarMonth or current month.
     // If user hasn't navigated yet and the current month has no tasks, jump
@@ -3574,7 +3574,7 @@
     }).length;
     const otherMonthsHint=(tasks.length>0&&tasksThisMonth===0)
       ? `<span style="margin-left:auto;color:var(--accent)">No tasks this month — ${tasks.length} elsewhere. Use ‹ › to navigate.</span>`
-      : `<span style="margin-left:auto">${tasksThisMonth} this month · ${tasks.length} total dated · ${getFilteredSortedTasks().length-tasks.length} undated (hidden)</span>`;
+      : `<span style="margin-left:auto">${tasksThisMonth} this month · ${tasks.length} total dated · ${computedTasks().length-tasks.length} undated (hidden)</span>`;
     legend.innerHTML=`
       <span class="calendar-legend-item"><span class="calendar-legend-dot" style="border-left-color:#be185d;background:var(--tag-pink-bg)"></span>Urgent</span>
       <span class="calendar-legend-item"><span class="calendar-legend-dot" style="border-left-color:#b91c1c;background:var(--tag-red-bg)"></span>High</span>
