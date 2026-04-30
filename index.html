@@ -411,6 +411,120 @@
     .add-subpage-btn:hover{background:var(--bg-hover);color:var(--text)}
     .add-subpage-btn svg{width:14px;height:14px}
 
+    /* CONTENTEDITABLE BLOCKS — replaces <textarea> for text-style blocks so we
+       can render inline formatting (bold/italic/etc.) inside the block. */
+    .block-content[contenteditable]{
+      white-space:pre-wrap;word-wrap:break-word;
+    }
+    /* Placeholder via data attribute (contenteditable doesn't support ::placeholder). */
+    .block-content[contenteditable].is-empty::before{
+      content:attr(data-placeholder);color:var(--text-faint);
+      pointer-events:none;
+    }
+    .block-content[contenteditable]:focus.is-empty::before{
+      color:var(--text-placeholder);
+    }
+    /* Inline formatting marks */
+    .block-content code, .table-cell code{
+      font-family:var(--font-mono,ui-monospace,SFMono-Regular,Consolas,monospace);
+      font-size:.92em;background:var(--bg-subtle);
+      padding:1px 5px;border-radius:3px;
+    }
+    .block-content u, .table-cell u{text-decoration:underline}
+    .block-content s, .table-cell s,
+    .block-content strike, .table-cell strike{text-decoration:line-through}
+    .block-content a, .table-cell a{color:var(--accent);text-decoration:underline}
+
+    /* TABLE BLOCK */
+    .block-table-wrap{
+      position:relative;display:block;overflow-x:auto;padding:6px 0 8px 0;
+    }
+    .block-table{
+      border-collapse:separate;border-spacing:0;table-layout:fixed;
+      border:1px solid var(--border-strong);border-radius:var(--radius);
+      overflow:hidden;background:var(--bg-elevated);
+    }
+    .block-table td{
+      border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      padding:0;vertical-align:top;position:relative;
+      min-width:60px;
+    }
+    .block-table td:last-child{border-right:none}
+    .block-table tr:last-child td{border-bottom:none}
+    .block-table tr:first-child td{
+      background:var(--bg-subtle);font-weight:600;
+    }
+    .table-cell{
+      display:block;outline:none;padding:7px 10px;line-height:1.5;
+      min-height:1.5em;font-size:14px;color:var(--text);
+      white-space:pre-wrap;word-wrap:break-word;
+    }
+    .table-cell.is-empty::before{
+      content:attr(data-placeholder);color:var(--text-faint);
+      pointer-events:none;
+    }
+    /* Column resize handle on the right edge of each non-last cell */
+    .table-col-resizer{
+      position:absolute;top:0;right:-3px;width:6px;height:100%;
+      cursor:col-resize;z-index:2;
+    }
+    .table-col-resizer:hover,.table-col-resizer.active{
+      background:var(--accent);opacity:.5;
+    }
+    /* Per-column delete on first row, per-row delete on first col — visible on hover */
+    .table-remove-col{
+      position:absolute;top:2px;right:8px;width:16px;height:16px;
+      display:none;align-items:center;justify-content:center;
+      color:var(--text-faint);border-radius:3px;font-size:13px;line-height:1;z-index:3;
+    }
+    .block-table tr:first-child td:hover .table-remove-col{display:inline-flex}
+    .table-remove-col:hover{background:var(--bg-hover);color:var(--text)}
+    .table-remove-row{
+      position:absolute;left:-22px;top:50%;transform:translateY(-50%);
+      width:18px;height:18px;display:none;align-items:center;justify-content:center;
+      color:var(--text-faint);border-radius:3px;font-size:13px;line-height:1;z-index:3;
+    }
+    .block-table tr:hover .table-remove-row{display:inline-flex}
+    .table-remove-row:hover{background:var(--bg-hover);color:var(--text)}
+    /* Add row / add column buttons sit below + to the right of the table */
+    .table-add-row,.table-add-col{
+      display:none;align-items:center;gap:4px;padding:3px 8px;
+      font-size:11.5px;color:var(--text-muted);
+      background:var(--bg-subtle);border-radius:var(--radius-sm);
+      transition:background .08s,color .08s;
+    }
+    .table-add-row:hover,.table-add-col:hover{background:var(--bg-hover);color:var(--text)}
+    .block-table-wrap:hover .table-add-row,
+    .block-table-wrap:hover .table-add-col{display:inline-flex}
+    .table-add-row{margin-top:6px}
+    .table-add-col{position:absolute;top:8px;right:-2px;transform:translateX(100%)}
+
+    /* FLOATING SELECTION TOOLBAR */
+    .selection-toolbar{
+      position:fixed;display:none;z-index:50;
+      background:var(--bg-elevated);border:1px solid var(--border-strong);
+      border-radius:var(--radius);box-shadow:var(--shadow);
+      padding:3px;gap:1px;
+    }
+    .selection-toolbar.open{display:inline-flex}
+    .selection-toolbar button{
+      width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;
+      border-radius:var(--radius-sm);color:var(--text-muted);
+      transition:background .08s,color .08s;font-size:13px;
+    }
+    .selection-toolbar button:hover{background:var(--bg-hover);color:var(--text)}
+    .selection-toolbar button.active{background:var(--accent-faint);color:var(--accent)}
+    .selection-toolbar .stb-sep{width:1px;height:18px;background:var(--border);margin:0 2px;align-self:center}
+    .selection-toolbar .stb-bold{font-weight:700}
+    .selection-toolbar .stb-italic{font-style:italic}
+    .selection-toolbar .stb-underline{text-decoration:underline}
+    .selection-toolbar .stb-strike{text-decoration:line-through}
+    .selection-toolbar .stb-code{
+      font-family:var(--font-mono,ui-monospace,SFMono-Regular,Consolas,monospace);
+      font-size:11px;
+    }
+
     /* TASKS */
     .tasks-view{padding:var(--tasks-pad-y) var(--tasks-pad-x) 32px;height:100%;display:flex;flex-direction:column;min-height:0;max-width:1600px;margin:0 auto;width:100%}
     .tasks-title-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-shrink:0}
@@ -1378,6 +1492,177 @@
   function escapeAttr(s){return escapeHtml(s)}
   function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
   function autoResize(ta){ta.style.height='auto';ta.style.height=ta.scrollHeight+'px'}
+
+  // ============================================================
+  // RICH-TEXT SANITIZATION (for contenteditable block content)
+  // ============================================================
+  // Allowed inline tags. Anything else is unwrapped (text preserved).
+  // Storage shape is HTML — but legacy plain-text content still works because
+  // setRichContent uses textContent when it sees no tags.
+  const RT_ALLOWED_TAGS=new Set(['B','STRONG','I','EM','U','S','STRIKE','CODE','BR','A']);
+  // Per-tag attribute allowlist. Everything else is stripped.
+  const RT_ALLOWED_ATTRS={A:new Set(['href'])};
+  function sanitizeRichHtml(html){
+    if(html==null||html==='')return '';
+    const tpl=document.createElement('template');
+    tpl.innerHTML=String(html);
+    const walk=node=>{
+      const kids=Array.from(node.childNodes);
+      for(const k of kids){
+        if(k.nodeType===8){k.remove();continue;} // comment
+        if(k.nodeType===3)continue; // text
+        if(k.nodeType!==1){k.remove();continue;}
+        const tag=k.tagName;
+        if(!RT_ALLOWED_TAGS.has(tag)){
+          // Disallowed tag — replace with its children (preserves text)
+          walk(k);
+          const parent=k.parentNode;
+          while(k.firstChild)parent.insertBefore(k.firstChild,k);
+          k.remove();
+          continue;
+        }
+        // Strip all but allowlisted attrs
+        const allowed=RT_ALLOWED_ATTRS[tag]||new Set();
+        for(const a of Array.from(k.attributes||[])){
+          if(!allowed.has(a.name.toLowerCase())){k.removeAttribute(a.name);}
+        }
+        // Sanitize <a href>: scrub javascript:/data: schemes, force noopener
+        if(tag==='A'){
+          const href=(k.getAttribute('href')||'').trim();
+          if(/^\s*(javascript|data|vbscript):/i.test(href)){k.removeAttribute('href');}
+          if(k.getAttribute('href')){
+            k.setAttribute('rel','noopener noreferrer');
+            k.setAttribute('target','_blank');
+          }else{
+            // No href left — unwrap
+            walk(k);
+            const parent=k.parentNode;
+            while(k.firstChild)parent.insertBefore(k.firstChild,k);
+            k.remove();
+            continue;
+          }
+        }
+        walk(k);
+      }
+    };
+    walk(tpl.content);
+    return tpl.innerHTML;
+  }
+  // Render block content into a contenteditable element. If content has no
+  // HTML-looking tags, set as text — preserves existing plain-text data.
+  function setRichContent(el,content){
+    const s=String(content==null?'':content);
+    if(!s){el.textContent='';return;}
+    if(/<\/?(?:b|strong|i|em|u|s|strike|code|br|a)\b/i.test(s)){
+      el.innerHTML=sanitizeRichHtml(s);
+    }else{
+      el.textContent=s;
+    }
+  }
+  // Stable signature for fast-path comparison: same content -> same string.
+  function normalizeHtmlForCompare(html){
+    if(html==null)return '';
+    let s=String(html);
+    // Some browsers append a trailing <br> in empty contenteditable — ignore it
+    s=s.replace(/<br\s*\/?>$/i,'');
+    s=s.replace(/&nbsp;/gi,' ');
+    return s.trim();
+  }
+  function ceIsEmpty(el){
+    if(!el)return true;
+    const txt=(el.textContent||'').replace(/\u200B/g,'').trim();
+    if(txt!=='')return false;
+    return el.children.length===0 || (el.children.length===1 && el.children[0].tagName==='BR');
+  }
+
+  // ============================================================
+  // CONTENTEDITABLE CARET HELPERS
+  // ============================================================
+  // Returns the caret position as a single text-offset within `root`'s textContent.
+  function getCaretCharOffset(root){
+    const sel=window.getSelection();
+    if(!sel||sel.rangeCount===0)return null;
+    const range=sel.getRangeAt(0);
+    if(!root.contains(range.endContainer)&&range.endContainer!==root)return null;
+    const r=range.cloneRange();
+    r.selectNodeContents(root);
+    try{r.setEnd(range.endContainer,range.endOffset);}catch{return null;}
+    return r.toString().length;
+  }
+  // Place caret at `offset` text-position inside `root`.
+  function setCaretCharOffset(root,offset){
+    if(offset==null)return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
+    let n,charsLeft=offset,lastNode=null;
+    while((n=walker.nextNode())){
+      const len=n.nodeValue.length;
+      if(charsLeft<=len){
+        try{
+          const sel=window.getSelection();const r=document.createRange();
+          r.setStart(n,Math.max(0,charsLeft));r.collapse(true);
+          sel.removeAllRanges();sel.addRange(r);
+        }catch{}
+        return;
+      }
+      charsLeft-=len;lastNode=n;
+    }
+    // Past end — caret at end
+    try{
+      const sel=window.getSelection();const r=document.createRange();
+      if(lastNode){r.setStart(lastNode,lastNode.nodeValue.length);r.collapse(true);}
+      else{r.selectNodeContents(root);r.collapse(false);}
+      sel.removeAllRanges();sel.addRange(r);
+    }catch{}
+  }
+  function getTextBeforeCaret(root){
+    const off=getCaretCharOffset(root);
+    if(off==null)return '';
+    return (root.textContent||'').slice(0,off);
+  }
+
+  // ============================================================
+  // TABLE BLOCK DATA HELPERS
+  // ============================================================
+  // Storage shape (Firestore-friendly — uses ONE map field, no top-level nested arrays):
+  //   block.tableData = { cols:[{width:160}, ...], rows:[[cell00,cell01,...],...] }
+  // Each cell is sanitized HTML (string).
+  function defaultTableData(rows=3,cols=3){
+    return {
+      cols:Array.from({length:cols},()=>({width:160})),
+      rows:Array.from({length:rows},()=>Array.from({length:cols},()=>'')),
+    };
+  }
+  function normalizeTableData(td){
+    if(!td||typeof td!=='object')return defaultTableData();
+    const colCount=Math.max(1,Math.min(20,(td.cols&&td.cols.length)||(td.rows&&td.rows[0]&&td.rows[0].length)||3));
+    const rowCount=Math.max(1,Math.min(200,(td.rows&&td.rows.length)||3));
+    const cols=Array.from({length:colCount},(_,i)=>{
+      const w=td.cols&&td.cols[i]&&typeof td.cols[i].width==='number'?td.cols[i].width:160;
+      return {width:Math.max(50,Math.min(800,w))};
+    });
+    const rows=Array.from({length:rowCount},(_,r)=>Array.from({length:colCount},(_,c)=>{
+      const v=td.rows&&td.rows[r]&&td.rows[r][c];return typeof v==='string'?v:'';
+    }));
+    return {cols,rows};
+  }
+  function tableDataEqual(a,b){
+    if(!a||!b)return false;
+    if(a.cols.length!==b.cols.length)return false;
+    if(a.rows.length!==b.rows.length)return false;
+    for(let i=0;i<a.cols.length;i++){
+      if(Math.round(a.cols[i].width)!==Math.round(b.cols[i].width))return false;
+    }
+    for(let r=0;r<a.rows.length;r++){
+      for(let c=0;c<a.cols.length;c++){
+        const av=normalizeHtmlForCompare(a.rows[r][c]||'');
+        const bv=normalizeHtmlForCompare(b.rows[r][c]||'');
+        if(av!==bv)return false;
+      }
+    }
+    return true;
+  }
+  function stripTags(s){return String(s||'').replace(/<[^>]+>/g,'');}
+
   function isTextInputFocused(){
     const a=document.activeElement;
     if(!a)return false;
@@ -2218,6 +2503,7 @@
               <button class="block-type" data-type="todo"><span class="block-type-icon">☐</span> To-do</button>
               <button class="block-type" data-type="toggle"><span class="block-type-icon">▶</span> Toggle</button>
               <button class="block-type" data-type="quote"><span class="block-type-icon">"</span> Quote</button>
+              <button class="block-type" data-type="table"><span class="block-type-icon">⊞</span> Table</button>
               <button class="block-type" data-type="divider"><span class="block-type-icon">—</span> Divider</button>
             </div>
           </div>
@@ -2236,7 +2522,16 @@
     const ab=$('addBlockBtn'),menu=$('blockTypes');
     ab.addEventListener('click',e=>{e.stopPropagation();menu.classList.toggle('open');});
     document.addEventListener('click',e=>{if(!menu.contains(e.target)&&e.target!==ab)menu.classList.remove('open');});
-    menu.querySelectorAll('.block-type').forEach(btn=>btn.addEventListener('click',()=>{addBlock(btn.dataset.type,'');menu.classList.remove('open');}));
+    menu.querySelectorAll('.block-type').forEach(btn=>btn.addEventListener('click',async()=>{
+      menu.classList.remove('open');
+      const t=btn.dataset.type;
+      if(t==='table'){
+        const ref=await addBlock('table','');
+        if(ref)await updateBlock(ref.id,{tableData:defaultTableData(3,3)});
+      }else{
+        addBlock(t,'');
+      }
+    }));
     $('addSubpageBtn').addEventListener('click',()=>createPage(state.currentPageId));
     $('pagePinBtn').addEventListener('click',()=>setPagePinned(state.currentPageId,!page.isPinned));
     $('pageIconBtn').addEventListener('click',e=>{
@@ -2403,6 +2698,7 @@
     {type:'todo',icon:'☐',name:'To-do',desc:'Trackable checklist'},
     {type:'toggle',icon:'▶',name:'Toggle',desc:'Collapsible block'},
     {type:'quote',icon:'"',name:'Quote',desc:'Highlighted quote'},
+    {type:'table',icon:'⊞',name:'Table',desc:'Resizable table with editable cells'},
     {type:'divider',icon:'—',name:'Divider',desc:'Horizontal separator'},
     {type:'page-link',icon:'🔗',name:'Link to page',desc:'Pick another page to link'},
   ];
@@ -2441,11 +2737,14 @@
   async function applySlashItem(type){
     if(!slashMenuState)return;
     const{textarea,slashPos,blockId,blockEl}=slashMenuState;
-    const newContent=textarea.value.slice(0,slashPos);
+    // textarea may be either a real <textarea> (legacy) or a contenteditable div.
+    // Read text content the right way for each.
+    const isCE=textarea.isContentEditable;
+    const fullText=isCE?(textarea.textContent||''):textarea.value;
+    const newContent=fullText.slice(0,slashPos);
     closeSlashMenu();
     if(type==='divider'){
       if(newContent.trim()){
-        // Keep typed content as a text block, insert divider after, then new text block to continue typing
         await updateBlock(blockId,{content:newContent});
         const dRef=await addBlock('divider','',blockId);
         if(dRef)await addBlock('text','',dRef.id);
@@ -2453,26 +2752,45 @@
         await updateBlock(blockId,{type,content:''});
         addBlock('text','',blockId);
       }
-    }else if(type==='page-link'){
-      // Preserve typed content as a text block first, then insert a page-link block
+    }else if(type==='table'){
+      // Tables get inserted as their own block (similar to divider). The new
+      // table seeds with a default 3x3 grid.
+      const td=defaultTableData(3,3);
       if(newContent.trim()){
         await updateBlock(blockId,{content:newContent});
+        const tRef=await addBlock('table','',blockId);
+        if(tRef)await updateBlock(tRef.id,{tableData:td});
+        if(tRef)await addBlock('text','',tRef.id);
       }else{
-        // Don't leave an empty text block above; we'll convert this one in place
+        await updateBlock(blockId,{type:'table',content:'',tableData:td});
+        await addBlock('text','',blockId);
+      }
+    }else if(type==='page-link'){
+      if(newContent.trim()){
+        await updateBlock(blockId,{content:newContent});
       }
       openPagePicker(blockEl,async targetPageId=>{
         if(newContent.trim()){
-          // Insert as a new block after current
           const ref=await addBlock('page-link','',blockId);
           if(ref)await updateBlock(ref.id,{targetPageId});
-          // Add a follow-up text block so cursor has somewhere to go
           if(ref)await addBlock('text','',ref.id);
         }else{
           await updateBlock(blockId,{type:'page-link',content:'',targetPageId});
           await addBlock('text','',blockId);
         }
       });
-    }else{await updateBlock(blockId,{type,content:newContent,checked:false});textarea.value=newContent;autoResize(textarea);textarea.focus();}
+    }else{
+      // Convert current block to chosen type, keeping the typed-pre-slash content.
+      await updateBlock(blockId,{type,content:newContent,checked:false});
+      if(isCE){
+        textarea.textContent=newContent;
+        textarea.focus();
+        try{const r=document.createRange();r.selectNodeContents(textarea);r.collapse(false);
+          const s=window.getSelection();s.removeAllRanges();s.addRange(r);}catch{}
+      }else{
+        textarea.value=newContent;autoResize(textarea);textarea.focus();
+      }
+    }
   }
   function closeSlashMenu(){if(slashMenuState){slashMenuState.el.remove();slashMenuState=null;}}
 
@@ -2576,31 +2894,50 @@
   function preserveFocus(rebuildFn){
     const a=document.activeElement;
     let snap=null;
-    if(a && a.id && (a.tagName==='INPUT' || a.tagName==='TEXTAREA')){
-      snap={
-        id:a.id,
-        value:a.value,
-        selectionStart:a.selectionStart||0,
-        selectionEnd:a.selectionEnd||0,
-        scrollTop:a.scrollTop||0,
-      };
+    if(a && a.id){
+      if(a.tagName==='INPUT' || a.tagName==='TEXTAREA'){
+        snap={
+          kind:'input',
+          id:a.id,
+          value:a.value,
+          selectionStart:a.selectionStart||0,
+          selectionEnd:a.selectionEnd||0,
+          scrollTop:a.scrollTop||0,
+        };
+      }else if(a.isContentEditable){
+        snap={
+          kind:'ce',
+          id:a.id,
+          html:a.innerHTML,
+          caret:getCaretCharOffset(a),
+        };
+      }
     }
     rebuildFn();
     if(!snap)return;
     const t=document.getElementById(snap.id);
-    if(!t || (t.tagName!=='INPUT' && t.tagName!=='TEXTAREA'))return;
-    // If user typed past what the rebuild produced, keep their local value —
-    // their keystrokes haven't reached Firestore yet but they're the source of truth.
-    if(snap.value !== t.value){
-      t.value=snap.value;
-      if(t.tagName==='TEXTAREA')autoResize(t);
+    if(!t)return;
+    if(snap.kind==='input'){
+      if(t.tagName!=='INPUT' && t.tagName!=='TEXTAREA')return;
+      if(snap.value !== t.value){
+        t.value=snap.value;
+        if(t.tagName==='TEXTAREA')autoResize(t);
+      }
+      t.focus();
+      try{
+        const len=t.value.length;
+        t.setSelectionRange(Math.min(snap.selectionStart,len),Math.min(snap.selectionEnd,len));
+      }catch{}
+      t.scrollTop=snap.scrollTop;
+    }else if(snap.kind==='ce'){
+      if(!t.isContentEditable)return;
+      // If user typed past what the rebuild produced, keep their local HTML
+      if(normalizeHtmlForCompare(snap.html)!==normalizeHtmlForCompare(t.innerHTML)){
+        t.innerHTML=sanitizeRichHtml(snap.html);
+      }
+      t.focus();
+      try{setCaretCharOffset(t,snap.caret);}catch{}
     }
-    t.focus();
-    try{
-      const len=t.value.length;
-      t.setSelectionRange(Math.min(snap.selectionStart,len),Math.min(snap.selectionEnd,len));
-    }catch{}
-    t.scrollTop=snap.scrollTop;
   }
 
   // Decide whether the rendered DOM already matches state.blocks so we can
@@ -2620,16 +2957,47 @@
       const sb=state.blocks[i],re=rendered[i];
       if(re.dataset.id!==sb.id)return false;
       if(re.dataset.type!==sb.type)return false;
+      // TABLE — compare structural data
+      if(sb.type==='table'){
+        const wrap=re.querySelector('.block-table-wrap');
+        if(!wrap)return false;
+        const td=normalizeTableData(sb.tableData);
+        // Read rendered structure
+        const cols=Array.from(wrap.querySelectorAll('.block-table > colgroup > col'));
+        if(cols.length!==td.cols.length)return false;
+        for(let c=0;c<td.cols.length;c++){
+          const w=parseFloat(cols[c].style.width)||0;
+          if(Math.abs(Math.round(w)-Math.round(td.cols[c].width))>1)return false;
+        }
+        const tbodyRows=Array.from(wrap.querySelectorAll('.block-table > tbody > tr'));
+        if(tbodyRows.length!==td.rows.length)return false;
+        for(let r=0;r<td.rows.length;r++){
+          const cells=tbodyRows[r].querySelectorAll('.table-cell');
+          if(cells.length!==td.cols.length)return false;
+          for(let c=0;c<td.cols.length;c++){
+            const cell=cells[c];
+            const expected=normalizeHtmlForCompare(td.rows[r][c]||'');
+            const actual=normalizeHtmlForCompare(cell.innerHTML);
+            // Allow focused cell to be ahead
+            if(document.activeElement===cell){
+              if(actual!==expected && !actual.startsWith(expected))return false;
+            }else{
+              if(actual!==expected)return false;
+            }
+          }
+        }
+        continue;
+      }
       const sbContent=sb.content||'';
-      const ta=re.querySelector('.block-content');
-      if(ta){
-        // If this textarea is focused, the user may have typed past what
-        // the snapshot has — that's fine, accept it. Only bail if state
-        // is genuinely AHEAD of the user's local value (e.g., a remote edit).
-        if(document.activeElement===ta){
-          if(ta.value!==sbContent && !ta.value.startsWith(sbContent))return false;
+      const ce=re.querySelector('.block-content');
+      if(ce){
+        // contenteditable: compare normalized HTML signatures
+        const expected=normalizeHtmlForCompare(sbContent);
+        const actual=normalizeHtmlForCompare(ce.innerHTML);
+        if(document.activeElement===ce){
+          if(actual!==expected && !actual.startsWith(expected))return false;
         }else{
-          if(ta.value!==sbContent)return false;
+          if(actual!==expected)return false;
         }
       }
       // Todo checkbox
@@ -2661,19 +3029,22 @@
     if(canSkipBlocksRender(container))return;
 
     // Capture focus state + IN-FLIGHT VALUE before wiping the DOM.
-    // Critical: the user's textarea may contain keystrokes typed after the last
-    // Firestore save but before this snapshot returned. Without preserving the
-    // local value, those keystrokes vanish on rebuild.
-    let focusedBlockId=null,cursorStart=0,cursorEnd=0,focusedValue=null;
+    // The focused element can be one of three kinds:
+    //   ce    — the .block-content contenteditable for a regular block
+    //   ta    — legacy <textarea> (defensive — there shouldn't be any anymore)
+    //   cell  — a .table-cell contenteditable inside a table block
+    let focusSnap=null;
     const scrollTop=container.scrollTop;
     const active=document.activeElement;
-    if(active&&active.classList.contains('block-content')){
-      const blockEl=active.closest('.block');
-      if(blockEl){
-        focusedBlockId=blockEl.dataset.id;
-        cursorStart=active.selectionStart||0;
-        cursorEnd=active.selectionEnd||0;
-        focusedValue=active.value; // preserve unsaved keystrokes
+    if(active&&container.contains(active)){
+      if(active.classList.contains('block-content')&&active.isContentEditable){
+        const blockEl=active.closest('.block');
+        if(blockEl)focusSnap={kind:'ce',blockId:blockEl.dataset.id,html:active.innerHTML,caret:getCaretCharOffset(active)};
+      }else if(active.tagName==='TEXTAREA'&&active.classList.contains('block-content')){
+        const blockEl=active.closest('.block');
+        if(blockEl)focusSnap={kind:'ta',blockId:blockEl.dataset.id,value:active.value,start:active.selectionStart||0,end:active.selectionEnd||0};
+      }else if(active.classList.contains('table-cell')&&active.isContentEditable&&active.id){
+        focusSnap={kind:'cell',cellId:active.id,html:active.innerHTML,caret:getCaretCharOffset(active)};
       }
     }
 
@@ -2685,118 +3056,207 @@
       container.appendChild(h);return;
     }
     state.blocks.forEach(block=>{
-      const el=document.createElement('div');
-      el.className='block'+(block.checked&&block.type==='toggle'?' collapsed':'')+(block.checked&&block.type==='todo'?' checked':'');
-      el.dataset.type=block.type;el.dataset.id=block.id;
-      const controls=`<div class="block-controls"><button class="block-drag-handle" title="Drag to reorder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></button><button class="block-delete-btn" title="Delete block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></button></div>`;
-      // Pagelink block: render as a clickable chip showing the linked page
-      if(block.type==='pagelink'){
-        const targetId=block.linkedPageId||block.content;
-        const targetPage=state.pages.find(p=>p.id===targetId);
-        const broken=!targetPage||targetPage.isArchived;
-        const icon=targetPage?.icon||'';
-        const titleText=broken?'(linked page not found)':(targetPage.title||'Untitled');
-        el.innerHTML=`${controls}<a class="pagelink-chip${broken?' broken':''}" data-target="${escapeAttr(targetId||'')}">
-          <span class="pagelink-chip-icon">${icon?escapeHtml(icon):'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>'}</span>
-          <span class="pagelink-chip-title">${escapeHtml(titleText)}</span>
-          <span class="pagelink-chip-arrow">→</span>
-        </a>`;
-        el.querySelector('.pagelink-chip').addEventListener('click',e=>{
-          e.preventDefault();
-          if(broken){toast('Linked page no longer exists');return;}
-          selectPage(targetId);
-        });
-        el.querySelector('.block-delete-btn').addEventListener('click',()=>deletePageLinkBlock(block));
-        setupBlockDrag(el,block);
-        container.appendChild(el);
-        return;
-      }
-      if(block.type==='divider'){el.innerHTML=controls+'<div class="block-divider"></div>';el.querySelector('.block-delete-btn').addEventListener('click',()=>deleteBlock(block.id));setupBlockDrag(el,block);container.appendChild(el);return;}
-      const placeholder={text:'Type something… or / for commands',h1:'Heading 1',h2:'Heading 2',h3:'Heading 3',bullet:'List item',todo:'To-do item',toggle:'Toggle heading…',quote:'Quote…'}[block.type]||'Type…';
-      let extra='';
-      if(block.type==='todo')extra=`<input type="checkbox" class="todo-checkbox" ${block.checked?'checked':''}/>`;
-      if(block.type==='toggle'){
-        extra=`<button class="toggle-btn">${block.checked?'▶':'▾'}</button>`;
-        if(block.checked){const pr=(block.content||'').split('\n')[0]||'Empty toggle';extra+=`<div class="toggle-preview">${escapeHtml(pr.slice(0,80))}${pr.length>80?'…':''}</div>`;}
-      }
-      el.innerHTML=`${controls}${extra}<textarea class="block-content" rows="1" placeholder="${placeholder}">${escapeHtml(block.content||'')}</textarea>`;
-      const ta=el.querySelector('.block-content');autoResize(ta);
-      let st;
-      ta.addEventListener('input',()=>{
-        autoResize(ta);clearTimeout(st);st=setTimeout(()=>updateBlock(block.id,{content:ta.value}),350);
-        const cursor=ta.selectionStart,val=ta.value.slice(0,cursor),ls=val.lastIndexOf('/');
-        if(ls!==-1&&(ls===0||/[\s\n]/.test(val[ls-1]))){
-          const q=val.slice(ls+1);
-          if(!q.includes(' ')&&!q.includes('\n')&&q.length<=20){
-            if(!slashMenuState||slashMenuState.textarea!==ta)openSlashMenu(ta,el,ls);
-            else updateSlashMenu(q);
-          }else closeSlashMenu();
-        }else closeSlashMenu();
-      });
-      ta.addEventListener('keydown',e=>{
-        if(slashMenuState&&slashMenuState.textarea===ta){
-          if(e.key==='ArrowDown'){e.preventDefault();setSlashFocus(1);return}
-          if(e.key==='ArrowUp'){e.preventDefault();setSlashFocus(-1);return}
-          if(e.key==='Enter'){e.preventDefault();applySlashItem(slashMenuState.items[slashMenuState.focusIdx]?.type);return}
-          if(e.key==='Escape'){closeSlashMenu();return}
-        }
-        // Cmd/Ctrl + Enter on todo: toggle done
-        if((e.metaKey||e.ctrlKey)&&e.key==='Enter'&&block.type==='todo'){
-          e.preventDefault();updateBlock(block.id,{checked:!block.checked});return;
-        }
-        // Cmd/Ctrl + Shift + Up/Down: move block
-        if((e.metaKey||e.ctrlKey)&&e.shiftKey&&(e.key==='ArrowUp'||e.key==='ArrowDown')){
-          e.preventDefault();moveBlockBy(block.id,e.key==='ArrowUp'?-1:1);return;
-        }
-        if(e.key==='Enter'&&!e.shiftKey){
-          e.preventDefault();
-          updateBlock(block.id,{content:ta.value}).then(()=>{
-            const nt=(block.type==='h1'||block.type==='h2'||block.type==='h3')?'text':block.type;
-            addBlock(nt,'',block.id);
-          });
-        }else if(e.key==='Backspace'&&ta.value===''&&state.blocks.length>1){
-          e.preventDefault();deleteBlock(block.id);
-        }else if(e.key==='Tab'){
-          e.preventDefault();const s=ta.selectionStart,en=ta.selectionEnd;
-          ta.value=ta.value.slice(0,s)+'  '+ta.value.slice(en);ta.selectionStart=ta.selectionEnd=s+2;autoResize(ta);
-        }
-      });
-      el.querySelector('.todo-checkbox')?.addEventListener('change',e=>updateBlock(block.id,{checked:e.target.checked}));
-      el.querySelector('.toggle-btn')?.addEventListener('click',e=>{e.stopPropagation();updateBlock(block.id,{checked:!block.checked});});
-      el.querySelector('.toggle-preview')?.addEventListener('click',()=>updateBlock(block.id,{checked:false}));
-      el.querySelector('.block-delete-btn').addEventListener('click',()=>deleteBlock(block.id));
-      setupBlockDrag(el,block);
-      container.appendChild(el);
+      const el=renderSingleBlock(block);
+      if(el)container.appendChild(el);
     });
 
-    // Restore focus + value + cursor position + scroll after rebuild.
-    // If the user typed faster than the Firestore round-trip, the snapshot's
-    // content is stale — we restore their local typed value instead.
-    if(focusedBlockId){
-      const newBlockEl=container.querySelector(`.block[data-id="${focusedBlockId}"]`);
-      const newTa=newBlockEl?.querySelector('.block-content');
-      if(newTa){
-        // If the user's local value is "ahead" of the snapshot, keep it.
-        // Heuristic: if focusedValue starts with the snapshot value (i.e., user
-        // appended characters), or differs, restore the local value.
-        if(focusedValue!==null && focusedValue!==newTa.value){
-          newTa.value=focusedValue;
-          // Re-trigger autoResize so the textarea height stays correct
-          newTa.style.height='auto';
-          newTa.style.height=newTa.scrollHeight+'px';
-          // IMPORTANT: also re-fire the debounced save with the latest value,
-          // otherwise the local value would only persist until the next render.
-          // We mark the block dirty so the next save catches it.
-          updateBlock(focusedBlockId,{content:focusedValue}).catch(()=>{});
+    // Restore focus + caret + scroll
+    if(focusSnap){
+      let target=null;
+      if(focusSnap.kind==='cell'){
+        target=document.getElementById(focusSnap.cellId);
+      }else if(focusSnap.blockId){
+        const newBlockEl=container.querySelector(`.block[data-id="${focusSnap.blockId}"]`);
+        target=newBlockEl?.querySelector('.block-content');
+      }
+      if(target){
+        if(focusSnap.kind==='ta'&&target.tagName==='TEXTAREA'){
+          if(focusSnap.value!==target.value){target.value=focusSnap.value;autoResize(target);
+            updateBlock(focusSnap.blockId,{content:focusSnap.value}).catch(()=>{});}
+          target.focus();
+          try{const len=target.value.length;target.setSelectionRange(Math.min(focusSnap.start,len),Math.min(focusSnap.end,len));}catch{}
+        }else if(target.isContentEditable){
+          // contenteditable target — restore HTML if it differs (user typed past
+          // the snapshot's content) and re-fire the debounced save.
+          if(normalizeHtmlForCompare(focusSnap.html)!==normalizeHtmlForCompare(target.innerHTML)){
+            target.innerHTML=sanitizeRichHtml(focusSnap.html);
+            // Re-fire save
+            if(focusSnap.kind==='ce'){
+              updateBlock(focusSnap.blockId,{content:sanitizeRichHtml(focusSnap.html)}).catch(()=>{});
+            }else if(focusSnap.kind==='cell'){
+              // Re-fire table cell save by reading r/c from the cell's dataset
+              const r=Number(target.dataset.r),c=Number(target.dataset.c);
+              const blockEl=target.closest('.block');
+              const blockId=blockEl?.dataset.id;
+              if(!isNaN(r)&&!isNaN(c)&&blockId){
+                const blk=state.blocks.find(b=>b.id===blockId);
+                if(blk){
+                  const td=normalizeTableData(blk.tableData);
+                  if(td.rows[r])td.rows[r][c]=sanitizeRichHtml(focusSnap.html);
+                  updateBlock(blockId,{tableData:td}).catch(()=>{});
+                }
+              }
+            }
+            // Make sure placeholder class reflects new state
+            if(target.classList.contains('block-content'))updateCEEmptyClass(target);
+          }
+          target.focus();
+          try{setCaretCharOffset(target,focusSnap.caret);}catch{}
         }
-        newTa.focus();
-        try{
-          const len=newTa.value.length;
-          newTa.setSelectionRange(Math.min(cursorStart,len),Math.min(cursorEnd,len));
-        }catch{}
       }
     }
     container.scrollTop=scrollTop;
+  }
+
+  // Renders a single block element. Returned element should be appended to the
+  // blocks container by the caller. Returns null only on hard internal error.
+  function renderSingleBlock(block){
+    const el=document.createElement('div');
+    el.className='block'+(block.checked&&block.type==='toggle'?' collapsed':'')+(block.checked&&block.type==='todo'?' checked':'');
+    el.dataset.type=block.type;el.dataset.id=block.id;
+    const controls=`<div class="block-controls"><button class="block-drag-handle" title="Drag to reorder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></button><button class="block-delete-btn" title="Delete block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></button></div>`;
+    // Pagelink chip
+    if(block.type==='pagelink'){
+      const targetId=block.linkedPageId||block.content;
+      const targetPage=state.pages.find(p=>p.id===targetId);
+      const broken=!targetPage||targetPage.isArchived;
+      const icon=targetPage?.icon||'';
+      const titleText=broken?'(linked page not found)':(targetPage.title||'Untitled');
+      el.innerHTML=`${controls}<a class="pagelink-chip${broken?' broken':''}" data-target="${escapeAttr(targetId||'')}">
+        <span class="pagelink-chip-icon">${icon?escapeHtml(icon):'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>'}</span>
+        <span class="pagelink-chip-title">${escapeHtml(titleText)}</span>
+        <span class="pagelink-chip-arrow">→</span>
+      </a>`;
+      el.querySelector('.pagelink-chip').addEventListener('click',e=>{
+        e.preventDefault();
+        if(broken){toast('Linked page no longer exists');return;}
+        selectPage(targetId);
+      });
+      el.querySelector('.block-delete-btn').addEventListener('click',()=>deletePageLinkBlock(block));
+      setupBlockDrag(el,block);
+      return el;
+    }
+    if(block.type==='divider'){
+      el.innerHTML=controls+'<div class="block-divider"></div>';
+      el.querySelector('.block-delete-btn').addEventListener('click',()=>deleteBlock(block.id));
+      setupBlockDrag(el,block);
+      return el;
+    }
+    // TABLE block — its own renderer (see renderTableEl below)
+    if(block.type==='table'){
+      el.innerHTML=controls;
+      el.appendChild(renderTableEl(block));
+      el.querySelector('.block-delete-btn').addEventListener('click',()=>deleteBlock(block.id));
+      setupBlockDrag(el,block);
+      return el;
+    }
+    // Text-style blocks: contenteditable div
+    const placeholder={text:'Type something… or / for commands',h1:'Heading 1',h2:'Heading 2',h3:'Heading 3',bullet:'List item',todo:'To-do item',toggle:'Toggle heading…',quote:'Quote…'}[block.type]||'Type…';
+    let extra='';
+    if(block.type==='todo')extra=`<input type="checkbox" class="todo-checkbox" ${block.checked?'checked':''}/>`;
+    if(block.type==='toggle'){
+      extra=`<button class="toggle-btn">${block.checked?'▶':'▾'}</button>`;
+      if(block.checked){
+        const pr=stripTags(block.content||'').split('\n')[0]||'Empty toggle';
+        extra+=`<div class="toggle-preview">${escapeHtml(pr.slice(0,80))}${pr.length>80?'…':''}</div>`;
+      }
+    }
+    el.innerHTML=`${controls}${extra}<div class="block-content" id="block-content-${block.id}" contenteditable="true" data-placeholder="${escapeAttr(placeholder)}" spellcheck="true"></div>`;
+    const ce=el.querySelector('.block-content');
+    setRichContent(ce,block.content||'');
+    updateCEEmptyClass(ce);
+    let st;
+    ce.addEventListener('input',()=>{
+      updateCEEmptyClass(ce);
+      clearTimeout(st);
+      st=setTimeout(()=>{
+        const html=sanitizeRichHtml(ce.innerHTML);
+        updateBlock(block.id,{content:html});
+      },350);
+      // Slash menu detection: read text-up-to-caret
+      const txt=getTextBeforeCaret(ce);
+      const ls=txt.lastIndexOf('/');
+      if(ls!==-1&&(ls===0||/[\s\n]/.test(txt[ls-1]))){
+        const q=txt.slice(ls+1);
+        if(!q.includes(' ')&&!q.includes('\n')&&q.length<=20){
+          if(!slashMenuState||slashMenuState.textarea!==ce)openSlashMenu(ce,el,ls);
+          else updateSlashMenu(q);
+        }else closeSlashMenu();
+      }else closeSlashMenu();
+    });
+    ce.addEventListener('paste',e=>{
+      // Sanitize pasted content. Plain-text pastes go through directly. HTML
+      // pastes (Word/Notion/Google Docs) get stripped to allowed inline tags.
+      e.preventDefault();
+      const cd=e.clipboardData||window.clipboardData;
+      if(!cd)return;
+      const html=cd.getData('text/html');
+      if(html){
+        const clean=sanitizeRichHtml(html);
+        try{document.execCommand('insertHTML',false,clean);}catch{
+          const sel=window.getSelection();if(!sel||!sel.rangeCount)return;
+          const r=sel.getRangeAt(0);r.deleteContents();
+          const tmp=document.createElement('div');tmp.innerHTML=clean;
+          while(tmp.firstChild)r.insertNode(tmp.firstChild);
+          r.collapse(false);
+        }
+      }else{
+        const text=cd.getData('text/plain')||'';
+        try{document.execCommand('insertText',false,text);}catch{
+          const sel=window.getSelection();if(!sel||!sel.rangeCount)return;
+          const r=sel.getRangeAt(0);r.deleteContents();
+          r.insertNode(document.createTextNode(text));r.collapse(false);
+        }
+      }
+      // Ensure save fires
+      ce.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+    ce.addEventListener('keydown',e=>{
+      if(slashMenuState&&slashMenuState.textarea===ce){
+        if(e.key==='ArrowDown'){e.preventDefault();setSlashFocus(1);return}
+        if(e.key==='ArrowUp'){e.preventDefault();setSlashFocus(-1);return}
+        if(e.key==='Enter'){e.preventDefault();applySlashItem(slashMenuState.items[slashMenuState.focusIdx]?.type);return}
+        if(e.key==='Escape'){closeSlashMenu();return}
+      }
+      // Cmd/Ctrl + Enter on todo: toggle done
+      if((e.metaKey||e.ctrlKey)&&e.key==='Enter'&&block.type==='todo'){
+        e.preventDefault();updateBlock(block.id,{checked:!block.checked});return;
+      }
+      // Cmd/Ctrl + Shift + Up/Down: move block
+      if((e.metaKey||e.ctrlKey)&&e.shiftKey&&(e.key==='ArrowUp'||e.key==='ArrowDown')){
+        e.preventDefault();moveBlockBy(block.id,e.key==='ArrowUp'?-1:1);return;
+      }
+      if(e.key==='Enter'&&!e.shiftKey){
+        e.preventDefault();
+        const html=sanitizeRichHtml(ce.innerHTML);
+        updateBlock(block.id,{content:html}).then(()=>{
+          const nt=(block.type==='h1'||block.type==='h2'||block.type==='h3')?'text':block.type;
+          addBlock(nt,'',block.id);
+        });
+      }else if(e.key==='Backspace'&&ceIsEmpty(ce)&&state.blocks.length>1){
+        e.preventDefault();deleteBlock(block.id);
+      }else if(e.key==='Tab'){
+        e.preventDefault();
+        try{document.execCommand('insertText',false,'  ');}
+        catch{
+          const sel=window.getSelection();if(!sel||!sel.rangeCount)return;
+          const r=sel.getRangeAt(0);r.deleteContents();
+          r.insertNode(document.createTextNode('  '));r.collapse(false);
+        }
+      }
+    });
+    el.querySelector('.todo-checkbox')?.addEventListener('change',e=>updateBlock(block.id,{checked:e.target.checked}));
+    el.querySelector('.toggle-btn')?.addEventListener('click',e=>{e.stopPropagation();updateBlock(block.id,{checked:!block.checked});});
+    el.querySelector('.toggle-preview')?.addEventListener('click',()=>updateBlock(block.id,{checked:false}));
+    el.querySelector('.block-delete-btn').addEventListener('click',()=>deleteBlock(block.id));
+    setupBlockDrag(el,block);
+    return el;
+  }
+
+  function updateCEEmptyClass(ce){
+    if(!ce)return;
+    if(ceIsEmpty(ce))ce.classList.add('is-empty');
+    else ce.classList.remove('is-empty');
   }
   function setupBlockDrag(el,block){
     const handle=el.querySelector('.block-drag-handle');
@@ -2835,6 +3295,339 @@
       await reorderBlock(draggedId,block.id,before?'before':'after');
     });
   }
+
+  // ============================================================
+  // TABLE BLOCK — rendering, cell editing, resize, structural ops
+  // ============================================================
+  // Renders the .block-table-wrap subtree inside a table block.
+  function renderTableEl(block){
+    const td=normalizeTableData(block.tableData);
+    const wrap=document.createElement('div');wrap.className='block-table-wrap';
+    const tbl=document.createElement('table');tbl.className='block-table';
+    tbl.dataset.blockId=block.id;
+    // <colgroup> drives column widths
+    const colgroup=document.createElement('colgroup');
+    td.cols.forEach(col=>{const c=document.createElement('col');c.style.width=Math.round(col.width)+'px';colgroup.appendChild(c);});
+    tbl.appendChild(colgroup);
+    const tbody=document.createElement('tbody');
+    for(let r=0;r<td.rows.length;r++){
+      const tr=document.createElement('tr');
+      for(let c=0;c<td.cols.length;c++){
+        const tdEl=document.createElement('td');
+        // Per-row delete (on first column only, when more than 1 row)
+        if(c===0 && td.rows.length>1){
+          const del=document.createElement('button');del.className='table-remove-row';del.title='Delete row';del.textContent='×';
+          del.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();removeTableRow(block,r);});
+          tdEl.appendChild(del);
+        }
+        const cell=document.createElement('div');
+        cell.className='table-cell';
+        cell.id=`tc-${block.id}-${r}-${c}`;
+        cell.contentEditable='true';
+        cell.dataset.r=String(r);cell.dataset.c=String(c);
+        cell.dataset.placeholder=r===0?`Col ${c+1}`:'';
+        cell.spellcheck=true;
+        setRichContent(cell,td.rows[r][c]||'');
+        if(ceIsEmpty(cell))cell.classList.add('is-empty');
+        attachTableCellEditing(cell,block,r,c);
+        tdEl.appendChild(cell);
+        // Per-col delete on first row (when more than 1 col)
+        if(r===0 && td.cols.length>1){
+          const del=document.createElement('button');del.className='table-remove-col';del.title='Delete column';del.textContent='×';
+          del.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();removeTableColumn(block,c);});
+          tdEl.appendChild(del);
+        }
+        // Column resize handle on right edge (skip last col)
+        if(c<td.cols.length-1){
+          const handle=document.createElement('div');handle.className='table-col-resizer';handle.dataset.col=String(c);
+          attachColResizer(handle,tbl,colgroup,block,c);
+          tdEl.appendChild(handle);
+        }
+        tr.appendChild(tdEl);
+      }
+      tbody.appendChild(tr);
+    }
+    tbl.appendChild(tbody);
+    wrap.appendChild(tbl);
+    // Add row / add column buttons
+    const addRow=document.createElement('button');addRow.className='table-add-row';
+    addRow.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><path d="M12 5v14M5 12h14"/></svg>Add row';
+    addRow.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();addTableRow(block);});
+    const addCol=document.createElement('button');addCol.className='table-add-col';
+    addCol.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><path d="M12 5v14M5 12h14"/></svg>';
+    addCol.title='Add column';
+    addCol.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();addTableColumn(block);});
+    wrap.appendChild(addRow);
+    wrap.appendChild(addCol);
+    return wrap;
+  }
+  // Wires input/keydown/paste handlers for one table cell.
+  function attachTableCellEditing(cell,block,r,c){
+    let st;
+    cell.addEventListener('input',()=>{
+      if(ceIsEmpty(cell))cell.classList.add('is-empty');else cell.classList.remove('is-empty');
+      clearTimeout(st);
+      // Why we read all cells from DOM rather than just persisting (r,c) here:
+      // tableData is a single map field. If two cells fired their per-cell
+      // saves close together, the second save would overwrite the first
+      // because each save sends the WHOLE tableData. Reading all cells from
+      // the DOM at save time guarantees we always commit the freshest values.
+      st=setTimeout(()=>persistTableFromDOM(block.id),350);
+    });
+    cell.addEventListener('paste',e=>{
+      e.preventDefault();
+      const cd=e.clipboardData||window.clipboardData;if(!cd)return;
+      const html=cd.getData('text/html');
+      if(html){
+        const clean=sanitizeRichHtml(html);
+        try{document.execCommand('insertHTML',false,clean);}catch{
+          const sel=window.getSelection();if(!sel||!sel.rangeCount)return;
+          const r2=sel.getRangeAt(0);r2.deleteContents();
+          const tmp=document.createElement('div');tmp.innerHTML=clean;
+          while(tmp.firstChild)r2.insertNode(tmp.firstChild);
+          r2.collapse(false);
+        }
+      }else{
+        const text=cd.getData('text/plain')||'';
+        try{document.execCommand('insertText',false,text);}catch{}
+      }
+      cell.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+    cell.addEventListener('keydown',e=>{
+      // Tab: move to next cell. Shift+Tab: previous.
+      if(e.key==='Tab'){
+        e.preventDefault();
+        const fresh=state.blocks.find(b=>b.id===block.id)||block;
+        const td=normalizeTableData(fresh.tableData);
+        const rows=td.rows.length,cols=td.cols.length;
+        let nr=r,nc=c+(e.shiftKey?-1:1);
+        if(nc>=cols){nc=0;nr=r+1;}
+        if(nc<0){nc=cols-1;nr=r-1;}
+        if(nr<0)return;
+        if(nr>=rows){
+          // Tabbing past last cell: add a new row
+          addTableRow(fresh).then(()=>{
+            setTimeout(()=>{
+              const next=document.getElementById(`tc-${block.id}-${nr}-${nc}`);
+              if(next){next.focus();const r2=document.createRange();r2.selectNodeContents(next);r2.collapse(false);
+                const s=window.getSelection();s.removeAllRanges();s.addRange(r2);}
+            },10);
+          });
+          return;
+        }
+        const next=document.getElementById(`tc-${block.id}-${nr}-${nc}`);
+        if(next){next.focus();const r2=document.createRange();r2.selectNodeContents(next);r2.collapse(false);
+          const s=window.getSelection();s.removeAllRanges();s.addRange(r2);}
+        return;
+      }
+      // Cmd/Ctrl + Enter — add row below current
+      if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){
+        e.preventDefault();
+        const fresh=state.blocks.find(b=>b.id===block.id)||block;
+        addTableRow(fresh,r+1);
+      }
+    });
+  }
+  // Read all .table-cell HTMLs from the DOM and persist as tableData. Resolves
+  // the race where two cells' debounced saves would otherwise overwrite each
+  // other (since tableData is one map field).
+  async function persistTableFromDOM(blockId){
+    const wrap=document.querySelector(`.block[data-id="${blockId}"] .block-table`);
+    if(!wrap)return;
+    const cols=Array.from(wrap.querySelectorAll(':scope > colgroup > col'))
+      .map(c=>({width:Math.max(50,Math.round(parseFloat(c.style.width)||160))}));
+    const rows=[];
+    const tbody=wrap.querySelector(':scope > tbody');
+    if(tbody){
+      for(const tr of tbody.children){
+        const row=[];
+        const cells=tr.querySelectorAll('.table-cell');
+        for(let c=0;c<cols.length;c++){
+          const cell=cells[c];
+          row.push(cell?sanitizeRichHtml(cell.innerHTML):'');
+        }
+        rows.push(row);
+      }
+    }
+    const td={cols,rows};
+    try{await updateBlock(blockId,{tableData:td});}catch(err){console.error('table save failed',err);}
+  }
+  // Drag-resize a column. While dragging we mutate <col style="width">
+  // directly so the user sees instant feedback without writing to Firestore.
+  // On mouseup we persist the new widths along with current cell content.
+  function attachColResizer(handle,tbl,colgroup,block,colIdx){
+    handle.addEventListener('mousedown',e=>{
+      e.preventDefault();e.stopPropagation();
+      handle.classList.add('active');
+      const col=colgroup.children[colIdx];if(!col)return;
+      const startX=e.clientX;
+      const startW=parseFloat(col.style.width)||col.getBoundingClientRect().width;
+      const onMove=ev=>{
+        const dx=ev.clientX-startX;
+        const w=Math.max(60,Math.round(startW+dx));
+        col.style.width=w+'px';
+      };
+      const onUp=()=>{
+        document.removeEventListener('mousemove',onMove);
+        document.removeEventListener('mouseup',onUp);
+        handle.classList.remove('active');
+        persistTableFromDOM(block.id).catch(()=>{});
+      };
+      document.addEventListener('mousemove',onMove);
+      document.addEventListener('mouseup',onUp);
+    });
+  }
+  async function addTableRow(block,insertAt=null){
+    const fresh=state.blocks.find(b=>b.id===block.id)||block;
+    const td=normalizeTableData(fresh.tableData);
+    const newRow=Array.from({length:td.cols.length},()=>'');
+    if(insertAt==null||insertAt>=td.rows.length)td.rows.push(newRow);
+    else td.rows.splice(insertAt,0,newRow);
+    await updateBlock(block.id,{tableData:td});
+  }
+  async function addTableColumn(block,insertAt=null){
+    const fresh=state.blocks.find(b=>b.id===block.id)||block;
+    const td=normalizeTableData(fresh.tableData);
+    if(insertAt==null||insertAt>=td.cols.length){
+      td.cols.push({width:160});
+      td.rows=td.rows.map(r=>{r.push('');return r;});
+    }else{
+      td.cols.splice(insertAt,0,{width:160});
+      td.rows=td.rows.map(r=>{r.splice(insertAt,0,'');return r;});
+    }
+    await updateBlock(block.id,{tableData:td});
+  }
+  async function removeTableRow(block,r){
+    const fresh=state.blocks.find(b=>b.id===block.id)||block;
+    const td=normalizeTableData(fresh.tableData);
+    if(td.rows.length<=1){toast("Can't remove the last row");return;}
+    td.rows.splice(r,1);
+    await updateBlock(block.id,{tableData:td});
+  }
+  async function removeTableColumn(block,c){
+    const fresh=state.blocks.find(b=>b.id===block.id)||block;
+    const td=normalizeTableData(fresh.tableData);
+    if(td.cols.length<=1){toast("Can't remove the last column");return;}
+    td.cols.splice(c,1);
+    td.rows=td.rows.map(row=>{row.splice(c,1);return row;});
+    await updateBlock(block.id,{tableData:td});
+  }
+
+  // ============================================================
+  // FLOATING SELECTION TOOLBAR — bold/italic/underline/strike/code/link/clear
+  // ============================================================
+  // Singleton element managed at the document level. Shows on text selection
+  // inside any .block-content[contenteditable] or .table-cell[contenteditable]
+  // and applies inline formatting via document.execCommand.
+  let _selToolbarEl=null;
+  function ensureSelectionToolbar(){
+    if(_selToolbarEl)return _selToolbarEl;
+    const tb=document.createElement('div');tb.className='selection-toolbar';
+    tb.innerHTML=`
+      <button type="button" data-cmd="bold" title="Bold (Ctrl/Cmd+B)" class="stb-bold">B</button>
+      <button type="button" data-cmd="italic" title="Italic (Ctrl/Cmd+I)" class="stb-italic">I</button>
+      <button type="button" data-cmd="underline" title="Underline (Ctrl/Cmd+U)" class="stb-underline">U</button>
+      <button type="button" data-cmd="strikeThrough" title="Strikethrough" class="stb-strike">S</button>
+      <button type="button" data-cmd="code" title="Inline code" class="stb-code">&lt;/&gt;</button>
+      <span class="stb-sep"></span>
+      <button type="button" data-cmd="link" title="Add / edit link">🔗</button>
+      <button type="button" data-cmd="clear" title="Clear formatting">⌫</button>
+    `;
+    // Mousedown.preventDefault on buttons keeps the active selection alive
+    tb.addEventListener('mousedown',e=>{
+      if(e.target.closest('button'))e.preventDefault();
+    });
+    tb.addEventListener('click',e=>{
+      const btn=e.target.closest('button');if(!btn)return;
+      runFormatCommand(btn.dataset.cmd);
+    });
+    document.body.appendChild(tb);
+    _selToolbarEl=tb;
+    return tb;
+  }
+  function isFormattableEditor(node){
+    if(!node)return null;
+    if(node.nodeType!==1)node=node.parentElement;
+    if(!node)return null;
+    return node.closest('.block-content[contenteditable="true"], .table-cell[contenteditable="true"]');
+  }
+  function updateSelectionToolbar(){
+    const tb=ensureSelectionToolbar();
+    const sel=window.getSelection();
+    if(!sel||sel.rangeCount===0||sel.isCollapsed){tb.classList.remove('open');return;}
+    const range=sel.getRangeAt(0);
+    if(!isFormattableEditor(range.startContainer)||!isFormattableEditor(range.endContainer)){tb.classList.remove('open');return;}
+    if(!sel.toString().trim()){tb.classList.remove('open');return;}
+    const rect=range.getBoundingClientRect();
+    if(!rect||(rect.width===0&&rect.height===0)){tb.classList.remove('open');return;}
+    tb.classList.add('open');
+    const tbRect=tb.getBoundingClientRect();
+    let top=rect.top-tbRect.height-6;
+    if(top<8)top=rect.bottom+6;
+    let left=rect.left+rect.width/2-tbRect.width/2;
+    left=Math.max(8,Math.min(left,window.innerWidth-tbRect.width-8));
+    tb.style.top=top+'px';tb.style.left=left+'px';
+    // Active-state markers
+    try{
+      tb.querySelector('[data-cmd="bold"]').classList.toggle('active',!!document.queryCommandState('bold'));
+      tb.querySelector('[data-cmd="italic"]').classList.toggle('active',!!document.queryCommandState('italic'));
+      tb.querySelector('[data-cmd="underline"]').classList.toggle('active',!!document.queryCommandState('underline'));
+      tb.querySelector('[data-cmd="strikeThrough"]').classList.toggle('active',!!document.queryCommandState('strikeThrough'));
+    }catch{}
+    // Code state — walk ancestors of common ancestor up to editor for <code>
+    let codeOn=false;
+    let n=range.commonAncestorContainer;if(n&&n.nodeType===3)n=n.parentElement;
+    if(n&&n.closest&&n.closest('code'))codeOn=true;
+    tb.querySelector('[data-cmd="code"]').classList.toggle('active',codeOn);
+  }
+  function runFormatCommand(cmd){
+    const sel=window.getSelection();if(!sel||sel.rangeCount===0)return;
+    let host=sel.getRangeAt(0).commonAncestorContainer;
+    if(host&&host.nodeType===3)host=host.parentElement;
+    host=host&&isFormattableEditor(host);
+    if(!host)return;
+    if(cmd==='code'){toggleInlineCode(host);}
+    else if(cmd==='link'){
+      const existing=(()=>{let n=sel.getRangeAt(0).commonAncestorContainer;if(n&&n.nodeType===3)n=n.parentElement;return n&&n.closest&&n.closest('a');})();
+      const initial=existing?existing.getAttribute('href')||'':'';
+      const url=prompt('Link URL (leave blank to remove):',initial);
+      if(url===null)return;
+      if(url.trim()===''){document.execCommand('unlink');}
+      else{document.execCommand('createLink',false,url.trim());}
+    }
+    else if(cmd==='clear'){
+      document.execCommand('removeFormat');
+      document.execCommand('unlink');
+    }
+    else{document.execCommand(cmd);}
+    // Trigger a save by dispatching input on the host
+    host.dispatchEvent(new Event('input',{bubbles:true}));
+    updateSelectionToolbar();
+  }
+  // execCommand has no built-in "code" — wrap or unwrap a <code> manually.
+  function toggleInlineCode(host){
+    const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+    const range=sel.getRangeAt(0);
+    let n=range.commonAncestorContainer;if(n&&n.nodeType===3)n=n.parentElement;
+    const existing=n&&n.closest&&n.closest('code');
+    if(existing&&host.contains(existing)){
+      // Unwrap
+      const parent=existing.parentNode;
+      while(existing.firstChild)parent.insertBefore(existing.firstChild,existing);
+      parent.removeChild(existing);
+      return;
+    }
+    try{
+      const codeEl=document.createElement('code');
+      codeEl.appendChild(range.extractContents());
+      range.insertNode(codeEl);
+      const r=document.createRange();r.setStartAfter(codeEl);r.collapse(true);
+      sel.removeAllRanges();sel.addRange(r);
+    }catch{}
+  }
+  document.addEventListener('selectionchange',()=>updateSelectionToolbar());
+  window.addEventListener('scroll',()=>updateSelectionToolbar(),true);
+  window.addEventListener('resize',()=>updateSelectionToolbar());
 
   // ============================================================
   // TASKS VIEW + FILTER BAR
