@@ -3980,11 +3980,23 @@
   // Call this AFTER setting activePopover and appending it to the DOM.
   // We register on the *next* event-loop tick so the click that opened the
   // popover doesn't immediately close it, and we use mousedown+capture so
-  // we run before any other handlers can interfere.
-  function registerPopoverCloser(popoverEl){
+  // we run before any other handlers can interfere. The optional triggerEl
+  // is the element that opened the popover (e.g. the 3-dots button) —
+  // mousedowns on it are ignored so the trigger can handle its own toggle.
+  // We also enforce a small "grace period" after open during which any
+  // mousedown is ignored — protects against synthesized mousedown events
+  // that some browsers fire after pointerdown on touch devices.
+  function registerPopoverCloser(popoverEl, triggerEl){
+    const openedAt=Date.now();
     setTimeout(()=>{
       _popoverDocCloser=ev=>{
-        if(!popoverEl.contains(ev.target))closePopover();
+        // Grace period — any mousedown within 350ms of open is ignored.
+        // This handles the synthesized pointerdown/mousedown pair on touch.
+        if(Date.now()-openedAt<350)return;
+        // Don't close if the mousedown is inside the popover OR on the trigger.
+        if(popoverEl.contains(ev.target))return;
+        if(triggerEl && triggerEl.contains(ev.target))return;
+        closePopover();
       };
       document.addEventListener('mousedown',_popoverDocCloser,true);
     },0);
@@ -5526,25 +5538,23 @@
     state.unsubBlocks?.();
     render();closeSidebarOnMobile();
   }));
-  // Open the user menu. Bound to BOTH click and pointerdown — pointerdown is
-  // a fallback for environments where click is suppressed (some extensions,
-  // touch devices with movement during tap, mobile click delays).
+  // Open the user menu. Bound to BOTH click and pointerdown — pointerdown
+  // is a fallback for environments where click is suppressed (some
+  // extensions, touch devices with movement during tap, mobile click delays).
+  // The 400ms dedupe prevents both events from triggering on the same tap.
   let _lastMenuTriggerAt=0;
   function _handleMenuTrigger(e){
-    // Dedupe: if pointerdown fires, click follows ~50–300ms later. Skip the second.
     const now=Date.now();
     if(now-_lastMenuTriggerAt<400)return;
     _lastMenuTriggerAt=now;
     try{
       e.stopPropagation();
       if(e.preventDefault)e.preventDefault();
-      console.log('[menuBtn] '+e.type+', activePopover?',!!activePopover);
       if(activePopover){closePopover();return;}
       openUserMenu($('menuBtn'));
-      console.log('[menuBtn] menu opened, popover present?',!!activePopover);
     }catch(err){
       console.error('[menuBtn] error:',err);
-      try{toast('Could not open menu — see console');}catch{}
+      try{toast('Could not open menu');}catch{}
     }
   }
   $('menuBtn').addEventListener('click',_handleMenuTrigger);
@@ -5587,7 +5597,7 @@
     p.style.left=Math.min(r.left,window.innerWidth-240)+'px';
     document.body.appendChild(p);
     activePopover=p;
-    registerPopoverCloser(p);
+    registerPopoverCloser(p, anchor);
   }
 
   // ============================================================
