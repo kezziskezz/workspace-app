@@ -190,6 +190,67 @@
     .btn-primary:disabled{opacity:.5;cursor:not-allowed}
     .auth-error{background:var(--danger-soft);color:var(--danger);padding:9px 12px;border-radius:var(--radius);font-size:13px;margin-bottom:14px}
 
+    /* Access-locked screen — shown when user is signed in but not on the allowlist */
+    .locked-screen{
+      position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;
+      padding:24px;background:var(--bg);
+    }
+    .locked-card{
+      max-width:440px;width:100%;background:var(--bg-elevated);border:1px solid var(--border);
+      border-radius:var(--radius-lg);padding:32px 28px;text-align:center;box-shadow:var(--shadow-lg);
+    }
+    .locked-icon{
+      width:56px;height:56px;border-radius:50%;background:var(--bg-subtle);
+      display:flex;align-items:center;justify-content:center;color:var(--text-muted);
+      margin:0 auto 16px;
+    }
+    .locked-icon svg{width:24px;height:24px}
+    .locked-title{font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-0.012em;color:var(--text)}
+    .locked-msg{color:var(--text-muted);font-size:13.5px;line-height:1.5;margin-bottom:20px}
+    .locked-email{color:var(--text);font-weight:500;font-size:13px;background:var(--bg-subtle);padding:9px 14px;border-radius:var(--radius);display:inline-block;margin-bottom:18px}
+    .locked-actions{display:flex;gap:8px;justify-content:center}
+    .locked-btn{padding:9px 18px;background:var(--bg-subtle);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text);transition:background .1s,border-color .1s}
+    .locked-btn:hover{background:var(--bg-hover);border-color:var(--border-strong)}
+    .locked-btn.primary{background:var(--accent);color:var(--accent-on-color);border-color:var(--accent)}
+    .locked-btn.primary:hover{filter:brightness(1.05)}
+
+    /* Members modal — owner-only allowlist editor */
+    .members-overlay{position:fixed;inset:0;background:rgba(15, 23, 42, 0.32);backdrop-filter:blur(2px);z-index:250;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .12s}
+    .members-modal{width:100%;max-width:520px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;animation:slideUp .18s ease-out;display:flex;flex-direction:column;max-height:80vh}
+    .members-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;border-bottom:1px solid var(--divider);flex-shrink:0}
+    .members-header h3{font-size:17px;font-weight:600;letter-spacing:-0.01em}
+    .members-sub{padding:14px 22px 0;color:var(--text-muted);font-size:12.5px;line-height:1.5}
+    .members-add{padding:14px 22px;display:flex;gap:8px}
+    .members-add input{
+      flex:1;padding:9px 12px;background:var(--bg-subtle);border:1px solid var(--border);
+      border-radius:var(--radius);color:var(--text);font-size:13.5px;
+    }
+    .members-add input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+    .members-add button{
+      padding:9px 16px;background:var(--accent);color:var(--accent-on-color);
+      border-radius:var(--radius);font-weight:500;font-size:13px;
+    }
+    .members-add button:hover{filter:brightness(1.05)}
+    .members-add button:disabled{opacity:.5;cursor:not-allowed}
+    .members-list{flex:1;overflow-y:auto;padding:0 22px 18px;min-height:0}
+    .member-row{
+      display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius);
+      background:var(--bg-subtle);margin-bottom:6px;
+    }
+    .member-row.is-owner{background:var(--accent-faint)}
+    .member-avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-on-color);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+    .member-row.is-owner .member-avatar{background:var(--accent)}
+    .member-email{flex:1;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .member-badge{font-size:10.5px;font-weight:600;color:var(--accent);background:var(--accent-faint);padding:2px 7px;border-radius:99px;letter-spacing:0.02em;text-transform:uppercase}
+    .member-remove{
+      width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+      border-radius:var(--radius-sm);color:var(--text-faint);transition:background .1s,color .1s;
+    }
+    .member-remove:hover{background:var(--danger-soft);color:var(--danger)}
+    .member-remove svg{width:13px;height:13px}
+    .members-error{padding:0 22px 12px;color:var(--danger);font-size:12.5px}
+    .members-empty{padding:18px 22px;color:var(--text-faint);font-size:13px;text-align:center}
+
     /* Backdrop — always hidden on desktop, only used on mobile when sidebar is opened.
        Critical: this MUST be display:none by default so it doesn't take a grid slot. */
     .sidebar-backdrop{display:none}
@@ -524,6 +585,18 @@
       font-family:var(--font-mono,ui-monospace,SFMono-Regular,Consolas,monospace);
       font-size:11px;
     }
+    .selection-toolbar .stb-font{font-size:12px;line-height:1;display:inline-flex;align-items:center}
+    .font-menu{
+      background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);
+      box-shadow:0 6px 20px rgba(0,0,0,.12);padding:4px;display:flex;flex-direction:column;
+      min-width:160px;
+    }
+    .font-menu-item{
+      text-align:left;padding:7px 10px;border-radius:var(--radius-sm);font-size:13px;
+      color:var(--text);background:transparent;border:none;cursor:pointer;
+      transition:background .08s;
+    }
+    .font-menu-item:hover{background:var(--bg-hover)}
 
     /* TASKS */
     .tasks-view{padding:var(--tasks-pad-y) var(--tasks-pad-x) 32px;height:100%;display:flex;flex-direction:column;min-height:0;max-width:1600px;margin:0 auto;width:100%}
@@ -1307,6 +1380,41 @@
   </div>
 </div>
 
+<!-- ACCESS LOCKED — shown when user is signed in but not on the allowlist -->
+<div class="locked-screen" id="lockedScreen" hidden>
+  <div class="locked-card">
+    <div class="locked-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <div class="locked-title">This workspace is private</div>
+    <div class="locked-msg">Your account isn't on the allowlist for this workspace. Contact the owner to request access.</div>
+    <div class="locked-email" id="lockedOwnerEmail">kohjeanwei@gmail.com</div>
+    <div style="font-size:12px;color:var(--text-faint);margin-bottom:18px">
+      Signed in as <span id="lockedUserEmail" style="color:var(--text-muted)">—</span>
+    </div>
+    <div class="locked-actions">
+      <button class="locked-btn" id="lockedSignOutBtn">Sign out</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBERS MODAL — owner only -->
+<div class="members-overlay" id="membersOverlay" hidden>
+  <div class="members-modal">
+    <div class="members-header">
+      <h3>Workspace members</h3>
+      <button class="icon-btn" id="closeMembersBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="members-sub">Only people listed here can sign in to this workspace. The owner is always allowed.</div>
+    <div class="members-add">
+      <input type="email" id="memberEmailInput" placeholder="add@example.com" autocomplete="off" spellcheck="false" />
+      <button id="addMemberBtn">Add</button>
+    </div>
+    <div class="members-error" id="membersError" hidden></div>
+    <div class="members-list" id="membersList"></div>
+  </div>
+</div>
+
 <!-- APP -->
 <div class="app" id="app" hidden>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -1475,7 +1583,20 @@
     activeViewId: null,    // null = "All" default; otherwise a saved view id
     calendarMonth: null,   // {year, month} — null means current month
     unsubPages:null, unsubBlocks:null, unsubTasks:null, unsubConfig:null, unsubActivities:null, unsubSavedViews:null,
+    // Access control (Batch 1)
+    allowedEmails: [],          // emails on the workspace allowlist (excludes owner)
+    accessDocLoaded: false,     // true once we've received the first snapshot of config/access
+    unsubAccess: null,          // unsubscribe handle for the access doc listener
   };
+  // The owner is hardcoded — full control over the workspace, never blocked.
+  const OWNER_EMAIL = 'kohjeanwei@gmail.com';
+  function isOwnerUser(user){ return !!(user&&user.email&&user.email.toLowerCase()===OWNER_EMAIL.toLowerCase()); }
+  function isAllowedUser(user){
+    if(!user||!user.email)return false;
+    if(isOwnerUser(user))return true;
+    const e=user.email.toLowerCase();
+    return state.allowedEmails.some(x=>String(x||'').toLowerCase()===e);
+  }
   const expandedPages = new Set();
 
   // ============================================================
@@ -1499,9 +1620,11 @@
   // Allowed inline tags. Anything else is unwrapped (text preserved).
   // Storage shape is HTML — but legacy plain-text content still works because
   // setRichContent uses textContent when it sees no tags.
-  const RT_ALLOWED_TAGS=new Set(['B','STRONG','I','EM','U','S','STRIKE','CODE','BR','A']);
+  const RT_ALLOWED_TAGS=new Set(['B','STRONG','I','EM','U','S','STRIKE','CODE','BR','A','SPAN','FONT']);
   // Per-tag attribute allowlist. Everything else is stripped.
-  const RT_ALLOWED_ATTRS={A:new Set(['href'])};
+  const RT_ALLOWED_ATTRS={A:new Set(['href']),SPAN:new Set(['style']),FONT:new Set(['face'])};
+  // Style properties allowed on SPAN. Anything else gets dropped.
+  const RT_ALLOWED_STYLES=new Set(['font-family']);
   function sanitizeRichHtml(html){
     if(html==null||html==='')return '';
     const tpl=document.createElement('template');
@@ -1525,6 +1648,34 @@
         const allowed=RT_ALLOWED_ATTRS[tag]||new Set();
         for(const a of Array.from(k.attributes||[])){
           if(!allowed.has(a.name.toLowerCase())){k.removeAttribute(a.name);}
+        }
+        // SPAN: keep only font-family in style. Strip if empty.
+        if(tag==='SPAN'){
+          const style=k.getAttribute('style')||'';
+          const cleaned=style.split(';').map(s=>s.trim()).filter(Boolean).filter(decl=>{
+            const prop=decl.split(':')[0]?.trim().toLowerCase();
+            return RT_ALLOWED_STYLES.has(prop);
+          }).join('; ');
+          if(cleaned)k.setAttribute('style',cleaned);
+          else k.removeAttribute('style');
+          // Empty span (no useful style, no class) — unwrap
+          if(!k.getAttribute('style')){
+            walk(k);
+            const parent=k.parentNode;
+            while(k.firstChild)parent.insertBefore(k.firstChild,k);
+            k.remove();
+            continue;
+          }
+        }
+        // FONT: legacy tag from execCommand('fontName') in some browsers — keep face only
+        if(tag==='FONT'){
+          if(!k.getAttribute('face')){
+            walk(k);
+            const parent=k.parentNode;
+            while(k.firstChild)parent.insertBefore(k.firstChild,k);
+            k.remove();
+            continue;
+          }
         }
         // Sanitize <a href>: scrub javascript:/data: schemes, force noopener
         if(tag==='A'){
@@ -1553,7 +1704,7 @@
   function setRichContent(el,content){
     const s=String(content==null?'':content);
     if(!s){el.textContent='';return;}
-    if(/<\/?(?:b|strong|i|em|u|s|strike|code|br|a)\b/i.test(s)){
+    if(/<\/?(?:b|strong|i|em|u|s|strike|code|br|a|span|font)\b/i.test(s)){
       el.innerHTML=sanitizeRichHtml(s);
     }else{
       el.textContent=s;
@@ -1830,18 +1981,93 @@
       const e=$('authError'); e.textContent=map[err.code]||`${err.code||'Unknown error'}: ${err.message||'Please try again.'}`; e.hidden=false;
     }finally{btn.disabled=false}
   });
-  onAuthStateChanged(auth,user=>{
-    if(user){
-      state.user=user; authScreen.hidden=true; appEl.hidden=false;
-      userEmail.textContent=user.email;
-      userAvatar.textContent=(user.email[0]||'U').toUpperCase();
-      applyDensity();
-      applySidebarCollapsed();
-      attachListeners(); render();
-    }else{
-      state.user=null; detachListeners();
-      authScreen.hidden=false; appEl.hidden=true;
+  // Subscribes to the workspace's access-control doc. Resolves once the first
+  // snapshot has been received. The listener is left active so that if the
+  // owner removes a user while they're signed in, the next snapshot will
+  // re-evaluate access and lock them out.
+  function listenToAccessDoc(user){
+    return new Promise(resolve=>{
+      let resolved=false;
+      const ref=doc(db,'workspace','main','config','access');
+      state.unsubAccess?.();
+      state.unsubAccess=onSnapshot(ref,async snap=>{
+        if(snap.exists()){
+          const d=snap.data()||{};
+          state.allowedEmails=Array.isArray(d.allowedEmails)?d.allowedEmails.filter(x=>typeof x==='string'):[];
+        }else{
+          state.allowedEmails=[];
+          // Owner signs in for the first time and the access doc doesn't exist yet — bootstrap it.
+          if(isOwnerUser(user)){
+            try{await setDoc(ref,{allowedEmails:[],ownerEmail:OWNER_EMAIL,createdAt:serverTimestamp()},{merge:true});}
+            catch(err){console.warn('Could not bootstrap access doc:',err);}
+          }
+        }
+        state.accessDocLoaded=true;
+        if(!resolved){resolved=true;resolve();}
+        // Re-evaluate access on every change (owner removed someone live)
+        evaluateAccessGate();
+        // Refresh the user menu state (members button visibility might have changed) by re-rendering members modal if open
+        if(!$('membersOverlay').hidden) renderMembersList();
+      },err=>{
+        // If we can't even read the access doc (e.g. security rules), treat as denied for non-owner.
+        console.warn('Access doc listener error:',err);
+        state.allowedEmails=[];
+        state.accessDocLoaded=true;
+        if(!resolved){resolved=true;resolve();}
+        evaluateAccessGate();
+      });
+    });
+  }
+  // Decides what UI to show based on auth + allowlist state.
+  function evaluateAccessGate(){
+    const user=state.user;
+    const lockedScreen=$('lockedScreen');
+    if(!user){
+      // Signed out
+      authScreen.hidden=false; appEl.hidden=true; lockedScreen.hidden=true;
+      return;
     }
+    if(!state.accessDocLoaded){
+      // Auth fired but allowlist hasn't loaded yet — keep both screens hidden briefly.
+      authScreen.hidden=true; appEl.hidden=true; lockedScreen.hidden=true;
+      return;
+    }
+    if(!isAllowedUser(user)){
+      // Signed in but not allowed — show locked screen, don't attach data listeners.
+      authScreen.hidden=true; appEl.hidden=true;
+      $('lockedUserEmail').textContent=user.email||'';
+      $('lockedOwnerEmail').textContent=OWNER_EMAIL;
+      lockedScreen.hidden=false;
+      detachListeners();
+      return;
+    }
+    // Allowed — show the app
+    authScreen.hidden=true; lockedScreen.hidden=true; appEl.hidden=false;
+    userEmail.textContent=user.email;
+    userAvatar.textContent=(user.email[0]||'U').toUpperCase();
+    applyDensity();
+    applySidebarCollapsed();
+    if(!state.unsubPages){ attachListeners(); render(); }
+  }
+  onAuthStateChanged(auth,async user=>{
+    if(user){
+      state.user=user;
+      // Don't show app yet — wait for access doc to confirm allowlist status.
+      state.accessDocLoaded=false;
+      authScreen.hidden=true; appEl.hidden=true; $('lockedScreen').hidden=true;
+      await listenToAccessDoc(user);
+      // evaluateAccessGate is called from inside the snapshot handler.
+    }else{
+      state.user=null;
+      state.unsubAccess?.(); state.unsubAccess=null;
+      state.allowedEmails=[]; state.accessDocLoaded=false;
+      detachListeners();
+      evaluateAccessGate();
+    }
+  });
+  // Locked-screen sign-out button
+  $('lockedSignOutBtn').addEventListener('click',async()=>{
+    try{await signOut(auth);}catch{}
   });
   window.addEventListener('online',()=>{statusText.textContent='Synced';statusDot.classList.remove('offline')});
   window.addEventListener('offline',()=>{statusText.textContent='Offline';statusDot.classList.add('offline')});
@@ -1906,7 +2132,16 @@
     state.unsubBlocks?.();
     state.unsubBlocks=onSnapshot(query(collection(db,'workspace','main','pages',pageId,'blocks'),orderBy('order')),snap=>{
       const wasEmpty = state.blocks.length === 0;
-      state.blocks=snap.docs.map(d=>({id:d.id,...d.data()}));
+      state.blocks=snap.docs.map(d=>{
+        const raw={id:d.id,...d.data()};
+        // tableData is stored as a JSON string (Firestore disallows nested arrays).
+        // Decode here so the rest of the app sees the in-memory object shape.
+        if(typeof raw.tableData==='string'){
+          try{raw.tableData=JSON.parse(raw.tableData);}
+          catch{raw.tableData=null;}
+        }
+        return raw;
+      });
       if(state.currentView==='page'&&state.currentPageId===pageId){
         renderBlocks();
         // After auto-create lands, focus the new block so the user can start typing immediately
@@ -2087,8 +2322,25 @@
     return await addDoc(collection(db,'workspace','main','pages',state.currentPageId,'blocks'),
       {type,content,checked:false,order,createdAt:serverTimestamp()});
   }
+  // Firestore disallows nested arrays in any field (rows:[[],[]] is rejected
+  // synchronously). We serialize tableData to a JSON string at the storage
+  // boundary. encodeBlockDataForStore mutates a shallow copy so callers don't
+  // accidentally see the encoded shape.
+  function encodeBlockDataForStore(data){
+    if(!data||typeof data!=='object')return data;
+    if(!('tableData' in data))return data;
+    const out={...data};
+    const td=out.tableData;
+    if(td==null){out.tableData=null;}
+    else if(typeof td==='string'){/* already encoded */}
+    else{
+      try{out.tableData=JSON.stringify(td);}
+      catch{out.tableData=JSON.stringify(defaultTableData(3,3));}
+    }
+    return out;
+  }
   async function updateBlock(blockId,data){
-    await updateDoc(doc(db,'workspace','main','pages',state.currentPageId,'blocks',blockId),data);
+    await updateDoc(doc(db,'workspace','main','pages',state.currentPageId,'blocks',blockId),encodeBlockDataForStore(data));
   }
   async function deleteBlock(blockId){
     await deleteDoc(doc(db,'workspace','main','pages',state.currentPageId,'blocks',blockId));
@@ -3530,6 +3782,8 @@
       <button type="button" data-cmd="strikeThrough" title="Strikethrough" class="stb-strike">S</button>
       <button type="button" data-cmd="code" title="Inline code" class="stb-code">&lt;/&gt;</button>
       <span class="stb-sep"></span>
+      <button type="button" data-cmd="font" title="Change font" class="stb-font">Aa<span style="font-size:8px;margin-left:3px">▾</span></button>
+      <span class="stb-sep"></span>
       <button type="button" data-cmd="link" title="Add / edit link">🔗</button>
       <button type="button" data-cmd="clear" title="Clear formatting">⌫</button>
     `;
@@ -3587,6 +3841,7 @@
     host=host&&isFormattableEditor(host);
     if(!host)return;
     if(cmd==='code'){toggleInlineCode(host);}
+    else if(cmd==='font'){openFontMenu(host);return;}
     else if(cmd==='link'){
       const existing=(()=>{let n=sel.getRangeAt(0).commonAncestorContainer;if(n&&n.nodeType===3)n=n.parentElement;return n&&n.closest&&n.closest('a');})();
       const initial=existing?existing.getAttribute('href')||'':'';
@@ -3624,6 +3879,84 @@
       const r=document.createRange();r.setStartAfter(codeEl);r.collapse(true);
       sel.removeAllRanges();sel.addRange(r);
     }catch{}
+  }
+  // Font picker — applies font-family to the current selection via the
+  // selection toolbar. Works in any contenteditable (block content + table
+  // cells) since execCommand('fontName') operates on the active selection.
+  const FONT_OPTIONS=[
+    {label:'Default',     value:''},
+    {label:'Sans (Inter)',value:'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif'},
+    {label:'Serif',       value:'Georgia, "Times New Roman", Times, serif'},
+    {label:'Mono',        value:'"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'},
+    {label:'Rounded',     value:'"SF Pro Rounded", "Nunito", system-ui, sans-serif'},
+    {label:'Handwritten', value:'"Comic Sans MS", "Bradley Hand", cursive'},
+  ];
+  let _fontMenuEl=null;
+  function closeFontMenu(){if(_fontMenuEl){_fontMenuEl.remove();_fontMenuEl=null;}}
+  function openFontMenu(host){
+    closeFontMenu();
+    const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+    // Snapshot the selection so we can restore it after a click on the menu
+    const savedRange=sel.getRangeAt(0).cloneRange();
+    const tb=ensureSelectionToolbar();
+    const fontBtn=tb.querySelector('[data-cmd="font"]');
+    const rect=fontBtn.getBoundingClientRect();
+    const menu=document.createElement('div');
+    menu.className='font-menu';
+    menu.style.position='fixed';
+    menu.style.top=(rect.bottom+4)+'px';
+    menu.style.left=rect.left+'px';
+    menu.style.zIndex='60';
+    FONT_OPTIONS.forEach(opt=>{
+      const item=document.createElement('button');
+      item.type='button';
+      item.className='font-menu-item';
+      item.textContent=opt.label;
+      if(opt.value)item.style.fontFamily=opt.value;
+      // mousedown.preventDefault keeps the saved selection alive
+      item.addEventListener('mousedown',e=>{e.preventDefault();});
+      item.addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();
+        // Restore saved selection
+        const s=window.getSelection();s.removeAllRanges();s.addRange(savedRange);
+        applyFontToSelection(host,opt.value);
+        closeFontMenu();
+      });
+      menu.appendChild(item);
+    });
+    // Click outside closes
+    setTimeout(()=>{
+      const onDoc=ev=>{
+        if(!menu.contains(ev.target)){closeFontMenu();document.removeEventListener('mousedown',onDoc,true);}
+      };
+      document.addEventListener('mousedown',onDoc,true);
+    },0);
+    document.body.appendChild(menu);
+    _fontMenuEl=menu;
+  }
+  function applyFontToSelection(host,fontFamily){
+    const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+    if(!fontFamily){
+      // Default — strip any existing inline font-family on wrapper spans
+      // overlapping the selection. We use execCommand to first wrap in a
+      // span we can then unwrap by clearing its style.
+      try{document.execCommand('styleWithCSS',false,true);}catch{}
+      try{document.execCommand('fontName',false,'__default__');}catch{}
+      // Walk and clean
+      host.querySelectorAll('font, span').forEach(el=>{
+        if(el.style&&el.style.fontFamily)el.style.fontFamily='';
+        if(el.tagName==='FONT'&&el.getAttribute('face')){
+          // unwrap the <font> element
+          const parent=el.parentNode;
+          while(el.firstChild)parent.insertBefore(el.firstChild,el);
+          parent.removeChild(el);
+        }
+      });
+    }else{
+      try{document.execCommand('styleWithCSS',false,true);}catch{}
+      try{document.execCommand('fontName',false,fontFamily);}catch{}
+    }
+    host.dispatchEvent(new Event('input',{bubbles:true}));
   }
   document.addEventListener('selectionchange',()=>updateSelectionToolbar());
   window.addEventListener('scroll',()=>updateSelectionToolbar(),true);
@@ -5136,6 +5469,7 @@
     if((e.metaKey||e.ctrlKey)&&e.shiftKey&&e.key.toLowerCase()==='p'){e.preventDefault();openTemplateModal();return;}
     // Esc — close modals
     if(e.key==='Escape'){
+      if(!$('membersOverlay').hidden){closeMembersModal();return;}
       if(!$('shortcutsOverlay').hidden){closeShortcutsModal();return;}
       if(!$('templateOverlay').hidden){closeTemplateModal();return;}
       if(!searchOverlay.hidden){closeSearch();return;}
@@ -5191,6 +5525,10 @@
     sec1.appendChild(makeItem('⬇','Export all data',exportAllData));
     sec1.appendChild(makeItem(localStorage.getItem('ws_theme')==='dark'?'☀':'🌙',
       localStorage.getItem('ws_theme')==='dark'?'Switch to light':'Switch to dark',toggleTheme));
+    // Owner-only: Members management
+    if(isOwnerUser(state.user)){
+      sec1.appendChild(makeItem('👥','Members',openMembersModal));
+    }
     p.appendChild(sec1);
     const sec2=document.createElement('div');sec2.className='nv-section';
     sec2.appendChild(makeItem('⏻','Sign out',()=>{
@@ -5207,6 +5545,97 @@
     document.body.appendChild(p);
     activePopover=p;
   }
+
+  // ============================================================
+  // MEMBERS MODAL — owner-only access control
+  // ============================================================
+  // Reads the current allowlist from state.allowedEmails (kept fresh by the
+  // listener attached in listenToAccessDoc) and renders one row per email
+  // plus an "Owner" row at the top. Owner can remove any non-owner email.
+  function openMembersModal(){
+    if(!isOwnerUser(state.user)){toast('Only the owner can manage members');return;}
+    $('membersError').hidden=true; $('membersError').textContent='';
+    $('memberEmailInput').value='';
+    $('membersOverlay').hidden=false;
+    renderMembersList();
+    setTimeout(()=>$('memberEmailInput').focus(),30);
+  }
+  function closeMembersModal(){$('membersOverlay').hidden=true;}
+  function renderMembersList(){
+    const list=$('membersList'); if(!list)return;
+    list.innerHTML='';
+    // Owner row (always first, can't be removed)
+    const ownerRow=document.createElement('div');
+    ownerRow.className='member-row is-owner';
+    ownerRow.innerHTML=`
+      <div class="member-avatar">${escapeHtml((OWNER_EMAIL[0]||'U').toUpperCase())}</div>
+      <div class="member-email">${escapeHtml(OWNER_EMAIL)}</div>
+      <span class="member-badge">Owner</span>`;
+    list.appendChild(ownerRow);
+    // Allowed emails
+    if(!state.allowedEmails.length){
+      const e=document.createElement('div');e.className='members-empty';
+      e.textContent='No additional members yet. Add an email above to invite someone.';
+      list.appendChild(e);
+      return;
+    }
+    state.allowedEmails.forEach(email=>{
+      const row=document.createElement('div');row.className='member-row';
+      row.innerHTML=`
+        <div class="member-avatar" style="background:var(--bg-subtle);color:var(--text-muted)">${escapeHtml((email[0]||'?').toUpperCase())}</div>
+        <div class="member-email">${escapeHtml(email)}</div>
+        <button class="member-remove" title="Remove member"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>`;
+      row.querySelector('.member-remove').addEventListener('click',async()=>{
+        confirmModal('Remove member?',`${email} will lose access to this workspace immediately.`,async()=>{
+          await removeMemberEmail(email);
+          toast('Member removed');
+        },{confirmText:'Remove',variant:'danger'});
+      });
+      list.appendChild(row);
+    });
+  }
+  function showMembersError(msg){
+    const e=$('membersError'); e.textContent=msg; e.hidden=false;
+    setTimeout(()=>{e.hidden=true;},4000);
+  }
+  function isValidEmail(s){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s||'').trim());
+  }
+  async function addMemberEmail(rawEmail){
+    const email=String(rawEmail||'').trim().toLowerCase();
+    if(!email){showMembersError('Enter an email');return;}
+    if(!isValidEmail(email)){showMembersError('That doesn\'t look like a valid email');return;}
+    if(email===OWNER_EMAIL.toLowerCase()){showMembersError('The owner is always allowed');return;}
+    if(state.allowedEmails.some(x=>String(x||'').toLowerCase()===email)){showMembersError('Already on the list');return;}
+    const next=[...state.allowedEmails, email];
+    try{
+      await setDoc(doc(db,'workspace','main','config','access'),
+        {allowedEmails:next,ownerEmail:OWNER_EMAIL,updatedAt:serverTimestamp()},{merge:true});
+      toast('Member added');
+      $('memberEmailInput').value='';
+    }catch(err){
+      console.error('Add member failed:',err);
+      showMembersError('Could not save — check your connection');
+    }
+  }
+  async function removeMemberEmail(email){
+    const target=String(email||'').toLowerCase();
+    const next=state.allowedEmails.filter(x=>String(x||'').toLowerCase()!==target);
+    try{
+      await setDoc(doc(db,'workspace','main','config','access'),
+        {allowedEmails:next,ownerEmail:OWNER_EMAIL,updatedAt:serverTimestamp()},{merge:true});
+    }catch(err){
+      console.error('Remove member failed:',err);
+      toast('Could not remove — try again');
+    }
+  }
+  // Wire up modal controls
+  $('closeMembersBtn').addEventListener('click',closeMembersModal);
+  $('membersOverlay').addEventListener('click',e=>{if(e.target===$('membersOverlay'))closeMembersModal();});
+  $('addMemberBtn').addEventListener('click',()=>addMemberEmail($('memberEmailInput').value));
+  $('memberEmailInput').addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();addMemberEmail($('memberEmailInput').value);}
+  });
 
   // ============================================================
   // EXPORT — dump all pages, blocks, tasks, savedViews to JSON
