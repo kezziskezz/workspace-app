@@ -1475,13 +1475,13 @@
       </div>
       <div id="pagesList"></div>
     </div>
-    <div class="sidebar-footer">
+    <div class="sidebar-footer" id="sidebarFooter" style="cursor:pointer" title="Click to open menu">
       <div class="avatar" id="userAvatar">U</div>
       <div class="user-info">
         <div class="user-email" id="userEmail">user@example.com</div>
         <div class="user-status"><span class="status-dot" id="statusDot"></span><span id="statusText">Synced</span></div>
       </div>
-      <button class="icon-btn" id="menuBtn" title="More" onclick="window._handleMenuTriggerSafe&&window._handleMenuTriggerSafe(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+      <button class="icon-btn" id="menuBtn" title="More" onclick="console.log('🔵 INLINE ONCLICK FIRED');window._handleMenuTriggerSafe&&window._handleMenuTriggerSafe(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
     </div>
   </aside>
   <main class="content">
@@ -1548,7 +1548,7 @@
 <script type="module">
   // Version marker — helps confirm the deployed file matches what we expect.
   // If you see this line in the console, the new file IS loaded.
-  console.log('%c[Workspace] build B1.4 — popover fix + svg pointer-events','color:#10b981;font-weight:bold');
+  console.log('%c[Workspace] build B1.5 — full click diagnostics enabled','color:#10b981;font-weight:bold');
   // ⚠️ FIREBASE CONFIG
   const firebaseConfig = {
     apiKey: "AIzaSyAVDfZjSFVah2L5QmlTThhG5pQzCrRjl7M",
@@ -5551,16 +5551,19 @@
   // The 400ms dedupe prevents both events from triggering on the same tap.
   let _lastMenuTriggerAt=0;
   function _handleMenuTrigger(e){
+    console.log('🟢 _handleMenuTrigger called from',e&&e.type);
     const now=Date.now();
-    if(now-_lastMenuTriggerAt<400)return;
+    if(now-_lastMenuTriggerAt<400){console.log('  (deduped — within 400ms of last)');return;}
     _lastMenuTriggerAt=now;
     try{
       e.stopPropagation();
       if(e.preventDefault)e.preventDefault();
+      console.log('  activePopover:',!!activePopover);
       if(activePopover){closePopover();return;}
       openUserMenu($('menuBtn'));
+      console.log('  ✅ openUserMenu succeeded, popover present:',!!activePopover);
     }catch(err){
-      console.error('[menuBtn] error:',err);
+      console.error('🔴 [menuBtn] error:',err);
       try{toast('Could not open menu');}catch{}
     }
   }
@@ -5569,6 +5572,60 @@
   // Last-resort fallback: inline onclick attribute calls this global function.
   // This bypasses any addEventListener weirdness if it occurs.
   window._handleMenuTriggerSafe=_handleMenuTrigger;
+
+  // ============================================================
+  // CLICK DIAGNOSTICS (B1.5) — log every click anywhere on the document
+  // in CAPTURE phase. Capture-phase listeners on document fire BEFORE
+  // any other handler can stopPropagation. This tells us:
+  //   - Whether click events are even firing in the menuBtn area
+  //   - What the actual target element is
+  //   - Whether some ancestor is blocking the click
+  // If you click the 3-dots and see NO output here, then:
+  //   1. The click never reaches the document (an extension is blocking)
+  //   2. OR something else is intercepting clicks above document level
+  // If you see "[click-diag]" output but NOT "🔵 INLINE ONCLICK FIRED",
+  // then the click IS happening but the button isn't getting it (something
+  // is in front of it or pointer-events is disabled somewhere).
+  // ============================================================
+  document.addEventListener('click',ev=>{
+    try{
+      const t=ev.target;
+      const tagInfo=t.tagName+(t.id?'#'+t.id:'')+(t.className?'.'+(typeof t.className==='string'?t.className:t.className.baseVal||'').replace(/\s+/g,'.'):'');
+      const inFooter=t.closest&&t.closest('.sidebar-footer');
+      const onMenuBtn=t.closest&&t.closest('#menuBtn');
+      if(inFooter||onMenuBtn){
+        console.log('[click-diag] CLICK on',tagInfo,'| inFooter:',!!inFooter,'| onMenuBtn:',!!onMenuBtn);
+      }
+    }catch{}
+  },true);
+  document.addEventListener('pointerdown',ev=>{
+    try{
+      const t=ev.target;
+      const onMenuBtn=t.closest&&t.closest('#menuBtn');
+      if(onMenuBtn)console.log('[pointer-diag] pointerdown on menuBtn area, target:',t.tagName);
+    }catch{}
+  },true);
+  // Verify the binding actually happened
+  const _menuBtnDiag=$('menuBtn');
+  if(_menuBtnDiag){
+    console.log('[menuBtn] binding verification — element found, has inline onclick:',!!_menuBtnDiag.getAttribute('onclick'),'addEventListener click + pointerdown bound');
+  }else{
+    console.error('[menuBtn] ELEMENT NOT FOUND — bindings did not happen!');
+  }
+
+  // ALTERNATIVE TRIGGER: also open the menu when ANY part of the sidebar
+  // footer is clicked. This means the user can click the avatar, email,
+  // status — anything in the footer area — to open the menu.
+  // Useful as a workaround if the menuBtn itself is somehow uninteractive.
+  const _sidebarFooterEl=$('sidebarFooter');
+  if(_sidebarFooterEl){
+    _sidebarFooterEl.addEventListener('click',e=>{
+      console.log('🟡 sidebar-footer clicked, target:',e.target.tagName);
+      // If the click was on the menuBtn directly, let its own handler run
+      if(e.target.closest&&e.target.closest('#menuBtn'))return;
+      _handleMenuTrigger(e);
+    });
+  }
   $('themeToggleBtn').addEventListener('click',toggleTheme);
 
   // ============================================================
