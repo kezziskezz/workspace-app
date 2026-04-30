@@ -5526,11 +5526,29 @@
     state.unsubBlocks?.();
     render();closeSidebarOnMobile();
   }));
-  $('menuBtn').addEventListener('click',e=>{
-    e.stopPropagation();
-    if(activePopover){closePopover();return;}
-    openUserMenu($('menuBtn'));
-  });
+  // Open the user menu. Bound to BOTH click and pointerdown — pointerdown is
+  // a fallback for environments where click is suppressed (some extensions,
+  // touch devices with movement during tap, mobile click delays).
+  let _lastMenuTriggerAt=0;
+  function _handleMenuTrigger(e){
+    // Dedupe: if pointerdown fires, click follows ~50–300ms later. Skip the second.
+    const now=Date.now();
+    if(now-_lastMenuTriggerAt<400)return;
+    _lastMenuTriggerAt=now;
+    try{
+      e.stopPropagation();
+      if(e.preventDefault)e.preventDefault();
+      console.log('[menuBtn] '+e.type+', activePopover?',!!activePopover);
+      if(activePopover){closePopover();return;}
+      openUserMenu($('menuBtn'));
+      console.log('[menuBtn] menu opened, popover present?',!!activePopover);
+    }catch(err){
+      console.error('[menuBtn] error:',err);
+      try{toast('Could not open menu — see console');}catch{}
+    }
+  }
+  $('menuBtn').addEventListener('click',_handleMenuTrigger);
+  $('menuBtn').addEventListener('pointerdown',_handleMenuTrigger);
   $('themeToggleBtn').addEventListener('click',toggleTheme);
 
   // ============================================================
