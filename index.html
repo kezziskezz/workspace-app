@@ -2934,6 +2934,7 @@
     p.style.left=Math.min(r.left,window.innerWidth-360)+'px';
     document.body.appendChild(p);
     activePopover=p;
+    registerPopoverCloser(p);
     setTimeout(()=>search.focus(),50);
   }
 
@@ -3080,6 +3081,7 @@
     p.style.left=Math.min(r.left,window.innerWidth-310)+'px';
     document.body.appendChild(p);
     activePopover=p;
+    registerPopoverCloser(p);
   }
 
   // ============================================================
@@ -3127,6 +3129,7 @@
     p.style.left=Math.min(r.left,window.innerWidth-300)+'px';
     document.body.appendChild(p);
     activePopover=p;
+    registerPopoverCloser(p);
     setTimeout(()=>search.focus(),20);
   }
   document.addEventListener('click',e=>{if(slashMenuState&&!slashMenuState.el.contains(e.target))closeSlashMenu();});
@@ -3966,8 +3969,26 @@
   // TASKS VIEW + FILTER BAR
   // ============================================================
   let activePopover=null;
-  function closePopover(){if(activePopover){activePopover.remove();activePopover=null;}}
-  document.addEventListener('click',()=>closePopover());
+  let _popoverDocCloser=null;
+  function closePopover(){
+    if(activePopover){activePopover.remove();activePopover=null;}
+    if(_popoverDocCloser){
+      document.removeEventListener('mousedown',_popoverDocCloser,true);
+      _popoverDocCloser=null;
+    }
+  }
+  // Call this AFTER setting activePopover and appending it to the DOM.
+  // We register on the *next* event-loop tick so the click that opened the
+  // popover doesn't immediately close it, and we use mousedown+capture so
+  // we run before any other handlers can interfere.
+  function registerPopoverCloser(popoverEl){
+    setTimeout(()=>{
+      _popoverDocCloser=ev=>{
+        if(!popoverEl.contains(ev.target))closePopover();
+      };
+      document.addEventListener('mousedown',_popoverDocCloser,true);
+    },0);
+  }
 
   // ============================================================
   // VIEW TABS (saved views row above filter bar)
@@ -4098,6 +4119,7 @@
     p.style.left=Math.min(rect.left,window.innerWidth-320)+'px';
     document.body.appendChild(p);
     activePopover=p;
+    registerPopoverCloser(p);
   }
 
   // ============================================================
@@ -4281,6 +4303,7 @@
     anchor.closest('.filter-bar').style.position='relative';
     anchor.closest('.filter-bar').appendChild(p);
     activePopover=p;
+    registerPopoverCloser(p);
   }
 
   const SORT_OPTIONS=[
@@ -4309,6 +4332,7 @@
     });
     p.addEventListener('click',e=>e.stopPropagation());
     anchor.closest('.filter-bar').appendChild(p);activePopover=p;
+    registerPopoverCloser(p);
   }
 
   function openGroupPopover(anchor){
@@ -4325,6 +4349,7 @@
     });
     p.addEventListener('click',e=>e.stopPropagation());
     anchor.closest('.filter-bar').appendChild(p);activePopover=p;
+    registerPopoverCloser(p);
   }
 
   // ============================================================
@@ -5544,6 +5569,7 @@
     p.style.left=Math.min(r.left,window.innerWidth-240)+'px';
     document.body.appendChild(p);
     activePopover=p;
+    registerPopoverCloser(p);
   }
 
   // ============================================================
