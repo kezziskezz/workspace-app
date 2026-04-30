@@ -274,6 +274,10 @@
     }
     .icon-btn:hover{background:var(--bg-hover);color:var(--text)}
     .icon-btn svg{width:15px;height:15px}
+    /* SVG and its children must not capture pointer events — otherwise
+       clicks on the inner shapes register with target=svg/path/circle and
+       don't bubble cleanly to the button in some environments. */
+    .icon-btn svg, .icon-btn svg *{pointer-events:none}
 
     .sidebar-search{padding:0 8px 6px}
     .sb-search-btn{
@@ -1477,7 +1481,7 @@
         <div class="user-email" id="userEmail">user@example.com</div>
         <div class="user-status"><span class="status-dot" id="statusDot"></span><span id="statusText">Synced</span></div>
       </div>
-      <button class="icon-btn" id="menuBtn" title="More"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+      <button class="icon-btn" id="menuBtn" title="More" onclick="window._handleMenuTriggerSafe&&window._handleMenuTriggerSafe(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
     </div>
   </aside>
   <main class="content">
@@ -1542,6 +1546,9 @@
 </div>
 
 <script type="module">
+  // Version marker — helps confirm the deployed file matches what we expect.
+  // If you see this line in the console, the new file IS loaded.
+  console.log('%c[Workspace] build B1.4 — popover fix + svg pointer-events','color:#10b981;font-weight:bold');
   // ⚠️ FIREBASE CONFIG
   const firebaseConfig = {
     apiKey: "AIzaSyAVDfZjSFVah2L5QmlTThhG5pQzCrRjl7M",
@@ -5559,6 +5566,9 @@
   }
   $('menuBtn').addEventListener('click',_handleMenuTrigger);
   $('menuBtn').addEventListener('pointerdown',_handleMenuTrigger);
+  // Last-resort fallback: inline onclick attribute calls this global function.
+  // This bypasses any addEventListener weirdness if it occurs.
+  window._handleMenuTriggerSafe=_handleMenuTrigger;
   $('themeToggleBtn').addEventListener('click',toggleTheme);
 
   // ============================================================
